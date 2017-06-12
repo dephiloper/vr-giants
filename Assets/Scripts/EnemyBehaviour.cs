@@ -52,6 +52,7 @@ public class EnemyBehaviour : MonoBehaviour {
     public void ReceiveDamage(float damage)
     {
         Health -= damage * (1-Resistance);
+        AjustHealthColor();
     }
 
     private void DealDamage()
@@ -79,7 +80,6 @@ public class EnemyBehaviour : MonoBehaviour {
     void Update()
     {
         SeekTarget();
-        AjustHealthColor();
         if (Health <= 0)
         {
             Vanish();

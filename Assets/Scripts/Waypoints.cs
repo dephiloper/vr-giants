@@ -12,12 +12,11 @@ public class Waypoints : MonoBehaviour {
             Points[i] = transform.GetChild(i);
         }
     }
-    // Use this for initialization
+
     void Start () {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}

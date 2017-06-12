@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TowerAttackBehaviour : MonoBehaviour {
 
@@ -6,43 +7,61 @@ public class TowerAttackBehaviour : MonoBehaviour {
     public float AttackRange = 10f;
     public float AttackDamage = 0.1f;
     public float Radius = 10f;
-    public int TimeDelta = 1;
-
+    public int TimeDelta = 1000;
+    public float ProjectileHeightOffset = 9;
 
     private GameObject projectile;
-    private int lastTime;
+    private GameObject currentTarget;
+    private Timer timer;
 
-    // Use this for initialization
     void Start () {
-		
-	}
+        timer = new Timer(TimeDelta);
+    }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        int time = (int)Time.fixedTime;
-        if ((time % TimeDelta == 0) && time != lastTime)
+        if (timer.IsTimeUp())
         {
             DealDamage();
-            lastTime = time;
-
         }
     }
-    void DealDamage()
+
+    public void DealDamage()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, Radius);
-        int i = 0;
-        while (i < hitColliders.Length)
-        {
-            if (hitColliders[i].tag.Equals("Enemy"))
-            {
-                Debug.Log("launch projectile");
-                var spawnPos = transform.position;
-                spawnPos.y = 9;
-                projectile = Instantiate(ProjectilePrefab, spawnPos, Quaternion.Euler(new Vector3(0, 90, 0)));
-                projectile.GetComponent<ProjectileBehaviour>().Target = hitColliders[i].transform;
-            }
-            i++;
+        if (!currentTarget) {
+            currentTarget = FindClosestEnemy();
         }
+
+        if (currentTarget)
+        {
+            if (Vector3.Distance(currentTarget.transform.position, transform.position) < Radius) {
+                var spawnPos = transform.position;
+                spawnPos.y = ProjectileHeightOffset;
+                projectile = Instantiate(ProjectilePrefab, spawnPos, Quaternion.identity);
+                projectile.GetComponent<ProjectileBehaviour>().Target = currentTarget.transform;
+            }
+            else
+            {
+                currentTarget = null;
+            }
+        }
+    }
+
+    private GameObject FindClosestEnemy()
+    {
+        var enemiesTransform = SpawnerBehaviour.Instance.getChildren();
+        int closest = -1;
+        float lastDistance = float.MaxValue;
+        for (int i = 0; i < enemiesTransform.Length; i++)
+        {
+            var dist = Vector3.Distance(enemiesTransform[i].position, transform.position);
+            if (dist < lastDistance)
+            {
+                closest = i;
+                lastDistance = dist;
+            }
+        }
+
+        return closest != -1 ? enemiesTransform[closest].gameObject : null;
     }
 }

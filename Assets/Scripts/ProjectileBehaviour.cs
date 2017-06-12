@@ -32,15 +32,14 @@ public class ProjectileBehaviour : MonoBehaviour {
     private void SeekTarget()
     {
         Vector3 difference = Target.position - transform.position;
-        transform.Translate(difference.normalized * Speed * Time.deltaTime, Space.World);
         transform.LookAt(Target);
-        Debug.Log(transform.rotation);
+        transform.Translate(difference.normalized * Speed * Time.deltaTime, Space.World);
 
         if (Vector3.Distance(transform.position, Target.position) <= 0.1f)
         {
             Target.GetComponent<EnemyBehaviour>().ReceiveDamage(Damage);
-            GameObject hit = Instantiate(hitPrefab, transform);
-            Destroy(hit, 1.5f);
+            GameObject hitAnimation = Instantiate(hitPrefab);
+            hitAnimation.transform.position = transform.position;
             Destroy(gameObject);
         }
     }

@@ -69,8 +69,6 @@ public class ArrowManagerBehaviour : MonoBehaviour {
         bowString = BowManagerBehaviour.Instance.String;
         arrow.transform.parent = bowString.transform;
         arrow.transform.localPosition = ArrowStartPosition;
-        //Debug.Log("arrow rot: " + arrow.transform.rotation);
-        //Debug.Log("bow rot: " + bow.transform.rotation);
         arrow.transform.rotation = bow.transform.rotation;
         IsArrowAttached = true;
     }

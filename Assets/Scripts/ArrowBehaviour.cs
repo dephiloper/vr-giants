@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ArrowBehaviour : MonoBehaviour {
 
     private SteamVR_TrackedObject trackedObj;
-    private SteamVR_Controller.Device Controller
+    private SteamVR_Controller.Device controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
     }
-    private bool isAttachable; // weird workaround
 
     private void Awake()
     {
@@ -17,30 +14,25 @@ public class ArrowBehaviour : MonoBehaviour {
     }
 
     void Update() { 
-        if (!isAttachable) { 
-            isAttachable = true;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isAttachable) { 
-            AttachArrow();
-        }
+        AttachArrow(other.gameObject);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (isAttachable)
-        {
-            AttachArrow();
-        }
+        AttachArrow(other.gameObject);
     }
 
-    private void AttachArrow()
+    private void AttachArrow(GameObject collidingGameObj)
     {
-        if (Controller.GetHairTriggerDown()) {
-            ArrowManagerBehaviour.Instance.AttachArrowToBow();
+        if (controller.GetHairTriggerDown()) {
+            if (collidingGameObj.tag.Equals("Bow"))
+            {
+                ArrowManagerBehaviour.Instance.AttachArrowToBow();
+            }
         }
     }
 }

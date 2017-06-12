@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnerBehaviour : MonoBehaviour {
 
-    public GameObject enemyPrefab;
-    public int timeDelta;
-    public int units;
+    public GameObject EnemyPrefab;
+    public int TimeDelta = 1;
+    public int Units = 1;
 
     private int spawnedUnits;
     private int lastTime;
@@ -24,9 +22,9 @@ public class SpawnerBehaviour : MonoBehaviour {
     private void FixedUpdate()
     {
         int time = (int)Time.fixedTime;
-        if ((time % timeDelta == 0) && time != lastTime && spawnedUnits < units)
+        if ((time % TimeDelta == 0) && time != lastTime && spawnedUnits < Units)
         {
-            GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            GameObject enemy = Instantiate(EnemyPrefab, transform.position, Quaternion.identity);
             lastTime = time;
             spawnedUnits++;
         }

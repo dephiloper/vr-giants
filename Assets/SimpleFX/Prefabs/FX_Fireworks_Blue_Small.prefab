@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 19811986}
   - component: {fileID: 19979870}
   m_Layer: 0
-  m_Name: 'FX_Fireworks_Blue_Small '
+  m_Name: FX_Fireworks_Blue_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3145,7 +3145,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

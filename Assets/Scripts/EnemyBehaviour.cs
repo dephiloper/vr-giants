@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour {
-
-    public int health = 10;
-    public float speed = 10;
-    public GameObject killedPrefab;
+    public float DamageTransferCoefficient = 0.01f;
+    public float Speed = 10;
+    public float Health = 10;
+    public float Resistance = 0.1f;
+    public GameObject KilledPrefab;
 
     private Transform target;
     private int targetIndex;
@@ -14,7 +14,8 @@ public class EnemyBehaviour : MonoBehaviour {
     // Use this for initialization
     void Start () {
         targetIndex = 0;
-        target = Waypoints.points[targetIndex];
+        target = Waypoints.Points[targetIndex];
+        AjustHealthColor();
     }
 
     private bool endReached;
@@ -23,33 +24,65 @@ public class EnemyBehaviour : MonoBehaviour {
     {
         if (!endReached) { 
             Vector3 difference = target.position - transform.position;
-            transform.Translate(difference.normalized * speed * Time.deltaTime, Space.World);
+            transform.Translate(difference.normalized * Speed * Time.deltaTime, Space.World);
 
             if (Vector3.Distance(transform.position, target.position) <= 0.2f)
             {
-                endReached = targetIndex > Waypoints.points.Length - 1;
+                endReached = targetIndex > Waypoints.Points.Length - 1;
                 if (!endReached)
                 { 
-                    target = Waypoints.points[targetIndex];
+                    target = Waypoints.Points[targetIndex];
                     targetIndex++;
                 }
             }
+        } else
+        {
+            DealDamage();
+            Vanish();
         }
     }
 
-    private void Die()
+    private void Vanish()
     {
-        GameObject death = Instantiate(killedPrefab, transform.position, Quaternion.identity);
+        GameObject death = Instantiate(KilledPrefab, transform.position, Quaternion.identity);
         Destroy(death, 1.5f);
         Destroy(gameObject);
     }
 
-    void FixedUpdate()
+    public void ReceiveDamage(float damage)
+    {
+        Health -= damage * (1-Resistance);
+    }
+
+    private void DealDamage()
+    {
+        var endPoint = Waypoints.Points[Waypoints.Points.Length-1];
+        endPoint.GetComponent<EndPointBehaviour>().ReceiveDamage(Health * DamageTransferCoefficient);
+    }
+
+    private void AjustHealthColor()
+    {
+        var healthColorRenderer = gameObject.GetComponent<Renderer>();
+
+        if (Health > 6)
+        {
+            healthColorRenderer.material.color = Color.green;
+        } else if (Health > 3)
+        {
+            healthColorRenderer.material.color = Color.yellow;
+        } else if (Health > 0)
+        {
+            healthColorRenderer.material.color = Color.red;
+        }
+    }
+
+    void Update()
     {
         SeekTarget();
-        if (health <= 0)
+        AjustHealthColor();
+        if (Health <= 0)
         {
-            Die();
+            Vanish();
         }
     }
 }

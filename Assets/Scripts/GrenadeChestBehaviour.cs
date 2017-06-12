@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GrenadeChestBehaviour : MonoBehaviour {
 
-    public GameObject grenadePrefab;
-    public int timeDelta;
+    public GameObject GrenadePrefab;
+    public int TimeDelta = 3;
 
     private Transform[] slots;
     private GameObject[] grenades;
@@ -27,15 +25,16 @@ public class GrenadeChestBehaviour : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         int time = (int)Time.fixedTime;
-        if ((time % timeDelta == 0) && time != lastTime)
+
+        if ((time % TimeDelta == 0) && time != lastTime)
         {
             for (int i = 0; i < grenades.Length; i++)
             {
                 if (grenades[i] == null)
                 {
-                    grenades[i] = Instantiate(grenadePrefab, slots[i].transform.position, Quaternion.identity);
+                    grenades[i] = Instantiate(GrenadePrefab, slots[i].transform.position, Quaternion.identity);
                     lastTime = time;
                     break;
                 }

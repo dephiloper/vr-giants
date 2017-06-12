@@ -6,7 +6,7 @@ public class ViveControllerInput : MonoBehaviour {
 
 	private SteamVR_TrackedObject trackedObj;
 	
-	private SteamVR_Controller.Device Controller
+	private SteamVR_Controller.Device controller
 	{
 		get 
 		{ 
@@ -22,27 +22,27 @@ public class ViveControllerInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// 1
-		if (Controller.GetAxis() != Vector2.zero) {
+		if (controller.GetAxis() != Vector2.zero) {
 			//Debug.Log(gameObject.name + Controller.GetAxis());
 		}
 
 		// 2
-		if (Controller.GetHairTriggerDown()) {
+		if (controller.GetHairTriggerDown()) {
             //Debug.Log(gameObject.name + " Trigger Press");
         }
 
         // 3
-        if (Controller.GetHairTriggerUp()) {
+        if (controller.GetHairTriggerUp()) {
             //Debug.Log(gameObject.name + " Trigger Release");
         }
 
         // 4
-        if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip)) {
+        if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip)) {
             //Debug.Log(gameObject.name + " Grip Press");
         }
 
         // 5
-        if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip)) {
+        if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip)) {
             //Debug.Log(gameObject.name + " Grip Release");
         }
     }

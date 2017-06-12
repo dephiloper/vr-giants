@@ -2,12 +2,12 @@
 
 public class GiantMoveBehaviour : MonoBehaviour {
 
-    public GameObject teleportReticlePrefab;
-    public GameObject laserPrefab;
-    public Transform headTransform;
-    public Transform cameraRigTransform;
-    public LayerMask teleportMask;
-    public LayerMask standOnMask;
+    public GameObject TeleportReticlePrefab;
+    public GameObject LaserPrefab;
+    public Transform HeadTransform;
+    public Transform CameraRigTransform;
+    public LayerMask TeleportMask;
+    public LayerMask StandOnMask;
 
     private SteamVR_TrackedObject trackedObj;
     private GameObject laser;
@@ -16,7 +16,7 @@ public class GiantMoveBehaviour : MonoBehaviour {
     private Transform teleportReticleTransform;
     private RaycastHit? lastHit;
 
-    private SteamVR_Controller.Device Controller {
+    private SteamVR_Controller.Device controller {
 		get { return SteamVR_Controller.Input ((int)trackedObj.index); }
 	}
 
@@ -26,9 +26,9 @@ public class GiantMoveBehaviour : MonoBehaviour {
     }
 
     void Start() {
-		laser = Instantiate(laserPrefab);
+		laser = Instantiate(LaserPrefab);
         laserTransform = laser.transform;
-		reticle = Instantiate (teleportReticlePrefab);
+		reticle = Instantiate (TeleportReticlePrefab);
 		teleportReticleTransform = reticle.transform;
         Debug.Log("Giant mode enabled.");
     }
@@ -49,10 +49,10 @@ public class GiantMoveBehaviour : MonoBehaviour {
         teleportReticleTransform.position = hit.point;
 
         int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
-        if (teleportMask.value == hitMask)
+        if (TeleportMask.value == hitMask)
         {
             laser.GetComponent<Renderer>().material.color = Color.blue;
-        } else if (standOnMask.value == hitMask)
+        } else if (StandOnMask.value == hitMask)
         {
             laser.GetComponent<Renderer>().material.color = Color.green;
         } else
@@ -63,29 +63,49 @@ public class GiantMoveBehaviour : MonoBehaviour {
 
 	private void Teleport(RaycastHit hit) 
 	{
-		Vector3 difference = cameraRigTransform.position - headTransform.position;
-		difference.y = cameraRigTransform.position.y;
+		Vector3 difference = CameraRigTransform.position - HeadTransform.position;
+		difference.y = CameraRigTransform.position.y;
 
         int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
-        if (teleportMask.value == hitMask)
+        if (TeleportMask.value == hitMask)
         {
-            cameraRigTransform.position = hit.point + difference;
+            CameraRigTransform.position = hit.point + difference;
         }
-        else if (standOnMask.value == hitMask)
+        else if (StandOnMask.value == hitMask)
         {
-            cameraRigTransform.GetComponent<MovementChangeBehaviour>().MovementState = State.Tower;
-            cameraRigTransform.position = hit.point;
+            CameraRigTransform.GetComponent<MovementChangeBehaviour>().MovementState = State.Tower;
+            CameraRigTransform.position = hit.point;
+            ChangeTowerRole(hit);
         }
     }
 
-	void Update(){
+    private void ChangeTowerRole(RaycastHit hit)
+    {
+        switch (hit.transform.tag)
+        {
+            case "ArcherTower":
+                CameraRigTransform.GetComponent<RoleChangeBehaviour>().TowerRole = Role.Archer;
+                break;
+            case "BrickBoyTower":
+                CameraRigTransform.GetComponent<RoleChangeBehaviour>().TowerRole = Role.BrickBoy;
+                break;
+            case "MageTower":
+                CameraRigTransform.GetComponent<RoleChangeBehaviour>().TowerRole = Role.Mage;
+                break;
+            default:
+                CameraRigTransform.GetComponent<RoleChangeBehaviour>().TowerRole = Role.None;
+                break;
+        }
+    }
+
+    void Update(){
         
         laser.SetActive(false);
         reticle.SetActive(false);
-        if (!Controller.GetHairTrigger()) { 
-            if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
+        if (!controller.GetHairTrigger()) { 
+            if (controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
 		    {
-                if (Controller.GetAxis().y > 0)
+                if (controller.GetAxis().y > 0)
                 {
                     RaycastHit hit;
 
@@ -97,8 +117,8 @@ public class GiantMoveBehaviour : MonoBehaviour {
                 }
             }
 
-            if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad)) {
-                if (Controller.GetAxis().y > 0)
+            if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad)) {
+                if (controller.GetAxis().y > 0)
                 {
                     if (lastHit.HasValue)
                     {

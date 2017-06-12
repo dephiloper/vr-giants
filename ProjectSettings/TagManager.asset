@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Bow
+  - projectile
+  - FxTemporaire
+  - ArcherTower
+  - BrickBoyTower
+  - MageTower
   layers:
   - Default
   - TransparentFX

@@ -2,12 +2,12 @@
 
 public class OnTowerMoveBehaviour : MonoBehaviour {
 
-    public GameObject teleportReticlePrefab;
-    public GameObject laserPrefab;
-    public Transform headTransform;
-    public Transform cameraRigTransform;
-    public LayerMask standOnMask;
-    public Vector3 lastGiantPos;
+    public GameObject TeleportReticlePrefab;
+    public GameObject LaserPrefab;
+    public Transform HeadTransform;
+    public Transform CameraRigTransform;
+    public LayerMask StandOnMask;
+    public Vector3 LastGiantPos;
 
     private SteamVR_TrackedObject trackedObj;
     private GameObject laser;
@@ -16,7 +16,7 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
     private Transform teleportReticleTransform;
     private RaycastHit? lastHit;
     
-    private SteamVR_Controller.Device Controller
+    private SteamVR_Controller.Device controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
     }
@@ -28,9 +28,9 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
 
     void Start()
     {
-        laser = Instantiate(laserPrefab);
+        laser = Instantiate(LaserPrefab);
         laserTransform = laser.transform;
-        reticle = Instantiate(teleportReticlePrefab);
+        reticle = Instantiate(TeleportReticlePrefab);
         teleportReticleTransform = reticle.transform;
         Debug.Log("OnTower mode enabled.");
     }
@@ -51,7 +51,7 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         teleportReticleTransform.position = hit.point;
 
         int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
-        if (standOnMask.value == hitMask)
+        if (StandOnMask.value == hitMask)
         {
             laser.GetComponent<Renderer>().material.color = Color.blue;
         }
@@ -63,13 +63,13 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
 
     private void Teleport(RaycastHit hit)
     {
-        Vector3 difference = cameraRigTransform.position - headTransform.position;
-        difference.y = cameraRigTransform.position.y;
+        Vector3 difference = CameraRigTransform.position - HeadTransform.position;
+        difference.y = CameraRigTransform.position.y;
 
         int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
-        if (standOnMask.value == hitMask)
+        if (StandOnMask.value == hitMask)
         {
-            cameraRigTransform.position = hit.point;
+            CameraRigTransform.position = hit.point;
         }
     }
 
@@ -78,9 +78,9 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         laser.SetActive(false);
         reticle.SetActive(false);
 
-        if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
+        if (controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            if (Controller.GetAxis().y > 0)
+            if (controller.GetAxis().y > 0)
             {
                 RaycastHit hit;
 
@@ -92,14 +92,15 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
             } else
             {
                 // teleport back
-                cameraRigTransform.position = lastGiantPos;
-                cameraRigTransform.GetComponent<MovementChangeBehaviour>().MovementState = State.Giant;
+                CameraRigTransform.position = LastGiantPos;
+                CameraRigTransform.GetComponent<MovementChangeBehaviour>().MovementState = State.Giant;
+                CameraRigTransform.GetComponent<RoleChangeBehaviour>().TowerRole = Role.None;
             }
         }
 
-        if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
+        if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            if (Controller.GetAxis().y > 0)
+            if (controller.GetAxis().y > 0)
             {
                 if (lastHit.HasValue)
                 {

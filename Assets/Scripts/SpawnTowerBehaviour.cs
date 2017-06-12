@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 
 public class SpawnTowerBehaviour : MonoBehaviour {
-    public GameObject brickBoyTowerPrefab;
-    public GameObject mageTowerPrefab;
-    public GameObject archerTowerPrefab;
-    public GameObject selectionTowerPrefab;
-    public GameObject laserPrefab;
-    public Transform headTransform;
-    public Transform cameraRigTransform;
-    public LayerMask placeMask;
-    public float threshold = 0.5f;
+    public GameObject BrickBoyTowerPrefab;
+    public GameObject MageTowerPrefab;
+    public GameObject ArcherTowerPrefab;
+    public GameObject SelectionTowerPrefab;
+    public GameObject LaserPrefab;
+    public Transform HeadTransform;
+    public Transform CameraRigTransform;
+    public LayerMask PlaceMask;
+    public float Threshold = 0.5f;
 
     private SteamVR_TrackedObject trackedObj;
     private GameObject laser;
@@ -20,7 +20,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
     private bool showSelectionTower = false;
     private GameObject currentTowerPrefab;
 
-    private SteamVR_Controller.Device Controller
+    private SteamVR_Controller.Device controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
     }
@@ -31,9 +31,9 @@ public class SpawnTowerBehaviour : MonoBehaviour {
     }
 
     void Start () {
-        laser = Instantiate(laserPrefab);
+        laser = Instantiate(LaserPrefab);
         laserTransform = laser.transform;
-        selectionTower = Instantiate(selectionTowerPrefab);
+        selectionTower = Instantiate(SelectionTowerPrefab);
     }
     
     void Update()
@@ -41,7 +41,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
         laser.SetActive(false);
         selectionTower.SetActive(showSelectionTower);
 
-        if (Controller.GetHairTriggerDown())
+        if (controller.GetHairTriggerDown())
         {
             placeMode = true;
         }
@@ -55,42 +55,42 @@ public class SpawnTowerBehaviour : MonoBehaviour {
                 lastHit = hit;
             }
 
-            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
+            if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
             {
                 // oben
-                if (Controller.GetAxis().y > threshold)
+                if (controller.GetAxis().y > Threshold)
                 {
-                    currentTowerPrefab = brickBoyTowerPrefab;
+                    currentTowerPrefab = BrickBoyTowerPrefab;
                     showSelectionTower = true;
                     ChangeChildColor(Color.red);
                 }
                 // unten
-                else if (Controller.GetAxis().y < -threshold)
+                else if (controller.GetAxis().y < -Threshold)
                 {
                     currentTowerPrefab = null;
                     showSelectionTower = false;
                 }
                 // rechts
-                else if (Controller.GetAxis().x > threshold)
+                else if (controller.GetAxis().x > Threshold)
                 {
-                    currentTowerPrefab = mageTowerPrefab;
+                    currentTowerPrefab = MageTowerPrefab;
                     showSelectionTower = true;
                     ChangeChildColor(Color.magenta);
                 }
                 // links
-                else if (Controller.GetAxis().x < -threshold)
+                else if (controller.GetAxis().x < -Threshold)
                 {
-                    currentTowerPrefab = archerTowerPrefab;
+                    currentTowerPrefab = ArcherTowerPrefab;
                     showSelectionTower = true;
                     ChangeChildColor(Color.green);
                 }
             }
         }
 
-        if (Controller.GetHairTriggerUp()) { 
+        if (controller.GetHairTriggerUp()) { 
             if (lastHit.HasValue) { 
                 int hitMask = BitPositionToMask(lastHit.Value.transform.gameObject.layer);
-                if (placeMode && showSelectionTower && placeMask.value == hitMask)
+                if (placeMode && showSelectionTower && PlaceMask.value == hitMask)
                 {
                     InstantiateTower();
                 }
@@ -127,7 +127,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
        
         int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
 
-        if (placeMask.value == hitMask)
+        if (PlaceMask.value == hitMask)
         {
             laser.GetComponent<Renderer>().material.color = Color.yellow;
         } else

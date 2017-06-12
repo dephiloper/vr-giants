@@ -2,7 +2,7 @@
 
 public class MovementChangeBehaviour : MonoBehaviour {
 
-    private State movementState;
+
     public State MovementState
     {
         get
@@ -26,12 +26,12 @@ public class MovementChangeBehaviour : MonoBehaviour {
             movementState = value;
         }
     }
+    private State movementState;
 
     private void ChangeState(bool isGiant, bool isTower)
     {
         var giantMoveBehaviours = GetComponentsInChildren<GiantMoveBehaviour>();
         var towerMoveBehaviours = GetComponentsInChildren<OnTowerMoveBehaviour>();
-        var grabBehaviours = GetComponentsInChildren<ControllerGrabObject>();
         var spawnTowerBehaviours = GetComponentsInChildren<SpawnTowerBehaviour>();
 
         foreach (var behaviour in giantMoveBehaviours)
@@ -43,12 +43,8 @@ public class MovementChangeBehaviour : MonoBehaviour {
             behaviour.enabled = isTower;
             if (isTower)
             {
-                behaviour.lastGiantPos = transform.position;
+                behaviour.LastGiantPos = transform.position;
             }
-        }
-        foreach (var behaviour in grabBehaviours)
-        {
-            behaviour.enabled = isTower;
         }
         foreach (var behaviour in spawnTowerBehaviours)
         {
@@ -60,8 +56,6 @@ public class MovementChangeBehaviour : MonoBehaviour {
     {
         movementState = State.Giant;
     }
-
-
 }
 
 public enum State {

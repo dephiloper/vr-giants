@@ -1,24 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ThrowObjects : MonoBehaviour {
 
-    public GameObject throwPrefab;
-    private GameObject objectInHand;
-    private SteamVR_TrackedObject trackedObj;
+    public GameObject ThrowPrefab;
+    private GameObject ObjectInHand;
+    private SteamVR_TrackedObject TrackedObj;
 
-    private SteamVR_Controller.Device Controller
+    private SteamVR_Controller.Device controller
     {
         get
         {
-            return SteamVR_Controller.Input((int)trackedObj.index);
+            return SteamVR_Controller.Input((int)TrackedObj.index);
         }
     }
 
     void Awake()
     {
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
+        TrackedObj = GetComponent<SteamVR_TrackedObject>();
     }
 
     void Start () {
@@ -26,28 +24,28 @@ public class ThrowObjects : MonoBehaviour {
     }
 
     void Update () {
-        if (Controller.GetHairTriggerDown())
+        if (controller.GetHairTriggerDown())
         {
-            if (!objectInHand)
+            if (!ObjectInHand)
             { 
-                objectInHand = Instantiate(throwPrefab, trackedObj.transform.position, Quaternion.identity);
+                ObjectInHand = Instantiate(ThrowPrefab, TrackedObj.transform.position, Quaternion.identity);
                 var joint = AddFixedJoint();
-                joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+                joint.connectedBody = ObjectInHand.GetComponent<Rigidbody>();
             }
         }
 
-        if (Controller.GetHairTriggerUp())
+        if (controller.GetHairTriggerUp())
         {
             if (GetComponent<FixedJoint>())
             {
                 GetComponent<FixedJoint>().connectedBody = null;
                 Destroy(GetComponent<FixedJoint>());
-                objectInHand.GetComponent<Rigidbody>().AddForce(Controller.velocity, ForceMode.Impulse);
-                objectInHand.GetComponent<Rigidbody>().velocity = Controller.velocity;
-                objectInHand.GetComponent<Rigidbody>().angularVelocity = Controller.angularVelocity;
+                ObjectInHand.GetComponent<Rigidbody>().AddForce(controller.velocity, ForceMode.Impulse);
+                ObjectInHand.GetComponent<Rigidbody>().velocity = controller.velocity;
+                ObjectInHand.GetComponent<Rigidbody>().angularVelocity = controller.angularVelocity;
             }
 
-            objectInHand = null;
+            ObjectInHand = null;
         }
     }
 

@@ -35,6 +35,8 @@ public class GrenadeChestBehaviour : MonoBehaviour {
                     break;
                 }
             }
+
+            timer.Reset();
         }
 
     }

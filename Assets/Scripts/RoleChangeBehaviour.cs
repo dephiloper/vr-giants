@@ -29,7 +29,14 @@ public class RoleChangeBehaviour : MonoBehaviour {
             behaviour.enabled = (value == Role.BrickBoy);
         }
 
-        bowManagerBehaviour.enabled = arrowManagerBehaviour.enabled = (value == Role.Archer);
+        if (bowManagerBehaviour)
+        { 
+            bowManagerBehaviour.enabled = (value == Role.Archer);
+        }
+        if (arrowManagerBehaviour)
+        { 
+            arrowManagerBehaviour.enabled = (value == Role.Archer);
+        }
     }
 
     // Use this for initialization

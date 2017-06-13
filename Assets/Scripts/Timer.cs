@@ -3,12 +3,13 @@
 class Timer
 {
 
-    private long lastTime;
+    private long startTime;
 
     public Timer(int timeDelta = 1000, bool useFixedTime = true)
     {
         TimeDelta = timeDelta;
         UseFixedTime = useFixedTime;
+        Reset();
     }
 
     public int TimeDelta { get; set; }
@@ -16,19 +17,16 @@ class Timer
 
     public bool IsTimeUp()
     {
-        var millis = getCurrentMillis();
-        if ((millis % TimeDelta == 0) && millis != lastTime)
-        {
-            lastTime = millis;
-            return true;
-        }
-
-        return false;
+        var millis = GetCurrentMillis() - startTime;
+        return millis > TimeDelta;
     }
 
+    public void Reset()
+    {
+        startTime = GetCurrentMillis();
+    }
 
-
-    private long getCurrentMillis()
+    private long GetCurrentMillis()
     {
         var time = UseFixedTime ? Time.fixedTime : Time.time;
         return (long)time * 1000;

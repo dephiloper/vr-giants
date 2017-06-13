@@ -9,15 +9,12 @@ public class ArrowManagerBehaviour : MonoBehaviour {
     public GameObject ArrowPrefab;
     public float ArrowOffset = 0.342f;
     public Vector3 ArrowStartPosition = new Vector3(3.275f, 0f, 0f);
-    public Vector3 StringPositionOffset = new Vector3(.4f, 0f, 0f);
-    public float StringStrengthModifier = 5f;
+    public float StringStrengthModifier = 10f;
     public SteamVR_TrackedObject TrackedObj { get; private set; }
     public GameObject ArrowController { get; private set; }
 
-    private Vector3 stringStartPosition;
     private GameObject arrow;
-    private GameObject bowString;
-    private GameObject bow;
+    private Vector3 stringPositionOffset = new Vector3(1.4f, 0f, 0f);
 
     private SteamVR_Controller.Device controller
     {
@@ -33,7 +30,6 @@ public class ArrowManagerBehaviour : MonoBehaviour {
 
         ArrowController = transform.gameObject;
         TrackedObj = GetComponent<SteamVR_TrackedObject>();
-        stringStartPosition = StringPositionOffset;
     }
 
     private void OnDestroy()
@@ -65,11 +61,12 @@ public class ArrowManagerBehaviour : MonoBehaviour {
 
     public void AttachArrowToBow()
     {
-        bow = BowManagerBehaviour.Instance.Bow;
-        bowString = BowManagerBehaviour.Instance.String;
-        arrow.transform.parent = bowString.transform;
+        var bowBehaviour = BowManagerBehaviour.Instance;
+        if (bowBehaviour == null) return;
+
+        arrow.transform.parent = bowBehaviour.String.transform;
         arrow.transform.localPosition = ArrowStartPosition;
-        arrow.transform.rotation = bow.transform.rotation;
+        arrow.transform.rotation = bowBehaviour.Bow.transform.rotation;
         IsArrowAttached = true;
     }
 
@@ -77,10 +74,13 @@ public class ArrowManagerBehaviour : MonoBehaviour {
     {
         if (IsArrowAttached)
         {
-            var distance = Vector3.Distance(bowString.transform.position, TrackedObj.transform.position);
+            var bowBehaviour = BowManagerBehaviour.Instance;
+            if (bowBehaviour == null) return;
+
+            var distance = Vector3.Distance(bowBehaviour.String.transform.position, TrackedObj.transform.position);
             distance*= StringStrengthModifier;
-            bowString.transform.localPosition = stringStartPosition + new Vector3(distance, 0f, 0f);
-            if (distance > 6)
+            bowBehaviour.String.transform.localPosition = new Vector3(distance, 0f, 0f);
+            if (distance > 6) // magic number
                 distance = 6;
 
             if (controller.GetHairTriggerUp())
@@ -93,11 +93,14 @@ public class ArrowManagerBehaviour : MonoBehaviour {
     // auf joints umbauen
     private void Fire()
     {
+        var bowBehaviour = BowManagerBehaviour.Instance;
+        if (bowBehaviour == null) return;
+
         arrow.transform.parent = null;
         var rigidbody = arrow.GetComponent<Rigidbody>();
         rigidbody.velocity = arrow.transform.forward * 30f; // magic number
         rigidbody.useGravity = true;
-        bowString.transform.localPosition = stringStartPosition;
+        bowBehaviour.String.transform.localPosition = stringPositionOffset;
         arrow = null;
         IsArrowAttached = false;
     }

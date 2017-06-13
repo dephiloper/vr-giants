@@ -23,6 +23,7 @@ public class TowerAttackBehaviour : MonoBehaviour {
         if (timer.IsTimeUp())
         {
             DealDamage();
+            timer.Reset();
         }
     }
 

@@ -10,9 +10,10 @@ public class EnemyBehaviour : MonoBehaviour {
 
     private Transform target;
     private int targetIndex;
+    private float maxHealth;
 
-    // Use this for initialization
     void Start () {
+        maxHealth = Health;
         targetIndex = 0;
         target = Waypoints.Points[targetIndex];
         AjustHealthColor();
@@ -64,17 +65,15 @@ public class EnemyBehaviour : MonoBehaviour {
     private void AjustHealthColor()
     {
         var healthColorRenderer = gameObject.GetComponent<Renderer>();
-
-        if (Health > 6)
+        if (!healthColorRenderer)
         {
-            healthColorRenderer.material.color = Color.green;
-        } else if (Health > 3)
-        {
-            healthColorRenderer.material.color = Color.yellow;
-        } else if (Health > 0)
-        {
-            healthColorRenderer.material.color = Color.red;
+            healthColorRenderer = gameObject.GetComponentInChildren<Renderer>();
         }
+            var healthDiff = maxHealth - Health;
+            var redDiff = (Color.red.r - Color.green.r) / maxHealth * healthDiff;
+            var greenDiff = (Color.red.g - Color.green.g) / maxHealth * healthDiff;
+            var blueDiff = (Color.red.b - Color.green.b) / maxHealth * healthDiff;
+            healthColorRenderer.material.color = new Color(Color.green.r + redDiff, Color.green.g + greenDiff, Color.green.b + blueDiff);
     }
 
     void Update()

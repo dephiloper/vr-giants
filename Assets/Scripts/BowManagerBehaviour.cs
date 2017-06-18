@@ -4,17 +4,12 @@ public class BowManagerBehaviour : MonoBehaviour {
 
     public static BowManagerBehaviour Instance { get; private set; }
 
-    public GameObject BowPrefab;
     public SteamVR_TrackedObject TrackedObj { get; private set; }
+    public GameObject BowPrefab;
     public GameObject Bow { get; private set; }
     public GameObject String { get; private set; }
 
-    private SteamVR_Controller.Device controller
-    {
-        get { return SteamVR_Controller.Input((int)TrackedObj.index); }
-    }
-
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -22,7 +17,7 @@ public class BowManagerBehaviour : MonoBehaviour {
         }
     }
 
-    void Start()
+    private void Start()
     {
         TrackedObj = GetComponent<SteamVR_TrackedObject>();
        
@@ -30,16 +25,15 @@ public class BowManagerBehaviour : MonoBehaviour {
 
     private void AttachBow()
     {
-        if (Bow == null)
-        {
-            Bow = Instantiate(BowPrefab);
-            String = Bow.transform.Find("Bow/main/string").gameObject;
-            Bow.transform.parent = TrackedObj.transform;
-            Bow.transform.localPosition = new Vector3(0, 0, 0);
-        }
+        if (Bow != null) return;
+        
+        Bow = Instantiate(BowPrefab);
+        String = Bow.transform.Find("Bow/main/string").gameObject; // rework this
+        Bow.transform.parent = TrackedObj.transform;
+        Bow.transform.localPosition = new Vector3(0, 0, 0);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         Destroy(Bow);
     }
@@ -52,7 +46,7 @@ public class BowManagerBehaviour : MonoBehaviour {
         }
     }
 
-    void Update()
+    private void Update()
     {
         AttachBow();
     }

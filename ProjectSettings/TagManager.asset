@@ -12,6 +12,8 @@ TagManager:
   - BrickBoyTower
   - MageTower
   - Arrow
+  - SelectionTower
+  - Terrain
   layers:
   - Default
   - TransparentFX

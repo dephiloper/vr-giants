@@ -14,11 +14,10 @@ public class SpawnerBehaviour : MonoBehaviour {
     private int spawnedUnits;
     private Timer unitTimer;
     private Timer waveTimer;
-    private Timer philippIstKackeTimer;
     private List<Wave> waves;
     private int currentWave;
 
-    void Start () {
+    private void Start () {
         if (Instance == null)
         {
             Instance = this;
@@ -55,7 +54,7 @@ public class SpawnerBehaviour : MonoBehaviour {
     {
         if (spawnedUnits < units)
         {
-            GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             enemy.transform.parent = transform;
             spawnedUnits++;
         } else if (currentWave < waves.Count - 1 && transform.childCount == 0)
@@ -68,8 +67,8 @@ public class SpawnerBehaviour : MonoBehaviour {
 
     public Transform[] getChildren()
     {
-        Transform[] childs = new Transform[transform.childCount];
-        for (int i = 0; i < childs.Length; i++)
+        var childs = new Transform[transform.childCount];
+        for (var i = 0; i < childs.Length; i++)
         {
             childs[i] = transform.GetChild(i);
         }

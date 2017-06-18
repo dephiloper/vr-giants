@@ -7,19 +7,24 @@ public class HealthBehaviour : MonoBehaviour {
     public GameObject VanishPrefab;
     public float Health = 10;
     public float Resistance = 0.1f;
-    public float DamageTransferCoefficient = 0.01f;
+    public float VanishingTime = 1.5f;
 
     private float maxHealth;
 
     public void ReceiveDamage(float damage)
     {
         Health -= damage * (1 - Resistance);
-        AjustHealthColor();
+        AdjustHealthColor();
+    }
+
+    public void ReceiveDamage()
+    {
+        Health = 0;
     }
 
     private void Start () {
         maxHealth = Health;
-        AjustHealthColor();
+        AdjustHealthColor();
     }
 
     private void Update()
@@ -30,7 +35,7 @@ public class HealthBehaviour : MonoBehaviour {
         }
     }
 
-    private void AjustHealthColor()
+    private void AdjustHealthColor()
     {
         var healthColorRenderer = gameObject.GetComponent<Renderer>();
         if (!healthColorRenderer)
@@ -46,8 +51,8 @@ public class HealthBehaviour : MonoBehaviour {
 
     private void Vanish()
     {
-        var death = Instantiate(VanishPrefab, transform.position, Quaternion.identity);
-        Destroy(death, 1.5f);
+        var vanish = Instantiate(VanishPrefab, transform.position, Quaternion.identity);
+        Destroy(vanish, VanishingTime);
         Destroy(gameObject);
     }
 }

@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 114191533911098772}
   - component: {fileID: 54977131709290896}
   - component: {fileID: 114096905529390628}
+  - component: {fileID: 65882152420967514}
   m_Layer: 0
   m_Name: ResistanceEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +128,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65882152420967514
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1534257201475878}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114096905529390628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,7 +155,7 @@ MonoBehaviour:
     type: 2}
   Health: 10
   Resistance: 0.1
-  DamageTransferCoefficient: 0.01
+  VanishingTime: 1.5
 --- !u!114 &114191533911098772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,3 +168,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
+  DamageTransferCoefficient: 0.1

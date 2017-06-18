@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4797049498888164}
   m_Layer: 2
   m_Name: SelectionTower
-  m_TagString: Untagged
+  m_TagString: SelectionTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,7 +269,7 @@ Transform:
   m_GameObject: {fileID: 1111812148118328}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 86.7, y: 0.0005, z: 99.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.5, z: 0.7}
   m_Children:
   - {fileID: 4190430081579880}
   - {fileID: 4119989420590594}

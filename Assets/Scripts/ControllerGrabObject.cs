@@ -4,33 +4,32 @@ using UnityEngine;
 
 public class ControllerGrabObject : MonoBehaviour {
 
-	private GameObject CollidingObject;
-	private GameObject ObjectInHand;
-	private SteamVR_TrackedObject TrackedObj;
+	private GameObject collidingObject;
+	private GameObject objectInHand;
+	private SteamVR_TrackedObject trackedObj;
 
-	private SteamVR_Controller.Device controller
+	private SteamVR_Controller.Device Controller
 	{
 		get 
 		{ 
-			return SteamVR_Controller.Input((int)TrackedObj.index); 
+			return SteamVR_Controller.Input((int)trackedObj.index); 
 		}
 	}
 
-	void Awake()
+	private void Awake()
 	{
-		TrackedObj = GetComponent<SteamVR_TrackedObject>();
+		trackedObj = GetComponent<SteamVR_TrackedObject>();
 	}	
 
-	// Update is called once per frame
-	void Update () {
-		if (controller.GetHairTriggerDown ()) {
-			if (CollidingObject) {
+	private void Update () {
+		if (Controller.GetHairTriggerDown ()) {
+			if (collidingObject) {
 				GrabObject();
 			}
 		}
 
-		if (controller.GetHairTriggerUp ()) {
-			if (ObjectInHand) {
+		if (Controller.GetHairTriggerUp ()) {
+			if (objectInHand) {
 				ReleaseObject();
 			} else if (GetComponent<FixedJoint>())
             {
@@ -42,11 +41,11 @@ public class ControllerGrabObject : MonoBehaviour {
 	private void SetCollidingObject(Collider coli) {
 		// erster teil ist ein not null check
 		// zweiter teil checkt ob das object nicht greifbar ist (kein rigidbody ist)
-		if (CollidingObject || !coli.GetComponent<Rigidbody> ()) {
+		if (collidingObject || !coli.GetComponent<Rigidbody> ()) {
 			return;
 		}
 
-		CollidingObject = coli.gameObject;
+		collidingObject = coli.gameObject;
 	}
 
 	public void OnTriggerEnter(Collider other) {
@@ -58,23 +57,23 @@ public class ControllerGrabObject : MonoBehaviour {
 	}
 
 	public void OnTriggerExit(Collider other) {
-		if (!CollidingObject) {
+		if (!collidingObject) {
 			return;
 		}
 
-		CollidingObject = null;
+		collidingObject = null;
 	}
 
 	private void GrabObject() {
-		ObjectInHand = CollidingObject;
-		CollidingObject = null;
+		objectInHand = collidingObject;
+		collidingObject = null;
 
 		var joint = AddFixedJoint();
-		joint.connectedBody = ObjectInHand.GetComponent<Rigidbody>();
+		joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
 	}
 
 	private FixedJoint AddFixedJoint() {
-		FixedJoint fx = gameObject.AddComponent<FixedJoint> ();
+		var fx = gameObject.AddComponent<FixedJoint> ();
 		fx.breakForce = 20000; // welcher wert auch sonst
 		fx.breakTorque = 20000;
 		return fx;
@@ -84,12 +83,12 @@ public class ControllerGrabObject : MonoBehaviour {
 		if (GetComponent<FixedJoint>())
         {
             DestroyFixedJoint();
-            ObjectInHand.GetComponent<Rigidbody>().AddForce(controller.velocity, ForceMode.Impulse);
-            ObjectInHand.GetComponent<Rigidbody>().velocity = controller.velocity;
-            ObjectInHand.GetComponent<Rigidbody>().angularVelocity = controller.angularVelocity;
+            objectInHand.GetComponent<Rigidbody>().AddForce(Controller.velocity, ForceMode.Impulse);
+            objectInHand.GetComponent<Rigidbody>().velocity = Controller.velocity;
+            objectInHand.GetComponent<Rigidbody>().angularVelocity = Controller.angularVelocity;
         }
 
-        ObjectInHand = null;
+        objectInHand = null;
 	}
 
     private void DestroyFixedJoint()

@@ -17,7 +17,6 @@ public class RoleChangeBehaviour : MonoBehaviour {
     }
     private Role towerRole;
 
-
     private void ChangeRole(Role value)
     {
         var grabBehaviours = GetComponentsInChildren<ControllerGrabObject>();
@@ -39,15 +38,10 @@ public class RoleChangeBehaviour : MonoBehaviour {
         }
     }
 
-    // Use this for initialization
-    void Start () {
+    private void Start () {
         towerRole = Role.None;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
 
 public enum Role

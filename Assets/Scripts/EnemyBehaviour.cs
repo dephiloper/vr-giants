@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    public float Speed = 10;
-
+    public float Speed = 10f;
+    public float DamageTransferCoefficient = 0.1f;
+    
     private HealthBehaviour healthBehaviour;
     private Transform target;
     private int targetIndex;
@@ -58,7 +59,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (healthBehaviour)
         {
             var endPointHealth = endPoint.GetComponentInChildren<HealthBehaviour>();
-            endPointHealth.ReceiveDamage(healthBehaviour.Health * healthBehaviour.DamageTransferCoefficient);
+            endPointHealth.ReceiveDamage(healthBehaviour.Health * DamageTransferCoefficient);
         }
     }
 

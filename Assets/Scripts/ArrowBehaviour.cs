@@ -16,7 +16,6 @@ public class ArrowBehaviour : MonoBehaviour
     private void Awake()
     {
         trackedObj = ArrowManagerBehaviour.Instance.TrackedObj;
-        var rigidBody = GetComponent<Rigidbody>();
     }
 
     private void OnTriggerEnter(Collider other)

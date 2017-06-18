@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4777041062109056}
   - component: {fileID: 114191533911098772}
   - component: {fileID: 54977131709290896}
+  - component: {fileID: 114096905529390628}
   m_Layer: 0
   m_Name: ResistanceEnemy
   m_TagString: Untagged
@@ -126,6 +127,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114096905529390628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1534257201475878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0661a72f80576646b1d175c07dec1fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VanishPrefab: {fileID: 1184493566096746, guid: e6488fe8744cb2047a0f2ce240eccc0a,
+    type: 2}
+  Health: 10
+  Resistance: 0.1
+  DamageTransferCoefficient: 0.01
 --- !u!114 &114191533911098772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,9 +154,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3702d3333d64f994eb3e2666db8abbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageTransferCoefficient: 0.01
   Speed: 5
-  Health: 10
-  Resistance: 0.5
-  KilledPrefab: {fileID: 1700976960877148, guid: b1732fdbd08115f42a304ea59363a32d,
-    type: 2}

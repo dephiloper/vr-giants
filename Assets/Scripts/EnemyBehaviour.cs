@@ -1,87 +1,69 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour {
-    public float DamageTransferCoefficient = 0.01f;
+public class EnemyBehaviour : MonoBehaviour
+{
     public float Speed = 10;
-    public float Health = 10;
-    public float Resistance = 0.1f;
-    public GameObject KilledPrefab;
 
+    private HealthBehaviour healthBehaviour;
     private Transform target;
     private int targetIndex;
-    private float maxHealth;
-
-    void Start () {
-        maxHealth = Health;
-        targetIndex = 0;
-        target = Waypoints.Points[targetIndex];
-        AjustHealthColor();
-    }
-
     private bool endReached;
 
+    private void Start()
+    {
+        targetIndex = 0;
+        target = Waypoints.Points[targetIndex];
+    }
+
+    [SuppressMessage("ReSharper", "InvertIf")]
     private void SeekTarget()
     {
-        if (!endReached) { 
-            Vector3 difference = target.position - transform.position;
+        if (!healthBehaviour)
+        {
+            healthBehaviour = GetComponent<HealthBehaviour>();
+        }
+
+        if (!endReached)
+        {
+            var difference = target.position - transform.position;
             transform.Translate(difference.normalized * Speed * Time.deltaTime, Space.World);
 
             if (Vector3.Distance(transform.position, target.position) <= 0.2f)
             {
                 endReached = targetIndex > Waypoints.Points.Length - 1;
                 if (!endReached)
-                { 
+                {
                     target = Waypoints.Points[targetIndex];
                     targetIndex++;
                 }
             }
-        } else
+        }
+        else
         {
             DealDamage();
-            Vanish();
+
+            if (healthBehaviour)
+            {
+                healthBehaviour.Health = 0;
+            }
         }
-    }
-
-    private void Vanish()
-    {
-        GameObject death = Instantiate(KilledPrefab, transform.position, Quaternion.identity);
-        Destroy(death, 1.5f);
-        Destroy(gameObject);
-    }
-
-    public void ReceiveDamage(float damage)
-    {
-        Health -= damage * (1-Resistance);
-        AjustHealthColor();
     }
 
     private void DealDamage()
     {
-        var endPoint = Waypoints.Points[Waypoints.Points.Length-1];
-        endPoint.GetComponent<EndPointBehaviour>().ReceiveDamage(Health * DamageTransferCoefficient);
-    }
-
-    private void AjustHealthColor()
-    {
-        var healthColorRenderer = gameObject.GetComponent<Renderer>();
-        if (!healthColorRenderer)
+        var endPoint = Waypoints.Points[Waypoints.Points.Length - 1];
+        
+        if (healthBehaviour)
         {
-            healthColorRenderer = gameObject.GetComponentInChildren<Renderer>();
+            var endPointHealth = endPoint.GetComponentInChildren<HealthBehaviour>();
+            endPointHealth.ReceiveDamage(healthBehaviour.Health * healthBehaviour.DamageTransferCoefficient);
         }
-            var healthDiff = maxHealth - Health;
-            var redDiff = (Color.red.r - Color.green.r) / maxHealth * healthDiff;
-            var greenDiff = (Color.red.g - Color.green.g) / maxHealth * healthDiff;
-            var blueDiff = (Color.red.b - Color.green.b) / maxHealth * healthDiff;
-            healthColorRenderer.material.color = new Color(Color.green.r + redDiff, Color.green.g + greenDiff, Color.green.b + blueDiff);
     }
 
-    void Update()
+    private void Update()
     {
         SeekTarget();
-        if (Health <= 0)
-        {
-            Vanish();
-        }
     }
 }

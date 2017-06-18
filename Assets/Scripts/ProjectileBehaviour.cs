@@ -1,18 +1,15 @@
 ﻿using UnityEngine;
 
 public class ProjectileBehaviour : MonoBehaviour {
-
+    
+    public GameObject HitPrefab;
     public Transform Target { private get; set; }
     public float Speed = 10f;
     public float Damage = 1f;
-    public GameObject hitPrefab;
 
-    private bool targetFound = false;
+    private bool targetFound;
 
-    void Start () {
-    }
-
-    void Update () {
+    private void Update () {
 		if (Target != null && !targetFound)
         {
             targetFound = true;
@@ -31,14 +28,14 @@ public class ProjectileBehaviour : MonoBehaviour {
 
     private void SeekTarget()
     {
-        Vector3 difference = Target.position - transform.position;
+        var difference = Target.position - transform.position;
         transform.LookAt(Target);
         transform.Translate(difference.normalized * Speed * Time.deltaTime, Space.World);
 
         if (Vector3.Distance(transform.position, Target.position) <= 0.1f)
         {
-            Target.GetComponent<EnemyBehaviour>().ReceiveDamage(Damage);
-            GameObject hitAnimation = Instantiate(hitPrefab);
+            Target.GetComponent<HealthBehaviour>().ReceiveDamage(Damage);
+            var hitAnimation = Instantiate(HitPrefab);
             hitAnimation.transform.position = transform.position;
             Destroy(gameObject);
         }

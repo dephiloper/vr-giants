@@ -122,9 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de5ad607887cf04b8320a7b97fa137e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitPrefab: {fileID: 1634580606917654, guid: debfeba77d0fb2441af00605fbfc62ae, type: 2}
   Speed: 20
   Damage: 1
-  hitPrefab: {fileID: 1634580606917654, guid: debfeba77d0fb2441af00605fbfc62ae, type: 2}
 --- !u!136 &136191234917611240
 CapsuleCollider:
   m_ObjectHideFlags: 1

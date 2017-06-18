@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4918633941553108}
   - component: {fileID: 54926881238586936}
   - component: {fileID: 114080300985326978}
+  - component: {fileID: 114395848550367714}
   m_Layer: 0
   m_Name: FastEnemy
   m_TagString: Untagged
@@ -137,9 +138,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3702d3333d64f994eb3e2666db8abbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageTransferCoefficient: 0.01
   Speed: 10
+--- !u!114 &114395848550367714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072573040262986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0661a72f80576646b1d175c07dec1fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VanishPrefab: {fileID: 1184493566096746, guid: e6488fe8744cb2047a0f2ce240eccc0a,
+    type: 2}
   Health: 5
   Resistance: 0.1
-  KilledPrefab: {fileID: 1700976960877148, guid: b1732fdbd08115f42a304ea59363a32d,
-    type: 2}
+  DamageTransferCoefficient: 0.1

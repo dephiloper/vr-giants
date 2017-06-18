@@ -13,9 +13,6 @@ public class ArrowBehaviour : MonoBehaviour {
         trackedObj = ArrowManagerBehaviour.Instance.TrackedObj;
     }
 
-    void Update() { 
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         AttachArrow(other.gameObject);

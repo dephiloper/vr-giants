@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 199264628869404056}
   - component: {fileID: 114371673864847666}
   m_Layer: 0
-  m_Name: FX_Fireworks_Yellow_Small
+  m_Name: ProjectileHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

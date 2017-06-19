@@ -3,13 +3,15 @@
 public class ExplosionBehaviour : MonoBehaviour {
 
     public GameObject ExplosionPrefab;
+    public float Damage = 20;
+    public float Radius = 20;
 
-    public void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (!other.gameObject.tag.Equals("GameController")) {
-            var objectInHand = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
-            Destroy(objectInHand, 2.75f);
-            ExplosionDamage(transform.position, 10);
+        if (TagUtility.IsExplodableEntity(other.gameObject.tag)) {
+            var explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+            Destroy(explosion, 2.75f);
+            ExplosionDamage(transform.position, Radius);
             Destroy(gameObject);
         }
     }
@@ -20,12 +22,16 @@ public class ExplosionBehaviour : MonoBehaviour {
         var i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].tag.Equals("Enemy"))
+            if (TagUtility.IsExplodableEntity(hitColliders[i].tag))
             {
-                var distance = (int)Vector3.Distance(hitColliders[i].gameObject.transform.position, transform.position);
-                var healthDiff = 10 - distance;
                 var enemyHealth = hitColliders[i].gameObject.GetComponent<HealthBehaviour>();
-                enemyHealth.ReceiveDamage(healthDiff);
+                if (enemyHealth)
+                {
+                    var distance = (int) Vector3.Distance(hitColliders[i].gameObject.transform.position,
+                        transform.position);
+                    var healthDiff = Damage - distance;
+                    enemyHealth.ReceiveDamage(healthDiff);
+                }
             }
             i++;
         }

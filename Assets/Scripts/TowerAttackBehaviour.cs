@@ -8,17 +8,17 @@ public class TowerAttackBehaviour : MonoBehaviour {
     public float AttackDamage = 0.1f;
     public float Radius = 10f;
     public int TimeDelta = 1000;
-    public float ProjectileHeightOffset = 9;
+    public float ProjectileHeightOffset = 4.5f;
 
     private GameObject projectile;
     private GameObject currentTarget;
     private Timer timer;
 
-    void Start () {
+    private void Start () {
         timer = new Timer(TimeDelta);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (timer.IsTimeUp())
         {
@@ -51,9 +51,9 @@ public class TowerAttackBehaviour : MonoBehaviour {
     private GameObject FindClosestEnemy()
     {
         var enemiesTransform = SpawnerBehaviour.Instance.getChildren();
-        int closest = -1;
-        float lastDistance = float.MaxValue;
-        for (int i = 0; i < enemiesTransform.Length; i++)
+        var closest = -1;
+        var lastDistance = float.MaxValue;
+        for (var i = 0; i < enemiesTransform.Length; i++)
         {
             var dist = Vector3.Distance(enemiesTransform[i].position, transform.position);
             if (dist < lastDistance)

@@ -20,14 +20,14 @@ public class GrenadeChestBehaviour : MonoBehaviour {
         }
     }
 
-    void Start () {
+    private void Start () {
         timer = new Timer(TimeDelta);
     }
-	
-	void FixedUpdate () {
+
+    private void FixedUpdate () {
         if (timer.IsTimeUp())
         {
-            for (int i = 0; i < grenades.Length; i++)
+            for (var i = 0; i < grenades.Length; i++)
             {
                 if (grenades[i] == null)
                 {

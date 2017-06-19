@@ -26,9 +26,9 @@ public class SpawnerBehaviour : MonoBehaviour {
         waveTimer = new Timer(20000, false);
         waves = new List<Wave>
         {
-            new Wave(NormalEnemyPrefab, 10),
-            new Wave(FastEnemyPrefab, 5),
-            new Wave(ResistanceEnemyPrefab, 3),
+            new Wave(NormalEnemyPrefab, 7),
+            new Wave(FastEnemyPrefab, 40),
+            new Wave(ResistanceEnemyPrefab, 25),
         };
     }
 

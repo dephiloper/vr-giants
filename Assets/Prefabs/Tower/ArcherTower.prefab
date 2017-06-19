@@ -611,6 +611,6 @@ MonoBehaviour:
     type: 2}
   AttackRange: 10
   AttackDamage: 0.1
-  Radius: 55
+  Radius: 35
   TimeDelta: 1000
-  ProjectileHeightOffset: 9
+  ProjectileHeightOffset: 4.5

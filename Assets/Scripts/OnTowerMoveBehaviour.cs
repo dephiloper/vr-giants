@@ -35,7 +35,7 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         Debug.Log("OnTower mode enabled.");
     }
 
-    private int BitPositionToMask(int bitPos)
+    private static int BitPositionToMask(int bitPos)
     {
         return (1 << bitPos);
     }
@@ -64,12 +64,14 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
     private void Teleport(RaycastHit hit)
     {
         Vector3 difference = CameraRigTransform.position - HeadTransform.position;
-        difference.y = CameraRigTransform.position.y;
-
+        //difference.y = CameraRigTransform.position.y;
+        difference.y = 0;
+        
         int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
         if (StandOnMask.value == hitMask)
         {
             CameraRigTransform.position = hit.point;
+            CameraRigTransform.position += difference;
         }
     }
 

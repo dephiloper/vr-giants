@@ -14,6 +14,7 @@ TagManager:
   - Arrow
   - SelectionTower
   - Terrain
+  - Button
   layers:
   - Default
   - TransparentFX

@@ -13,11 +13,18 @@ public class TagUtility  {
     // selectiontower
     // terrain
     // gamecontroller
+    // button
     
     public static bool IsExplodableEntity(string tag)
     {
         var loweredTag = tag.ToLower();
         return "terrain".Equals(loweredTag) || "enemy".Equals(loweredTag);
+    }
+    
+    public static bool IsController(string tag)
+    {
+        var loweredTag = tag.ToLower();
+        return "gamecontroller".Equals(loweredTag);
     }
 
     public static bool IsShootableEntity(string tag)
@@ -62,5 +69,9 @@ public class TagUtility  {
         }
 
         return role;
+    }
+
+    public static bool IsButton(string tag){
+        return "button".Equals(tag.ToLower());
     }
 }

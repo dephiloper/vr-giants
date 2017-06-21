@@ -16,12 +16,12 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
     private Transform teleportReticleTransform;
     private RaycastHit? lastHit;
     
-    private SteamVR_Controller.Device controller
+    private SteamVR_Controller.Device Controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
     }
 
-    void Awake()
+    private void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
     }
@@ -50,7 +50,7 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         reticle.SetActive(true);
         teleportReticleTransform.position = hit.point;
 
-        int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
+        var hitMask = BitPositionToMask(hit.transform.gameObject.layer);
         if (StandOnMask.value == hitMask)
         {
             laser.GetComponent<Renderer>().material.color = Color.blue;
@@ -63,11 +63,11 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
 
     private void Teleport(RaycastHit hit)
     {
-        Vector3 difference = CameraRigTransform.position - HeadTransform.position;
+        var difference = CameraRigTransform.position - HeadTransform.position;
         //difference.y = CameraRigTransform.position.y;
         difference.y = 0;
         
-        int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
+        var hitMask = BitPositionToMask(hit.transform.gameObject.layer);
         if (StandOnMask.value == hitMask)
         {
             CameraRigTransform.position = hit.point;
@@ -75,14 +75,14 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         }
     }
 
-    void Update()
+    private void Update()
     {
         laser.SetActive(false);
         reticle.SetActive(false);
 
-        if (controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
+        if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            if (controller.GetAxis().y > 0)
+            if (Controller.GetAxis().y > 0)
             {
                 RaycastHit hit;
 
@@ -100,9 +100,9 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
             }
         }
 
-        if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
+        if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            if (controller.GetAxis().y > 0)
+            if (Controller.GetAxis().y > 0)
             {
                 if (lastHit.HasValue)
                 {

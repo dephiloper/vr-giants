@@ -21,6 +21,14 @@ public class MovementChangeBehaviour : MonoBehaviour {
                     ChangeState(false, true);
                     Debug.Log("State Tower");
                     break;
+                case State.Menu:
+                    ChangeState(false, false);
+                    Debug.Log("State Tower");
+                    break;
+                default:
+                    ChangeState(true, false);
+                    Debug.Log("State Tower");
+                    break;
             }
 
             movementState = value;
@@ -60,5 +68,6 @@ public class MovementChangeBehaviour : MonoBehaviour {
 
 public enum State {
     Giant,
-    Tower
+    Tower,
+    Menu
 }

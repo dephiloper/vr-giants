@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ViveControllerInput : MonoBehaviour {
 
@@ -14,13 +12,13 @@ public class ViveControllerInput : MonoBehaviour {
 		}
 	}
 
-	void Awake()
+	private void Awake()
 	{
 		trackedObj = GetComponent<SteamVR_TrackedObject>();
 	}	
 
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		// 1
 		if (controller.GetAxis() != Vector2.zero) {
 			//Debug.Log(gameObject.name + Controller.GetAxis());

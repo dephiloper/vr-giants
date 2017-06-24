@@ -45,7 +45,7 @@ public class GiantMoveBehaviour : MonoBehaviour {
         reticle.SetActive(true);
         teleportReticleTransform.position = hit.point;
 
-        var hitMask = LayerMaskUtil.BitPositionToMask(hit.transform.gameObject.layer);
+        var hitMask = LayerMaskUtility.BitPositionToMask(hit.transform.gameObject.layer);
         if (TeleportMask.value == hitMask)
         {
             laser.GetComponent<Renderer>().material.color = Color.blue;
@@ -63,7 +63,7 @@ public class GiantMoveBehaviour : MonoBehaviour {
 		var difference = CameraRigTransform.position - HeadTransform.position;
 		difference.y = CameraRigTransform.position.y;
 
-        var hitMask = LayerMaskUtil.BitPositionToMask(hit.transform.gameObject.layer);
+        var hitMask = LayerMaskUtility.BitPositionToMask(hit.transform.gameObject.layer);
         if (TeleportMask.value == hitMask)
         {
             CameraRigTransform.position = hit.point + difference;

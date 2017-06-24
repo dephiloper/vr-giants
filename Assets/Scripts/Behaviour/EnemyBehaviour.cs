@@ -15,7 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void Start()
     {
         targetIndex = 0;
-        target = Waypoints.Points[targetIndex];
+        target = WaypointsBehaviour.Points[targetIndex];
     }
 
     [SuppressMessage("ReSharper", "InvertIf")]
@@ -33,10 +33,10 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (Vector3.Distance(transform.position, target.position) <= 0.2f)
             {
-                endReached = targetIndex > Waypoints.Points.Length - 1;
+                endReached = targetIndex > WaypointsBehaviour.Points.Length - 1;
                 if (!endReached)
                 {
-                    target = Waypoints.Points[targetIndex];
+                    target = WaypointsBehaviour.Points[targetIndex];
                     targetIndex++;
                 }
             }
@@ -54,12 +54,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void DealDamage()
     {
-        var endPoint = Waypoints.Points[Waypoints.Points.Length - 1];
+        var endPoint = WaypointsBehaviour.Points[WaypointsBehaviour.Points.Length - 1];
         
         if (healthBehaviour)
         {
             var endPointHealth = endPoint.GetComponentInChildren<HealthBehaviour>();
-            endPointHealth.ReceiveDamage(healthBehaviour.Health * DamageTransferCoefficient);
+            if (endPointHealth)
+                endPointHealth.ReceiveDamage(healthBehaviour.Health * DamageTransferCoefficient);
         }
     }
 

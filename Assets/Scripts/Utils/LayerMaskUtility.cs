@@ -1,4 +1,4 @@
-﻿public class LayerMaskUtil
+﻿public class LayerMaskUtility
 {
     public static int BitPositionToMask(int bitPos)
     {

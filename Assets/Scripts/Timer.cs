@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class Timer
+public class Timer
 {
 
     private long startTime;

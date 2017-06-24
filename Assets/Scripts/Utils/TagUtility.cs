@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public class TagUtility  {
     
@@ -73,5 +74,23 @@ public class TagUtility  {
 
     public static bool IsButton(string tag){
         return "button".Equals(tag.ToLower());
+    }
+
+    public static bool CompareRoleWithTowerTag(Role currentRole, string towerTag){
+        var lowerTag = towerTag.ToLower();
+        switch (currentRole) {
+            case Role.BrickBoy:
+                return lowerTag == "brickboytower";
+            case Role.Archer:
+                return towerTag == "archertower";
+            case Role.Mage:
+                return lowerTag == "magetower";
+            case Role.None:
+                Debug.LogError("Tag Role is none.");
+                return lowerTag == "none";
+            default:
+                Debug.LogError("Tag Role is default.");
+                return lowerTag == "none";
+        }
     }
 }

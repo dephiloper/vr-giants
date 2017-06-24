@@ -68,10 +68,13 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         difference.y = 0;
         
         var hitMask = BitPositionToMask(hit.transform.gameObject.layer);
-        if (StandOnMask.value == hitMask)
-        {
-            CameraRigTransform.position = hit.point;
-            CameraRigTransform.position += difference;
+        if (StandOnMask.value == hitMask) {
+            var currentRole = CameraRigTransform.GetComponent<RoleChangeBehaviour>().TowerRole;
+
+            if (TagUtility.CompareRoleWithTowerTag(currentRole, hit.transform.tag)) {
+                CameraRigTransform.position = hit.point;
+                CameraRigTransform.position += difference;
+            }
         }
     }
 

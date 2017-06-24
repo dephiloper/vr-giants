@@ -22,10 +22,16 @@ public class RoleChangeBehaviour : MonoBehaviour {
         var grabBehaviours = GetComponentsInChildren<ControllerGrabObject>();
         var arrowManagerBehaviour = GetComponentInChildren<ArrowManagerBehaviour>();
         var bowManagerBehaviour = GetComponentInChildren<BowManagerBehaviour>();
-
+        var spellCastDetectionBehaviour = GetComponentsInChildren<SpellCastDetectionBehaviour>();
+        
         foreach (var behaviour in grabBehaviours)
         {
             behaviour.enabled = (value == Role.BrickBoy);
+        }
+        
+        foreach (var behaviour in spellCastDetectionBehaviour)
+        {
+            behaviour.enabled = (value == Role.Mage);
         }
 
         if (bowManagerBehaviour)

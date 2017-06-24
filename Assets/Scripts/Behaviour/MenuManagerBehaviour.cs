@@ -22,11 +22,6 @@ public class MenuManagerBehaviour : MonoBehaviour
     private void Update(){
         if (Controller.GetPressDown(EVRButtonId.k_EButton_ApplicationMenu)) {
             ToggleDisplayMenu();
-            var menuUsageBehaviours = GetComponentsInChildren<MenuUsageBehaviour>();
-            foreach (var behaviour in menuUsageBehaviours)
-            {
-                behaviour.enabled = menu != null;
-            }
         }
     }
 
@@ -39,13 +34,9 @@ public class MenuManagerBehaviour : MonoBehaviour
             menu.transform.localPosition += menuPosition;
             menu.transform.parent = transform;
             menu.transform.localRotation = Quaternion.Euler(60, 0, 0);
-
-            lastState = movementChangeBehaviour.MovementState;
-            movementChangeBehaviour.MovementState = State.Menu;
         }
         else {
             Destroy(menu);
-            movementChangeBehaviour.MovementState = lastState;
         }
     }
 }

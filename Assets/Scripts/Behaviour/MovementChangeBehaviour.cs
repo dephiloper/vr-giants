@@ -11,63 +11,55 @@ public class MovementChangeBehaviour : MonoBehaviour {
         }
         set
         {
-            switch (value)
-            {
-                case State.Giant:
-                    ChangeState(true, false);
-                    Debug.Log("State Giant");
-                    break;
-                case State.Tower:
-                    ChangeState(false, true);
-                    Debug.Log("State Tower");
-                    break;
-                case State.Menu:
-                    ChangeState(false, false);
-                    Debug.Log("State Tower");
-                    break;
-                default:
-                    ChangeState(true, false);
-                    Debug.Log("State Tower");
-                    break;
-            }
-
+            ChangeState(value);
             movementState = value;
         }
     }
     private State movementState;
 
-    private void ChangeState(bool isGiant, bool isTower)
+    private void ChangeState(State value)
     {
         var giantMoveBehaviours = GetComponentsInChildren<GiantMoveBehaviour>();
         var towerMoveBehaviours = GetComponentsInChildren<OnTowerMoveBehaviour>();
         var spawnTowerBehaviours = GetComponentsInChildren<SpawnTowerBehaviour>();
-
+        var menuUsageBehaviours = GetComponentsInChildren<MenuUsageBehaviour>();
+        var tutorialNavigationBehaviours = GetComponentsInChildren<TutorialNavigationBehaviour>();
+       
         foreach (var behaviour in giantMoveBehaviours)
         {
-            behaviour.enabled = isGiant;
+            behaviour.enabled = value == State.Giant;
         }
         foreach (var behaviour in towerMoveBehaviours)
         {
-            behaviour.enabled = isTower;
-            if (isTower)
+            behaviour.enabled = value == State.Tower;
+            if (value == State.Tower)
             {
                 behaviour.LastGiantPos = transform.position;
             }
         }
         foreach (var behaviour in spawnTowerBehaviours)
         {
-            behaviour.enabled = isGiant;
+            behaviour.enabled = value == State.Giant;
+        }
+        foreach (var behaviour in menuUsageBehaviours)
+        {
+            behaviour.enabled = value == State.Menu;
+        }
+        foreach (var behaviour in tutorialNavigationBehaviours)
+        {
+            behaviour.enabled = value == State.Tutorial;
         }
     }
 
     private void Start()
     {
-        movementState = State.Giant;
+        MovementState = State.Tutorial;
     }
 }
 
 public enum State {
     Giant,
     Tower,
-    Menu
+    Menu,
+    Tutorial
 }

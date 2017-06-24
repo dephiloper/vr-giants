@@ -22,16 +22,20 @@ public class MenuUsageBehaviour : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other){
+        Debug.Log("i will press this shitty button. i dare you!");
         if (TagUtility.IsButton(other.gameObject.tag)) {
             if (Controller.GetHairTrigger()) {
                 var quitButtonBehaviour = other.GetComponent<QuitButtonBehaviour>();
+                var restartButtonBehaviour = other.GetComponent<RestartButtonBehaviour>();
+                var tutorialButtonBehaviour = other.GetComponent<TutorialButtonBehaviour>();
                 if (quitButtonBehaviour) {
                     quitButtonBehaviour.OnButtonPressed();
-                } else {
-                    var restartButtonBehaviour = other.GetComponent<RestartButtonBehaviour>();
-                    if (restartButtonBehaviour) {
-                        restartButtonBehaviour.OnButtonPressed();
-                    }
+                } else if (restartButtonBehaviour) {
+                    restartButtonBehaviour.OnButtonPressed();
+                } else if (tutorialButtonBehaviour) {
+                    transform.parent.GetComponent<MovementChangeBehaviour>().MovementState = State.Tutorial;
+                    // ^ i feel dirty now
+                    Debug.Log("i pressed this dirty button");
                 }
             }
         }

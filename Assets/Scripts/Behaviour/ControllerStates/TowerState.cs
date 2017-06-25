@@ -1,27 +1,26 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public partial class TowerState : ControllerState
+public class TowerState : ControllerState
 {
     public override void Setup(){
         Debug.Log("TowerState - Setup()");
     }
 
-    public override ControllerState Process(SteamVR_Controller.Device leftController, SteamVR_Controller.Device rightController){
+    public override ControllerState Process(BaseControllerProviderBehaviour leftControllerProvider, BaseControllerProviderBehaviour rightControllerProvider){
     
-        if (rightController.GetHairTriggerDown()) {
-            return new GiantState();
+        if (rightControllerProvider.Controller.GetHairTriggerDown()) {
+            return GetComponent<GiantState>();
         }
         
-        switch (ControllerUtility.TouchpadDpadDetection(rightController)) {
+        switch (ControllerUtility.TouchpadDpadPressDown(rightControllerProvider.Controller)) {
             case ControllerUtility.Dpad.Up:
-                return new MageAttackState();
+                return GetComponent<MageAttackState>();
             case ControllerUtility.Dpad.Down:
-                return new TowerMoveState();
+                return GetComponent<TowerMoveState>();
             case ControllerUtility.Dpad.Left: 
-                return new BrickBoyAttackState();
+                return GetComponent<BrickBoyAttackState>();
             case ControllerUtility.Dpad.Right:
-                return new ArcherAttackState();
+                return GetComponent<ArcherAttackState>();
         }
 
         return this;

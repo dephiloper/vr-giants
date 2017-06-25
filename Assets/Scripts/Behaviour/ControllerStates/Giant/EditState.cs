@@ -6,11 +6,11 @@ public class EditState : ControllerState
         Debug.Log("EditState - Setup()");
     }
 
-    public override ControllerState Process(SteamVR_Controller.Device leftController,
-        SteamVR_Controller.Device rightController){
-        if (leftController.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
-            if (leftController.GetAxis().y < -0.5f) {
-                return new GiantState();
+    public override ControllerState Process(BaseControllerProviderBehaviour leftControllerProvider,
+        BaseControllerProviderBehaviour rightControllerProvider){
+        if (leftControllerProvider.Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
+            if (leftControllerProvider.Controller.GetAxis().y < -0.5f) {
+                return GetComponent<GiantState>();
             }
         }
         return this;

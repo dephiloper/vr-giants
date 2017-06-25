@@ -1,2 +1,2 @@
 ﻿public class LeftControllerProviderBehaviour : BaseControllerProviderBehaviour
-{ }
+{}

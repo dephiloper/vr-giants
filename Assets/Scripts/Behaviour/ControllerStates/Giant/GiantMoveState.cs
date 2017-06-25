@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GiantMoveState : ControllerState
 {
-    
     public GameObject TeleportReticlePrefab;
     public GameObject LaserPrefab;
     public Transform HeadTransform;
@@ -10,65 +9,65 @@ public class GiantMoveState : ControllerState
     public LayerMask TeleportMask;
     public LayerMask StandOnMask;
 
-    private SteamVR_TrackedObject trackedObj;
-    private GameObject laser;
-    private GameObject reticle;
-    private Transform laserTransform;
-    private Transform teleportReticleTransform;
-    private RaycastHit? lastHit;
-    
+    private readonly GameObject[] laser = new GameObject[2];
+    private readonly GameObject[] reticle = new GameObject[2];
+    private readonly RaycastHit[] lastHit = new RaycastHit[2];
+
     public override void Setup(){
         Debug.Log("GiantMoveState - Setup()");
-        
-        laser = Instantiate(LaserPrefab);
-        laserTransform = laser.transform;
-        reticle = Instantiate (TeleportReticlePrefab);
-        teleportReticleTransform = reticle.transform;
+
+        laser[0] = Instantiate(LaserPrefab);
+        laser[1] = Instantiate(LaserPrefab);
+        reticle[0] = Instantiate(TeleportReticlePrefab);
+        reticle[1] = Instantiate(TeleportReticlePrefab);
     }
 
-    public override ControllerState Process(SteamVR_Controller.Device leftController,
-        SteamVR_Controller.Device rightController){
-        
-        if (!leftController.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
-            return new GiantState();
+    public override ControllerState Process(BaseControllerProviderBehaviour leftControllerProvider, BaseControllerProviderBehaviour rightControllerProvider){
+        var newControllerState = HandleInput(leftControllerProvider, 0);
+        if (!newControllerState) {
+            return newControllerState;
         }
-        
-        
-        
+
+        /*newControllerState = HandleInput(rightControllerProvider, 1);
+        if (!newControllerState) {
+            return newControllerState;
+        }*/
+
         return this;
     }
 
-    public override void Dismantle(){
-        Debug.Log("GiantMoveState - Dismantle()");
-    }
+    private ControllerState HandleInput(BaseControllerProviderBehaviour controllerProvider, int index){
+        if (ControllerUtility.TouchpadDpadPress(controllerProvider.Controller) == ControllerUtility.Dpad.Up) {
+            RaycastHit hit;
+            if (Physics.Raycast(controllerProvider.TrackedObj.transform.position,
+                controllerProvider.TrackedObj.transform.forward, out hit, float.PositiveInfinity)) {
 
-    private void ShittyMonoBehaviourUpdate(){
-        laser.SetActive(false);
-        reticle.SetActive(false);
-        if (!Controller.GetHairTrigger()) { 
-            if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
-            {
-                if (Controller.GetAxis().y > 0)
-                {
-                    RaycastHit hit;
+                MoveUtility.ShowLaser(laser[index], reticle[index], hit,
+                    controllerProvider.TrackedObj.transform.position, TeleportMask, Color.blue, Color.red);
 
-                    if (Physics.Raycast(trackedObj.transform.position, transform.forward, out hit, float.PositiveInfinity))
-                    {
-                        ShowLaser(hit);
-                        lastHit = hit;
-                    }
-                }
+                lastHit[index] = hit;
             }
-
-            if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad)) {
-                if (Controller.GetAxis().y > 0)
-                {
-                    if (lastHit.HasValue)
-                    {
-                        Teleport(lastHit.Value);
-                    }
-                }
+            else {
+                laser[index].SetActive(false);
+                reticle[index].SetActive(false);
             }
         }
+        else {
+            laser[index].SetActive(false);
+            reticle[index].SetActive(false);
+            var difference = CameraRigTransform.position - HeadTransform.position;
+            difference.y = CameraRigTransform.position.y;
+            if (MoveUtility.CanTeleport(CameraRigTransform, lastHit[index], difference, TeleportMask)) {
+                CameraRigTransform.position = lastHit[index].point + difference;
+            }
+        }
+       
+        return this;
+    }
+
+
+
+    public override void Dismantle(){
+        Debug.Log("GiantMoveState - Dismantle()");
     }
 }

@@ -6,15 +6,14 @@ public class GiantState : ControllerState
         Debug.Log("GiantState - Setup()");
     }
 
-    public override ControllerState Process(SteamVR_Controller.Device leftController,
-        SteamVR_Controller.Device rightController){
+    public override ControllerState Process(BaseControllerProviderBehaviour leftControllerProvider, BaseControllerProviderBehaviour rightControllerProvider){
         
-        var newState = HandleControllerInput(leftController);
+        var newState = HandleControllerInput(leftControllerProvider);
         if (newState != null) {
             return newState;
         }
         
-        newState = HandleControllerInput(rightController);
+        newState = HandleControllerInput(rightControllerProvider);
         if (newState != null) {
             return newState;
         }
@@ -22,17 +21,17 @@ public class GiantState : ControllerState
         return this;
     }
 
-    private ControllerState HandleControllerInput(SteamVR_Controller.Device controller){
-        if (controller.GetHairTriggerDown()) {
+    private ControllerState HandleControllerInput(BaseControllerProviderBehaviour controllerProvider){
+        if (controllerProvider.Controller.GetHairTriggerDown()) {
             {
-                return new EditState();
+                return GetComponent<EditState>();
             }
         }
 
-        switch (ControllerUtility.TouchpadDpadDetection(controller)) {
+        switch (ControllerUtility.TouchpadDpadPressDown(controllerProvider.Controller)) {
             case ControllerUtility.Dpad.Up:
             {
-                return new GiantMoveState();
+                return GetComponent<GiantMoveState>();
             }
         }
         

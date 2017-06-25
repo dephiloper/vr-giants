@@ -34,3 +34,6 @@ sysinfo.txt
 *.unitypackage
 
 .idea
+
+# gesture detection debug images
+debugTexture*.png

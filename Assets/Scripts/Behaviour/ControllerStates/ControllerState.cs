@@ -11,8 +11,7 @@ public abstract class ControllerState : MonoBehaviour
 
     public abstract void Setup();
 
-    public abstract ControllerState Process(SteamVR_Controller.Device leftController,
-        SteamVR_Controller.Device rightController);
+    public abstract ControllerState Process(BaseControllerProviderBehaviour leftControllerProvider, BaseControllerProviderBehaviour rightControllerProvider);
 
     public abstract void Dismantle();
 }

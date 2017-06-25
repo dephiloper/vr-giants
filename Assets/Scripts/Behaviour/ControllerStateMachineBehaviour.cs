@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class ControllerStateMachineBehaviour : MonoBehaviour
 {
-    public static SteamVR_Controller.Device LeftController { get; private set; }
-    public static SteamVR_Controller.Device RightController { get; private set; }
+    public static BaseControllerProviderBehaviour LeftControllerProvider { get; private set; }
+    public static BaseControllerProviderBehaviour RightControllerProvider { get; private set; }
 
     private ControllerState currentControllerState;
 
     void Start(){
-        currentControllerState = new GiantState();
+        currentControllerState = GetComponent<GiantState>();
         currentControllerState.Setup();
     }
 
     void Update(){
-        if (LeftController == null || RightController == null) {
+        if (LeftControllerProvider == null || RightControllerProvider == null) {
             RecognizeController();
             return;
         }
 
-        var newControllerMode = currentControllerState.Process(LeftController, RightController);
+        var newControllerMode = currentControllerState.Process(LeftControllerProvider, RightControllerProvider);
         if (newControllerMode != currentControllerState) {
             currentControllerState.Dismantle();
             currentControllerState = newControllerMode;
@@ -33,8 +33,8 @@ public class ControllerStateMachineBehaviour : MonoBehaviour
         var leftControllerProvider = GetComponentInChildren<LeftControllerProviderBehaviour>();
         var rightControllerProvider = GetComponentInChildren<RightControllerProviderBehaviour>();
         if (leftControllerProvider && rightControllerProvider) {
-            LeftController = leftControllerProvider.Controller;
-            RightController = rightControllerProvider.Controller;
+            LeftControllerProvider = leftControllerProvider;
+            RightControllerProvider = rightControllerProvider;
         }
     }
 }

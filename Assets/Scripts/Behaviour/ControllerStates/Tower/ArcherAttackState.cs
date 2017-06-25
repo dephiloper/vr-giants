@@ -6,12 +6,12 @@ public class ArcherAttackState : ControllerState
         Debug.Log("ArcherAttackState - Setup()");
     }
 
-    public override ControllerState Process(SteamVR_Controller.Device leftController,
-        SteamVR_Controller.Device rightController){
-        if (rightController.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
-            if (rightController.GetAxis().y < -0.5f) {
+    public override ControllerState Process(BaseControllerProviderBehaviour leftControllerProvider,
+        BaseControllerProviderBehaviour rightControllerProvider){
+        if (rightControllerProvider.Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
+            if (rightControllerProvider.Controller.GetAxis().y < -0.5f) {
                 // down
-                return new TowerState();
+                return GetComponent<TowerState>();
             }
         }
         return this;

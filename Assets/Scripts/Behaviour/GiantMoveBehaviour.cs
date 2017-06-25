@@ -33,14 +33,12 @@ public class GiantMoveBehaviour : MonoBehaviour {
         Debug.Log("Giant mode enabled.");
     }
 
-
-
     private void ShowLaser(RaycastHit hit)
 	{
         laser.SetActive(true);
-        laserTransform.position = Vector3.Lerp(trackedObj.transform.position, hit.point, .5f);
-        laserTransform.LookAt(hit.point);
-        laserTransform.localScale = new Vector3(laserTransform.localScale.x, laserTransform.localScale.y,
+	    laser.transform.position = Vector3.Lerp(trackedObj.transform.position, hit.point, .5f);
+	    laser.transform.LookAt(hit.point);
+	    laser.transform.localScale = new Vector3(laser.transform.localScale.x, laser.transform.localScale.y,
             hit.distance);
         reticle.SetActive(true);
         teleportReticleTransform.position = hit.point;

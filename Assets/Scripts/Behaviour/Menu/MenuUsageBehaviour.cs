@@ -22,7 +22,7 @@ public class MenuUsageBehaviour : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other){
-        Debug.Log("i will press this shitty button. i dare you!");
+        //Debug.Log("i will press this shitty button. i dare you!");
         if (TagUtility.IsButton(other.gameObject.tag)) {
             if (Controller.GetHairTrigger()) {
                 var quitButtonBehaviour = other.GetComponent<QuitButtonBehaviour>();

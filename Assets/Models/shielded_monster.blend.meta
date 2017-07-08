@@ -1,10 +1,79 @@
 fileFormatVersion: 2
 guid: 76b8c6d22b6ee214fb44d1862a23f83b
-timeCreated: 1499510071
+timeCreated: 1499518173
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: Batch
+    100002: Bow
+    100004: Diamond
+    100006: Hat
+    100008: Helmet
+    100010: Hood
+    100012: Icosphere
+    100014: Monster
+    100016: Quiver
+    100018: Shield
+    100020: //RootNode
+    100022: Sphere
+    100024: Staff
+    100026: Sword
+    400000: Batch
+    400002: Bow
+    400004: Diamond
+    400006: Hat
+    400008: Helmet
+    400010: Hood
+    400012: Icosphere
+    400014: Monster
+    400016: Quiver
+    400018: Shield
+    400020: //RootNode
+    400022: Sphere
+    400024: Staff
+    400026: Sword
+    2300000: Batch
+    2300002: Bow
+    2300004: Diamond
+    2300006: Hat
+    2300008: Helmet
+    2300010: Hood
+    2300012: Icosphere
+    2300014: Monster
+    2300016: Quiver
+    2300018: Shield
+    2300020: Sphere
+    2300022: Staff
+    2300024: Sword
+    3300000: Batch
+    3300002: Bow
+    3300004: Diamond
+    3300006: Hat
+    3300008: Helmet
+    3300010: Hood
+    3300012: Icosphere
+    3300014: Monster
+    3300016: Quiver
+    3300018: Shield
+    3300020: Sphere
+    3300022: Staff
+    3300024: Sword
+    4300000: Sphere
+    4300002: Icosphere
+    4300004: Batch
+    4300006: Hood
+    4300008: Helmet
+    4300010: Quiver
+    4300012: Bow
+    4300014: Diamond
+    4300016: Staff
+    4300018: Hat
+    4300020: Sword
+    4300022: Shield
+    4300024: Monster
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

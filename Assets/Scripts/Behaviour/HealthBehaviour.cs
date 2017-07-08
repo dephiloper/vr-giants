@@ -8,7 +8,8 @@ public class HealthBehaviour : MonoBehaviour {
     public float Health = 10;
     public float Resistance = 0.1f;
     public float VanishingTime = 1.5f;
-
+    
+    private const string HealthMaterialName = "polyhealth";
     private float maxHealth;
 
     public void ReceiveDamage(float damage)
@@ -37,16 +38,29 @@ public class HealthBehaviour : MonoBehaviour {
 
     private void AdjustHealthColor()
     {
-        var healthColorRenderer = gameObject.GetComponent<Renderer>();
-        if (!healthColorRenderer)
-        {
-            healthColorRenderer = gameObject.GetComponentInChildren<Renderer>();
-        }
+        var healthColorRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
         var healthDiff = maxHealth - Health;
-        var redDiff = (Color.red.r - Color.green.r) / maxHealth * healthDiff;
-        var greenDiff = (Color.red.g - Color.green.g) / maxHealth * healthDiff;
-        var blueDiff = (Color.red.b - Color.green.b) / maxHealth * healthDiff;
-        healthColorRenderer.material.color = new Color(Color.green.r + redDiff, Color.green.g + greenDiff, Color.green.b + blueDiff);
+        var green = new Color(0.3f, 0.69f, 0.49f);
+        var redDiff = (Color.red.r - green.r) / maxHealth * healthDiff;
+        var greenDiff = (Color.red.g - green.g) / maxHealth * healthDiff;
+        var blueDiff = (Color.red.b - green.b) / maxHealth * healthDiff;
+        var healthMaterial = FindHealthMaterial(healthColorRenderers);
+        
+        if (healthMaterial)
+            healthMaterial.color = new Color(green.r + redDiff, green.g + greenDiff, green.b + blueDiff);
+    }
+
+    private Material FindHealthMaterial(MeshRenderer[] renderers)
+    {
+        foreach (var r in renderers)
+        {
+            foreach (var m in r.materials)
+            {
+                if (m.name.StartsWith(HealthMaterialName)) return m;
+            }
+        }
+
+        return null;
     }
 
     private void Vanish()

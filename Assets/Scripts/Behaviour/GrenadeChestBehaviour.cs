@@ -32,6 +32,7 @@ public class GrenadeChestBehaviour : MonoBehaviour {
                 if (grenades[i] == null)
                 {
                     grenades[i] = Instantiate(GrenadePrefab, slots[i].transform.position, Quaternion.identity);
+                    Debug.Log("Bricki");
                     break;
                 }
             }

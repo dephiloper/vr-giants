@@ -25,7 +25,6 @@ public class ControllerGrabObject : MonoBehaviour {
 		if (Controller.GetHairTriggerDown ()) {
 			if (collidingObject) {
 				GrabObject();
-				Debug.Log("Grabed smth");
 			}
 		}
 

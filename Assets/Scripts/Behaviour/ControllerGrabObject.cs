@@ -25,6 +25,7 @@ public class ControllerGrabObject : MonoBehaviour {
 		if (Controller.GetHairTriggerDown ()) {
 			if (collidingObject) {
 				GrabObject();
+				Debug.Log("Grabed smth");
 			}
 		}
 
@@ -74,7 +75,7 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	private FixedJoint AddFixedJoint() {
 		var fx = gameObject.AddComponent<FixedJoint> ();
-		fx.breakForce = 20000; // welcher wert auch sonst
+		fx.breakForce = 20000;
 		fx.breakTorque = 20000;
 		return fx;
 	}

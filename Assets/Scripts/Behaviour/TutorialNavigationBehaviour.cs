@@ -27,10 +27,11 @@ public class TutorialNavigationBehaviour : MonoBehaviour {
 
 	void Start () {
 		if (!tutorialPlane) {
-			tutorialPlane = Instantiate(TutorialPlanePrefab, EyeCameraInstance.transform.position + (transform.forward * 2), 
+			//Instantiate(TutorialPlanePrefab, transform.position + transform.forward*10, transform.rotation);
+			tutorialPlane = Instantiate(TutorialPlanePrefab, EyeCameraInstance.transform.position + (EyeCameraInstance.transform.forward * 5), 
 				EyeCameraInstance.transform.rotation * TutorialPlanePrefab.transform.rotation);
 			
-			tutorialPlane.transform.parent = transform.parent;
+			//tutorialPlane.transform.parent = transform.parent;
 		}
 	}
 	

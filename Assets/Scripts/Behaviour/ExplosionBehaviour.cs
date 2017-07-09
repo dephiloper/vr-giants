@@ -8,7 +8,7 @@ public class ExplosionBehaviour : MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.tag);
+        Debug.Log(other.transform.name);
         if (TagUtility.IsExplodableEntity(other.gameObject.tag)) {
             var explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(explosion, 2.75f);

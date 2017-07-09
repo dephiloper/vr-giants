@@ -82,7 +82,7 @@ public class TagUtility  {
             case Role.BrickBoy:
                 return lowerTag == "brickboytower";
             case Role.Archer:
-                return towerTag == "archertower";
+                return lowerTag == "archertower";
             case Role.Mage:
                 return lowerTag == "magetower";
             case Role.None:
@@ -93,4 +93,6 @@ public class TagUtility  {
                 return lowerTag == "none";
         }
     }
+
+    
 }

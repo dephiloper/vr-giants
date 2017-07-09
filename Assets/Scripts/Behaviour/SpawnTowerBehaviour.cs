@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class SpawnTowerBehaviour : MonoBehaviour {
     public GameObject BrickBoyTowerPrefab;
@@ -10,6 +11,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
     public Transform CameraRigTransform;
     public LayerMask PlaceMask;
     public float Threshold = 0.5f;
+    public GameObject PlaceAreas;
 
     private SteamVR_TrackedObject trackedObj;
     private GameObject laser;
@@ -30,13 +32,13 @@ public class SpawnTowerBehaviour : MonoBehaviour {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
     }
 
-    void Start () {
+    private void Start () {
         laser = Instantiate(LaserPrefab);
         laserTransform = laser.transform;
         selectionTower = Instantiate(SelectionTowerPrefab);
     }
     
-    void Update()
+    private void Update()
     {
         laser.SetActive(false);
         selectionTower.SetActive(showSelectionTower);
@@ -52,6 +54,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
             if (Physics.Raycast(trackedObj.transform.position, transform.forward, out hit, float.PositiveInfinity))
             {
                 ShowLaser(hit);
+                HighlightPlaceAreas(true);
                 lastHit = hit;
             }
 
@@ -89,7 +92,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
 
         if (controller.GetHairTriggerUp()) { 
             if (lastHit.HasValue) { 
-                int hitMask = BitPositionToMask(lastHit.Value.transform.gameObject.layer);
+                var hitMask = LayerMaskUtility.BitPositionToMask(lastHit.Value.transform.gameObject.layer);
                 if (placeMode && showSelectionTower && PlaceMask.value == hitMask)
                 {
                     InstantiateTower();
@@ -98,14 +101,23 @@ public class SpawnTowerBehaviour : MonoBehaviour {
 
             showSelectionTower = false;
             placeMode = false;
+            HighlightPlaceAreas(false);
+        }
+    }
+
+    private void HighlightPlaceAreas(bool isVisible)
+    {
+        for (var i = 0; i < PlaceAreas.transform.childCount; i++)
+        {
+            PlaceAreas.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = isVisible;
         }
     }
 
     private void ChangeChildColor(Color color)
     {
-        foreach (var renderer in selectionTower.GetComponentsInChildren<Renderer>())
+        foreach (var r in selectionTower.GetComponentsInChildren<Renderer>())
         {
-            renderer.material.color = color;
+            r.material.color = color;
         }
     }
 
@@ -113,7 +125,8 @@ public class SpawnTowerBehaviour : MonoBehaviour {
     {
         var tower = Instantiate(currentTowerPrefab);
         tower.transform.position = selectionTower.transform.position;
-        
+        tower.transform.position += Vector3.up * 2.5f;
+
     }
 
     private void ShowLaser(RaycastHit hit)
@@ -123,9 +136,8 @@ public class SpawnTowerBehaviour : MonoBehaviour {
         laserTransform.LookAt(hit.point);
         laserTransform.localScale = new Vector3(laserTransform.localScale.x, laserTransform.localScale.y, hit.distance);
         selectionTower.transform.position = hit.point;
-        selectionTower.transform.position += 4 * Vector3.up;
        
-        int hitMask = BitPositionToMask(hit.transform.gameObject.layer);
+        var hitMask = LayerMaskUtility.BitPositionToMask(hit.transform.gameObject.layer);
 
         if (PlaceMask.value == hitMask)
         {
@@ -135,10 +147,5 @@ public class SpawnTowerBehaviour : MonoBehaviour {
             laser.GetComponent<Renderer>().material.color = Color.red;
             showSelectionTower = false;
         }
-    }
-
-    private int BitPositionToMask(int bitPos)
-    {
-        return (1 << bitPos);
     }
 }

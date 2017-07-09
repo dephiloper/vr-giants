@@ -241,9 +241,11 @@ GameObject:
   - component: {fileID: 4591731701549822}
   - component: {fileID: 114761882749260194}
   - component: {fileID: 114245931194319836}
+  - component: {fileID: 65461429002150808}
+  - component: {fileID: 135942405299510726}
   m_Layer: 0
   m_Name: BowEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -993,6 +995,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1513680150508222}
   m_Mesh: {fileID: 4300014, guid: 76b8c6d22b6ee214fb44d1862a23f83b, type: 3}
+--- !u!65 &65461429002150808
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984413842837812}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95898319067208100
 Animator:
   serializedVersion: 3
@@ -1039,3 +1053,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   DamageTransferCoefficient: 0.1
+--- !u!135 &135942405299510726
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984413842837812}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 0.25, z: 0}

@@ -35,11 +35,6 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         Debug.Log("OnTower mode enabled.");
     }
 
-    private static int BitPositionToMask(int bitPos)
-    {
-        return (1 << bitPos);
-    }
-
     private void ShowLaser(RaycastHit hit)
     {
         laser.SetActive(true);
@@ -50,15 +45,9 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         reticle.SetActive(true);
         teleportReticleTransform.position = hit.point;
 
-        var hitMask = BitPositionToMask(hit.transform.gameObject.layer);
-        if (StandOnMask.value == hitMask)
-        {
-            laser.GetComponent<Renderer>().material.color = Color.blue;
-        }
-        else
-        {
-            laser.GetComponent<Renderer>().material.color = Color.red;
-        }
+        var hitMask = LayerMaskUtility.BitPositionToMask(hit.transform.gameObject.layer);
+        laser.GetComponent<Renderer>().material.color = 
+            (StandOnMask.value & hitMask) != 0 ? Color.blue : Color.red;
     }
 
     private void Teleport(RaycastHit hit)
@@ -67,11 +56,14 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
         //difference.y = CameraRigTransform.position.y;
         difference.y = 0;
         
-        var hitMask = BitPositionToMask(hit.transform.gameObject.layer);
-        if (StandOnMask.value == hitMask) {
+        var hitMask = LayerMaskUtility.BitPositionToMask(hit.transform.gameObject.layer);
+        
+        Debug.Log(string.Format("StandOnMask: {0}, HitMask: {1}", StandOnMask.value, hitMask));
+        if ((StandOnMask.value & hitMask) != 0) {
             var currentRole = CameraRigTransform.GetComponent<RoleChangeBehaviour>().TowerRole;
 
             if (TagUtility.CompareRoleWithTowerTag(currentRole, hit.transform.tag)) {
+                Debug.Log("wqirejwqrjh");
                 CameraRigTransform.position = hit.point;
                 CameraRigTransform.position += difference;
             }

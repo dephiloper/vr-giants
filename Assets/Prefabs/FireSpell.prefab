@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4220910497490300}
   - component: {fileID: 33452734029576030}
   - component: {fileID: 65049598314712630}
+  - component: {fileID: 114422104327001040}
   m_Layer: 0
   m_Name: FireSpell
   m_TagString: Untagged
@@ -91,6 +92,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114422104327001040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680259440748630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2bcc519f33b9424599bfd869a2db902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionPrefab: {fileID: 1395033666844318, guid: 9a43a9b2d91d74b45b468eabb81c732c,
+    type: 2}
+  Damage: 10
+  Radius: 10
+  SpeedReduction: 0
+  IsConfusing: 0
 --- !u!198 &198434454830128626
 ParticleSystem:
   m_ObjectHideFlags: 1

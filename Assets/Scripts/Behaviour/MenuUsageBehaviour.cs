@@ -27,13 +27,15 @@ public class MenuUsageBehaviour : MonoBehaviour
                 var quitButtonBehaviour = other.GetComponent<QuitButtonBehaviour>();
                 var restartButtonBehaviour = other.GetComponent<RestartButtonBehaviour>();
                 var tutorialButtonBehaviour = other.GetComponent<TutorialButtonBehaviour>();
-                if (quitButtonBehaviour) {
+                if (quitButtonBehaviour){
                     quitButtonBehaviour.OnButtonPressed();
                 } else if (restartButtonBehaviour) {
                     restartButtonBehaviour.OnButtonPressed();
                 } else if (tutorialButtonBehaviour) {
+                    if (MenuManagerBehaviour.Menu)
+                        Destroy(MenuManagerBehaviour.Menu);
+                    
                     transform.parent.GetComponent<MovementChangeBehaviour>().MovementState = State.Tutorial;
-                    // TODO clean this!
                 }
             }
         }

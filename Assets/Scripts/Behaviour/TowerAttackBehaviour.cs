@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class TowerAttackBehaviour : MonoBehaviour {
@@ -32,10 +33,14 @@ public class TowerAttackBehaviour : MonoBehaviour {
         if (!currentTarget) {
             currentTarget = FindClosestEnemy();
         }
-
+        
+        
+        
         if (currentTarget)
         {
-            if (Vector3.Distance(currentTarget.transform.position, transform.position) < Radius) {
+            var distance = Vector2.Distance(new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z), 
+                new Vector2(transform.position.x, transform.position.z));
+            if (distance < Radius) {
                 var spawnPos = transform.position;
                 spawnPos.y = ProjectileHeightOffset;
                 projectile = Instantiate(ProjectilePrefab, spawnPos, Quaternion.identity);
@@ -46,6 +51,7 @@ public class TowerAttackBehaviour : MonoBehaviour {
                 currentTarget = null;
             }
         }
+        
     }
 
     private GameObject FindClosestEnemy()
@@ -62,7 +68,6 @@ public class TowerAttackBehaviour : MonoBehaviour {
                 lastDistance = dist;
             }
         }
-
         return closest != -1 ? enemiesTransform[closest].gameObject : null;
     }
 }

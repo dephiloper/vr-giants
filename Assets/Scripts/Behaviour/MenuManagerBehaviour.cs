@@ -4,11 +4,10 @@ using Valve.VR;
 public class MenuManagerBehaviour : MonoBehaviour
 {
     public GameObject MenuPrefab;
+    public static GameObject Menu;
 
     private SteamVR_TrackedObject trackedObj;
     private readonly Vector3 menuPosition = new Vector3(0, 0.05f, 0.05f);
-    private static GameObject menu;
-    private State lastState;
 
     private SteamVR_Controller.Device Controller
     {
@@ -26,17 +25,23 @@ public class MenuManagerBehaviour : MonoBehaviour
     }
 
     private void ToggleDisplayMenu(){
+        // extract code into change behaviour
         var movementChangeBehaviour = transform.parent.GetComponent<MovementChangeBehaviour>();
-        if (movementChangeBehaviour.MovementState == State.Tower) return;
+        if (movementChangeBehaviour.MovementState == State.Tower 
+            || movementChangeBehaviour.MovementState == State.Tutorial) return;
         
-        if (!menu) {
-            menu = Instantiate(MenuPrefab, transform);
-            menu.transform.localPosition += menuPosition;
-            menu.transform.parent = transform;
-            menu.transform.localRotation = Quaternion.Euler(60, 0, 0);
+        if (!Menu) {
+            Menu = Instantiate(MenuPrefab, transform);
+            Menu.transform.localPosition += menuPosition;
+            Menu.transform.parent = transform;
+            Menu.transform.localRotation = Quaternion.Euler(60, 0, 0);
+            
+            // Change State to Menu
+            transform.parent.GetComponent<MovementChangeBehaviour>().MovementState = State.Menu;
         }
         else {
-            Destroy(menu);
+            Destroy(Menu);
+            transform.parent.GetComponent<MovementChangeBehaviour>().MovementState = State.Giant;
         }
     }
 }

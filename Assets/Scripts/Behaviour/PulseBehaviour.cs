@@ -9,6 +9,5 @@ public class PulseBehaviour : MonoBehaviour {
 	{
 		var r = GetComponent<MeshRenderer>();
 		r.material.color = new Color(r.material.color.r, r.material.color.g, r.material.color.b, 0.3f);
-		Debug.Log("Opacity changed");
 	}
 }

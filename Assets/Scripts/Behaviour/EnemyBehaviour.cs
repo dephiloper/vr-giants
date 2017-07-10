@@ -6,18 +6,18 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public float Speed = 10f;
     public float DamageTransferCoefficient = 0.1f;
-    
+    public int TargetIndex;
+
     private HealthBehaviour healthBehaviour;
     private Transform target;
-    private int targetIndex;
     private bool endReached;
     private float deltaTimeSum;
     private float targetStartY;
 
     private void Start()
     {
-        targetIndex = 0;
-        target = WaypointsBehaviour.Points[targetIndex];
+        TargetIndex = 0;
+        target = WaypointsBehaviour.Points[TargetIndex];
         targetStartY = transform.position.y;
     }
 
@@ -44,11 +44,11 @@ public class EnemyBehaviour : MonoBehaviour
             
             if (distance <= 1f)
             {
-                endReached = targetIndex > WaypointsBehaviour.Points.Length - 1;
+                endReached = TargetIndex > WaypointsBehaviour.Points.Length - 1;
                 if (!endReached)
                 {
-                    target = WaypointsBehaviour.Points[targetIndex];
-                    targetIndex++;
+                    target = WaypointsBehaviour.Points[TargetIndex];
+                    TargetIndex++;
                 }
             }
         }
@@ -83,9 +83,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void SinusWaveMovement()
     {
-        deltaTimeSum += Time.deltaTime*2;
+        
+        deltaTimeSum += Time.deltaTime * Speed * 0.5f;
         deltaTimeSum = deltaTimeSum > 360 ? 0 : deltaTimeSum;
-        var movementInterval = 2 * (float) (Math.Sin(deltaTimeSum));
+        
+        var movementInterval = (float) Math.Sin(deltaTimeSum) + 1f;
         transform.position = new Vector3(transform.position.x, targetStartY + movementInterval, transform.position.z);
     }
 }

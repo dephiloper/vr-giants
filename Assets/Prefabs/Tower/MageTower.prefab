@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1669565612767480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.045, y: 1.766, z: -0.827}
+  m_LocalPosition: {x: 0, y: 2.1, z: 0}
   m_LocalScale: {x: 2, y: 0.01, z: 2}
   m_Children: []
   m_Father: {fileID: 4955720758885180}
@@ -193,7 +193,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 1609767493666056, guid: 56ce01c74a47d4542ae094ecf9349281,
     type: 2}
   AttackRange: 10
-  AttackDamage: 0.1
-  Radius: 10
-  TimeDelta: 1000
+  AttackDamage: 0.05
+  Radius: 40
+  TimeDelta: 100
   ProjectileHeightOffset: 4.5

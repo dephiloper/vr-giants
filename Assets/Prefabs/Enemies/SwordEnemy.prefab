@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114044206047377276}
   - component: {fileID: 114647283254883306}
   - component: {fileID: 135699241212715506}
+  - component: {fileID: 114495952970616142}
   m_Layer: 0
   m_Name: SwordEnemy
   m_TagString: Enemy
@@ -1022,8 +1023,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3702d3333d64f994eb3e2666db8abbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  Speed: 3
   DamageTransferCoefficient: 0.1
+  TargetIndex: 0
+--- !u!114 &114495952970616142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309957611785334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2723f5ea174ff34b8b61c01a6c87e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114647283254883306
 MonoBehaviour:
   m_ObjectHideFlags: 1

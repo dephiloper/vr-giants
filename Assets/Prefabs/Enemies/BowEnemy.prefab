@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 114245931194319836}
   - component: {fileID: 65461429002150808}
   - component: {fileID: 135942405299510726}
+  - component: {fileID: 114823489818890536}
   m_Layer: 0
   m_Name: BowEnemy
   m_TagString: Enemy
@@ -1053,6 +1054,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   DamageTransferCoefficient: 0.1
+  TargetIndex: 0
+--- !u!114 &114823489818890536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984413842837812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2723f5ea174ff34b8b61c01a6c87e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135942405299510726
 SphereCollider:
   m_ObjectHideFlags: 1

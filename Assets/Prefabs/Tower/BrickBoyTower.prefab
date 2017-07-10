@@ -848,7 +848,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 1609767493666056, guid: 56ce01c74a47d4542ae094ecf9349281,
     type: 2}
   AttackRange: 10
-  AttackDamage: 0.1
-  Radius: 10
-  TimeDelta: 1000
+  AttackDamage: 0.05
+  Radius: 40
+  TimeDelta: 100
   ProjectileHeightOffset: 4.5

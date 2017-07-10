@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitPrefab: {fileID: 1634580606917654, guid: debfeba77d0fb2441af00605fbfc62ae, type: 2}
   Speed: 20
-  Damage: 1
+  Damage: 0.3
 --- !u!136 &136191234917611240
 CapsuleCollider:
   m_ObjectHideFlags: 1

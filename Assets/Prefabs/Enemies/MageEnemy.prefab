@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 114759349052961348}
   - component: {fileID: 114903833968900888}
   - component: {fileID: 135292048489446428}
+  - component: {fileID: 114503291444935938}
   m_Layer: 0
   m_Name: MageEnemy
   m_TagString: Enemy
@@ -1011,6 +1012,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114503291444935938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1427019101782582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2723f5ea174ff34b8b61c01a6c87e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114759349052961348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1024,6 +1036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   DamageTransferCoefficient: 0.1
+  TargetIndex: 0
 --- !u!114 &114903833968900888
 MonoBehaviour:
   m_ObjectHideFlags: 1

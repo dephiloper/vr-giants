@@ -25,7 +25,7 @@ public class TutorialNavigationBehaviour : MonoBehaviour {
 		trackedObj = GetComponent<SteamVR_TrackedObject>();
 	}
 
-	void Start () {
+	private void Start () {
 		if (!tutorialPlane) {
 			//Instantiate(TutorialPlanePrefab, transform.position + transform.forward*10, transform.rotation);
 			tutorialPlane = Instantiate(TutorialPlanePrefab, EyeCameraInstance.transform.position + (EyeCameraInstance.transform.forward * 5), 
@@ -34,19 +34,25 @@ public class TutorialNavigationBehaviour : MonoBehaviour {
 			//tutorialPlane.transform.parent = transform.parent;
 		}
 	}
-	
-	void Update () {
-		if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
+
+	private void Update ()
+	{
+		if (!Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) return;
+		
+		
+		if (Controller.GetAxis().x > 0.5f)
 		{
-			if (Controller.GetAxis().x > 0.5f)
-			{
-				TutorialBehaviour.Instance.NextTutorialPage();
-			}else if (Controller.GetAxis().x < -0.5f) {
-				TutorialBehaviour.Instance.PreviousTutorialPage();
-			}else if (Controller.GetAxis().y < -0.5f) {
-				TutorialBehaviour.Instance.ExitTutorial();
-				transform.parent.GetComponent<MovementChangeBehaviour>().MovementState = State.Giant;
-			}
+			TutorialBehaviour.Instance.NextTutorialPage();
+		}else if (Controller.GetAxis().x < -0.5f) {
+			TutorialBehaviour.Instance.PreviousTutorialPage();
+		}else if (Controller.GetAxis().y < -0.5f) {
+			TutorialBehaviour.Instance.ExitTutorial();
+			transform.parent.GetComponent<MovementChangeBehaviour>().MovementState = State.Giant;
 		}
+	}
+
+	private void OnEnable()
+	{
+		Start();
 	}
 }

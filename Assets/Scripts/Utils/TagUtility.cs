@@ -33,6 +33,12 @@ public class TagUtility  {
         var loweredTag = tag.ToLower();
         return "terrain".Equals(loweredTag) || "enemy".Equals(loweredTag) || loweredTag.EndsWith("tower");
     }
+    
+    public static bool IsEnemy(string tag)
+    {
+        var loweredTag = tag.ToLower();
+        return "enemy".Equals(loweredTag);
+    }
 
     public static bool IsArcherTower(string tag)
     {

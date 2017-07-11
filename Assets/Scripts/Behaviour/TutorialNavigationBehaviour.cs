@@ -28,15 +28,30 @@ public class TutorialNavigationBehaviour : MonoBehaviour {
 	private void Start () {
 		if (!tutorialPlane) {
 			//Instantiate(TutorialPlanePrefab, transform.position + transform.forward*10, transform.rotation);
-			tutorialPlane = Instantiate(TutorialPlanePrefab, EyeCameraInstance.transform.position + (EyeCameraInstance.transform.forward * 5), 
-				EyeCameraInstance.transform.rotation * TutorialPlanePrefab.transform.rotation);
+			//tutorialPlane = Instantiate(TutorialPlanePrefab, EyeCameraInstance.transform.position + (EyeCameraInstance.transform.forward * 5), 
+			//	EyeCameraInstance.transform.rotation * TutorialPlanePrefab.transform.rotation);
 			
+			//tutorialPlane = Instantiate(TutorialPlanePrefab, EyeCameraInstance.transform.parent);
+			tutorialPlane = Instantiate(TutorialPlanePrefab , EyeCameraInstance.transform.parent);
+			tutorialPlane.transform.rotation = Quaternion.Euler(90, 90, 360);
+			tutorialPlane.transform.position += tutorialPlane.transform.up * -10;
+			
+			//var lookDir = EyeCameraInstance.transform.position-tutorialPlane.transform.position;
+			//lookDir.y = 0; // keep only the horizontal direction
+			//transform.rotation = Quaternion.LookRotation(lookDir);
+			//tutorialPlane.transform.rotation = Quaternion.Euler(90, lookDir.y, 180);
+			//tutorialPlane.transform.position += tutorialPlane.transform.up * -10;
+
+			//tutorialPlane.transform.position += Vector3.up;
 			//tutorialPlane.transform.parent = transform.parent;
 		}
 	}
 
 	private void Update ()
 	{
+		Debug.Log("EyeCameraInstace " + EyeCameraInstance.transform.rotation);
+		
+		
 		if (!Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) return;
 		
 		

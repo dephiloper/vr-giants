@@ -7,12 +7,16 @@ public class EnemyBehaviour : MonoBehaviour
     public float Speed = 10f;
     public float DamageTransferCoefficient = 0.1f;
     public int TargetIndex;
-
+    public float BrickBoyVulnerability;
+    public float MageVulnerability;
+    public float ArcherVulnerability;
+    
     private HealthBehaviour healthBehaviour;
     private Transform target;
     private bool endReached;
     private float deltaTimeSum;
     private float targetStartY;
+    
 
     private void Start()
     {
@@ -71,7 +75,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             var endPointHealth = endPoint.GetComponentInChildren<HealthBehaviour>();
             if (endPointHealth)
-                endPointHealth.ReceiveDamage(healthBehaviour.Health * DamageTransferCoefficient);
+                endPointHealth.ReceiveDamage(Role.None, healthBehaviour.Health * DamageTransferCoefficient);
         }
     }
 

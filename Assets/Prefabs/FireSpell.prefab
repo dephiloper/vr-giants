@@ -107,8 +107,10 @@ MonoBehaviour:
     type: 2}
   Damage: 10
   Radius: 10
-  SpeedReduction: 0
+  SpeedReductionPercentage: 0
+  SpeedReductionTime: 5000
   IsConfusing: 0
+  DamageProducerRole: 1
 --- !u!198 &198434454830128626
 ParticleSystem:
   m_ObjectHideFlags: 1

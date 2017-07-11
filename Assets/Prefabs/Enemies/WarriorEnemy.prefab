@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 135699241212715506}
   - component: {fileID: 114495952970616142}
   m_Layer: 0
-  m_Name: SwordEnemy
+  m_Name: WarriorEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1026,6 +1026,9 @@ MonoBehaviour:
   Speed: 3
   DamageTransferCoefficient: 0.1
   TargetIndex: 0
+  BrickBoyVulnerability: 1
+  MageVulnerability: 0.5
+  ArcherVulnerability: 2
 --- !u!114 &114495952970616142
 MonoBehaviour:
   m_ObjectHideFlags: 1

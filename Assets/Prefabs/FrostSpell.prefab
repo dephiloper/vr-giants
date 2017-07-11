@@ -108,7 +108,9 @@ MonoBehaviour:
   Damage: 0
   Radius: 20
   SpeedReductionPercentage: 0.4
+  SpeedReductionTime: 5000
   IsConfusing: 0
+  DamageProducerRole: 1
 --- !u!198 &198434454830128626
 ParticleSystem:
   m_ObjectHideFlags: 1

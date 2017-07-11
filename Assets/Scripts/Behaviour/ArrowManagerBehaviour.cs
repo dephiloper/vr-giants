@@ -11,12 +11,13 @@ public class ArrowManagerBehaviour : MonoBehaviour {
     public Vector3 ArrowStartPosition = new Vector3(3.275f, 0f, 0f);
     public float ArrowOffset = 1.342f;
     public float StringStrengthModifier = 10f;
+    public int ArrowSpawnDelay = 1000;
 
     private const float MaxDistance = 6;
     private GameObject arrow;
     private readonly Vector3 stringPositionOffset = new Vector3(1.4f, 0f, 0f);
     private const float ArrowVelocityMultiplier = 6;
-    private Timer timer;
+    private Timer arrowSpawnerTimer;
     private Timer hapticPulseTimer;
 
     private SteamVR_Controller.Device Controller
@@ -52,7 +53,7 @@ public class ArrowManagerBehaviour : MonoBehaviour {
 
     private void SpawnArrow()
     {
-        if (timer == null || timer.IsTimeUp())
+        if (arrowSpawnerTimer == null || arrowSpawnerTimer.IsTimeUp())
         {
             arrow = Instantiate(ArrowPrefab);
             arrow.transform.parent = TrackedObj.transform;
@@ -123,13 +124,13 @@ public class ArrowManagerBehaviour : MonoBehaviour {
         arrow = null;
         IsArrowAttached = false;
         
-        if (timer == null)
+        if (arrowSpawnerTimer == null)
         {
-            timer = new Timer(3000, false);
+            arrowSpawnerTimer = new Timer(ArrowSpawnDelay, false);
         }
         else
         {
-            timer.Reset();
+            arrowSpawnerTimer.Reset();
         }
     }
 

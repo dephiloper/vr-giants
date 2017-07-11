@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 135942405299510726}
   - component: {fileID: 114823489818890536}
   m_Layer: 0
-  m_Name: BowEnemy
+  m_Name: ArcherEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1052,9 +1052,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3702d3333d64f994eb3e2666db8abbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  Speed: 3
   DamageTransferCoefficient: 0.1
   TargetIndex: 0
+  BrickBoyVulnerability: 0.5
+  MageVulnerability: 2
+  ArcherVulnerability: 1
 --- !u!114 &114823489818890536
 MonoBehaviour:
   m_ObjectHideFlags: 1

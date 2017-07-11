@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,15 +13,25 @@ public class HealthBehaviour : MonoBehaviour {
     private const string HealthMaterialName = "polyhealth";
     private float maxHealth;
 
-    public void ReceiveDamage(float damage)
+    public void ReceiveDamage(Role role, float damage)
     {
-        Health -= damage * (1 - Resistance);
-        AdjustHealthColor();
-    }
+        var calculatedDamage = damage;
+        var enemyBehaviour = GetComponent<EnemyBehaviour>();
+        switch (role)
+        {
+            case Role.Archer:
+                calculatedDamage = enemyBehaviour.ArcherVulnerability * damage;
+                break;
+            case Role.Mage:
+                calculatedDamage = enemyBehaviour.MageVulnerability * damage;
+                break;
+            case Role.BrickBoy:
+                calculatedDamage = enemyBehaviour.BrickBoyVulnerability * damage;
+                break;
+        }
 
-    public void ReceiveDamage()
-    {
-        Health = 0;
+        Health -= calculatedDamage;
+        AdjustHealthColor();
     }
 
     private void Start () {

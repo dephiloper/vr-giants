@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArrowBehaviour : MonoBehaviour
 {
     public GameObject CenterOfMass;
+    public float AttackDamage = 5;
     
     private SteamVR_TrackedObject trackedObj;
     
@@ -29,7 +30,7 @@ public class ArrowBehaviour : MonoBehaviour
             var healthBehaviour = other.GetComponent<HealthBehaviour>();
             if (healthBehaviour)
             {
-                healthBehaviour.ReceiveDamage();
+                healthBehaviour.ReceiveDamage(Role.Archer, AttackDamage);
             }
             
             var boxCollider = GetComponent<BoxCollider>();
@@ -49,9 +50,11 @@ public class ArrowBehaviour : MonoBehaviour
     
     private void AttachArrow(Component other)
     {
-        if (Controller.GetHairTriggerDown()) {
+        if (Controller.GetHairTrigger()) {
+            Debug.Log("GetHairTriggerDown - REMOVE");
             if (TagUtility.IsAttachable(other.gameObject.tag))
             {
+                Debug.Log("AttachArrowToBow - REMOVE");
                 ArrowManagerBehaviour.Instance.AttachArrowToBow();
             }
         }

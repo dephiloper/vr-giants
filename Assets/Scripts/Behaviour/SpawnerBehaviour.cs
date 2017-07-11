@@ -5,9 +5,10 @@ public class SpawnerBehaviour : MonoBehaviour {
 
     public static SpawnerBehaviour Instance { get; private set; }
 
-    public GameObject NormalEnemyPrefab;
-    public GameObject FastEnemyPrefab;
-    public GameObject ResistanceEnemyPrefab;
+    public GameObject WarriorEnemyPrefab;
+    public GameObject MageEnemyPrefab;
+    public GameObject ArcherEnemyPrefab;
+    public GameObject BossEnemyPrefab;
 
     public int TimeDelta = 100;
 
@@ -26,9 +27,10 @@ public class SpawnerBehaviour : MonoBehaviour {
         waveTimer = new Timer(20000, false);
         waves = new List<Wave>
         {
-            new Wave(NormalEnemyPrefab, 7),
-            new Wave(FastEnemyPrefab, 40),
-            new Wave(ResistanceEnemyPrefab, 25),
+            new Wave(WarriorEnemyPrefab, 10),
+            new Wave(MageEnemyPrefab, 10),
+            new Wave(ArcherEnemyPrefab, 10),
+            new Wave(BossEnemyPrefab, 1)
         };
     }
 

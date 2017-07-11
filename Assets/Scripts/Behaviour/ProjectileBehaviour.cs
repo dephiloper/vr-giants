@@ -34,7 +34,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 
         if (Vector3.Distance(transform.position, Target.position) <= 0.1f)
         {
-            Target.GetComponent<HealthBehaviour>().ReceiveDamage(Damage);
+            Target.GetComponent<HealthBehaviour>().ReceiveDamage(Role.None, Damage);
             var hitAnimation = Instantiate(HitPrefab);
             hitAnimation.transform.position = transform.position;
             Destroy(gameObject);

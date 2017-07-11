@@ -11,7 +11,15 @@ public class SpawnTowerBehaviour : MonoBehaviour {
     public Transform CameraRigTransform;
     public LayerMask PlaceMask;
     public float Threshold = 0.5f;
-    public GameObject PlaceAreas;
+    public GameObject PlaceArea;
+    public Material NormalPlaceArea;
+    public Material HighlightedPlaceArea;
+
+    
+    private static readonly List<GameObject> MageTowerList = new List<GameObject>();
+    private static readonly List<GameObject> ArcherTowerList = new List<GameObject>();
+    private static readonly List<GameObject> BrickBoyTowerList = new List<GameObject>();
+    private readonly Vector3 towerGroundOffset = Vector3.up * 3.2f;
 
     private SteamVR_TrackedObject trackedObj;
     private GameObject laser;
@@ -22,7 +30,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
     private bool showSelectionTower = false;
     private GameObject currentTowerPrefab;
 
-    private SteamVR_Controller.Device controller
+    private SteamVR_Controller.Device Controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
     }
@@ -43,7 +51,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
         laser.SetActive(false);
         selectionTower.SetActive(showSelectionTower);
 
-        if (controller.GetHairTriggerDown())
+        if (Controller.GetHairTriggerDown())
         {
             placeMode = true;
         }
@@ -58,30 +66,30 @@ public class SpawnTowerBehaviour : MonoBehaviour {
                 lastHit = hit;
             }
 
-            if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
+            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
             {
                 // oben
-                if (controller.GetAxis().y > Threshold)
+                if (Controller.GetAxis().y > Threshold)
                 {
                     currentTowerPrefab = BrickBoyTowerPrefab;
                     showSelectionTower = true;
                     ChangeChildColor(Color.red);
                 }
                 // unten
-                else if (controller.GetAxis().y < -Threshold)
+                else if (Controller.GetAxis().y < -Threshold)
                 {
                     currentTowerPrefab = null;
                     showSelectionTower = false;
                 }
                 // rechts
-                else if (controller.GetAxis().x > Threshold)
+                else if (Controller.GetAxis().x > Threshold)
                 {
                     currentTowerPrefab = MageTowerPrefab;
                     showSelectionTower = true;
                     ChangeChildColor(Color.magenta);
                 }
                 // links
-                else if (controller.GetAxis().x < -Threshold)
+                else if (Controller.GetAxis().x < -Threshold)
                 {
                     currentTowerPrefab = ArcherTowerPrefab;
                     showSelectionTower = true;
@@ -90,7 +98,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
             }
         }
 
-        if (controller.GetHairTriggerUp()) { 
+        if (Controller.GetHairTriggerUp()) { 
             if (lastHit.HasValue) { 
                 var hitMask = LayerMaskUtility.BitPositionToMask(lastHit.Value.transform.gameObject.layer);
                 if (placeMode && showSelectionTower && PlaceMask.value == hitMask)
@@ -107,10 +115,11 @@ public class SpawnTowerBehaviour : MonoBehaviour {
 
     private void HighlightPlaceAreas(bool isVisible)
     {
-        for (var i = 0; i < PlaceAreas.transform.childCount; i++)
-        {
-            PlaceAreas.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = isVisible;
-        }
+//        for (var i = 0; i < PlaceArea.transform.childCount; i++)
+//        {
+//            PlaceArea.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = isVisible;
+//        }
+        PlaceArea.GetComponent<Renderer>().material = isVisible ? HighlightedPlaceArea : NormalPlaceArea;
     }
 
     private void ChangeChildColor(Color color)
@@ -125,8 +134,33 @@ public class SpawnTowerBehaviour : MonoBehaviour {
     {
         var tower = Instantiate(currentTowerPrefab);
         tower.transform.position = selectionTower.transform.position;
-        tower.transform.position += Vector3.up * 2.5f;
+        //tower.transform.position += towerGroundOffset;
 
+        if (currentTowerPrefab.name.Equals(MageTowerPrefab.name))
+        {
+            AddNewTowerToList(MageTowerList, tower);
+        }
+        else if (currentTowerPrefab.name.Equals(BrickBoyTowerPrefab.name))
+        {
+            AddNewTowerToList(BrickBoyTowerList, tower);
+        } 
+        else if (currentTowerPrefab.name.Equals(ArcherTowerPrefab.name))
+        {
+            AddNewTowerToList(ArcherTowerList, tower);
+        } 
+    }
+
+    private void AddNewTowerToList(List<GameObject> list, GameObject newTower)
+    {
+        if (list.Count > 1)
+        {
+            Debug.Log("Tower added");
+            var oldTower = list[0];
+            list.RemoveAt(0);
+            Destroy(oldTower);
+        }
+        
+        list.Add(newTower);
     }
 
     private void ShowLaser(RaycastHit hit)
@@ -136,6 +170,7 @@ public class SpawnTowerBehaviour : MonoBehaviour {
         laserTransform.LookAt(hit.point);
         laserTransform.localScale = new Vector3(laserTransform.localScale.x, laserTransform.localScale.y, hit.distance);
         selectionTower.transform.position = hit.point;
+	    selectionTower.transform.position += towerGroundOffset;
        
         var hitMask = LayerMaskUtility.BitPositionToMask(hit.transform.gameObject.layer);
 

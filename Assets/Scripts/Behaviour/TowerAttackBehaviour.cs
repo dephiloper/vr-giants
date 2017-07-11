@@ -44,7 +44,9 @@ public class TowerAttackBehaviour : MonoBehaviour {
                 var spawnPos = transform.position;
                 spawnPos.y = ProjectileHeightOffset;
                 projectile = Instantiate(ProjectilePrefab, spawnPos, Quaternion.identity);
-                projectile.GetComponent<ProjectileBehaviour>().Target = currentTarget.transform;
+                var projectileBehaviour = projectile.GetComponent<ProjectileBehaviour>();
+                projectileBehaviour.Target = currentTarget.transform;
+                projectileBehaviour.Damage = AttackDamage;
             }
             else
             {

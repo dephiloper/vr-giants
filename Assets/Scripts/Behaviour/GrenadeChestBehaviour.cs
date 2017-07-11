@@ -31,7 +31,6 @@ public class GrenadeChestBehaviour : MonoBehaviour {
             {
                 if (grenades[i] == null)
                 {
-                    //grenades[i] = Instantiate(GrenadePrefab, slots[i].transform.position, Quaternion.identity);
                     grenades[i] = Instantiate(GrenadePrefab, slots[i].transform.position, GrenadePrefab.transform.rotation);
                     break;
                 }

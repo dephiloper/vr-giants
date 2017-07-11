@@ -67,6 +67,7 @@ public class GiantMoveBehaviour : MonoBehaviour {
         var hitMask = LayerMaskUtility.BitPositionToMask(hit.transform.gameObject.layer);
         if ((TeleportMask.value & hitMask) != 0)
         {
+            difference.y -= hit.point.y;
             CameraRigTransform.position = hit.point + difference;
         }
         else if ((StandOnMask.value & hitMask) != 0)

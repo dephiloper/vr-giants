@@ -28,7 +28,7 @@ public class BowManagerBehaviour : MonoBehaviour {
         if (Bow != null) return;
         
         Bow = Instantiate(BowPrefab);
-        String = Bow.transform.Find("Bow/main/string").gameObject; // rework this
+        String = Bow.transform.Find("Bow/main/string").gameObject;
         Bow.transform.parent = TrackedObj.transform;
         Bow.transform.localPosition = new Vector3(0, 0, 0);
     }

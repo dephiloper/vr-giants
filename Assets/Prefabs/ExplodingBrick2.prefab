@@ -173,3 +173,7 @@ MonoBehaviour:
     type: 2}
   Damage: 20
   Radius: 20
+  SpeedReductionPercentage: 0
+  SpeedReductionTime: 5000
+  IsConfusing: 0
+  DamageProducerRole: 2

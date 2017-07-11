@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerGrabObject : MonoBehaviour {
+public class BrickGrabBehaviour : MonoBehaviour {
 
 	private GameObject collidingObject;
 	private GameObject objectInHand;

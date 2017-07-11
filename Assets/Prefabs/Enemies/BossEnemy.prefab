@@ -1025,7 +1025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VanishPrefab: {fileID: 1184493566096746, guid: e6488fe8744cb2047a0f2ce240eccc0a,
     type: 2}
-  Health: 5
+  Health: 100
   Resistance: 0.1
   VanishingTime: 1.5
 --- !u!114 &114337731051021978
@@ -1039,9 +1039,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3702d3333d64f994eb3e2666db8abbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  Speed: 4
   DamageTransferCoefficient: 0.1
   TargetIndex: 0
+  BrickBoyVulnerability: 1
+  MageVulnerability: 1
+  ArcherVulnerability: 1
 --- !u!114 &114561645822218140
 MonoBehaviour:
   m_ObjectHideFlags: 1

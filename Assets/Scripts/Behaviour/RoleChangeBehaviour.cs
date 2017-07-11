@@ -19,7 +19,7 @@ public class RoleChangeBehaviour : MonoBehaviour {
 
     private void ChangeRole(Role value)
     {
-        var grabBehaviours = GetComponentsInChildren<ControllerGrabObject>();
+        var grabBehaviours = GetComponentsInChildren<BrickGrabBehaviour>();
         var arrowManagerBehaviour = GetComponentInChildren<ArrowManagerBehaviour>();
         var bowManagerBehaviour = GetComponentInChildren<BowManagerBehaviour>();
         var spellCastDetectionBehaviour = GetComponentsInChildren<SpellCastDetectionBehaviour>();

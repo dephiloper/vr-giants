@@ -8,6 +8,7 @@ public class ExplosionBehaviour : MonoBehaviour {
     public float SpeedReductionPercentage = 0;
     public int SpeedReductionTime = 5000;
     public bool IsConfusing = false;
+    public Role DamageProducerRole;
     
     private void OnCollisionEnter(Collision other)
     {
@@ -36,7 +37,7 @@ public class ExplosionBehaviour : MonoBehaviour {
                     var healthDiff = Damage - distance;
                     healthDiff = healthDiff <= 0 ? 0 : healthDiff;
                     
-                    enemyHealth.ReceiveDamage(healthDiff);
+                    enemyHealth.ReceiveDamage(DamageProducerRole, healthDiff);
                 }
                 if (enemyDebuff)
                 {

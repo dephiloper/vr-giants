@@ -14,7 +14,10 @@ TagManager:
   - Arrow
   - SelectionTower
   - Terrain
-  - Button
+  - TutorialPlane
+  - TutorialButton
+  - RestartButton
+  - QuitButton
   layers:
   - Default
   - TransparentFX

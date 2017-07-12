@@ -9,7 +9,7 @@ public class TutorialBehaviour : MonoBehaviour
 	public Material[] Materials;
 
 	private SteamVR_Controller trackedObj;
-	private Renderer renderer;
+	private new Renderer[] renderer;
 	private int currentMaterialIndex = 0;
 
 
@@ -19,8 +19,17 @@ public class TutorialBehaviour : MonoBehaviour
 		}
 		
 		// change Spawn to Eye Position
-		renderer = GetComponent<Renderer>();
-		renderer.material = Materials[currentMaterialIndex];
+		renderer = GetComponentsInChildren<Renderer>();
+
+		ChangeMaterial();
+	}
+
+	private void ChangeMaterial()
+	{
+		foreach (var r in renderer)
+		{
+			r.material = Materials[currentMaterialIndex];
+		}
 	}
 
 	private void OnDestroy(){
@@ -36,17 +45,27 @@ public class TutorialBehaviour : MonoBehaviour
 	public void NextTutorialPage(){
 		if (currentMaterialIndex < Materials.Length-1) {
 			currentMaterialIndex++;
-			renderer.material = Materials[currentMaterialIndex];
+			ChangeMaterial();
 		}
 	}
 
 	public void PreviousTutorialPage(){
 		if (currentMaterialIndex > 0) {
-			renderer.material = Materials[--currentMaterialIndex];
+			currentMaterialIndex--;
+			ChangeMaterial();
 		}
 	}
 
 	public void ExitTutorial(){
 		Destroy(gameObject);
+	}
+
+	public void Hide()
+	{
+		foreach (var r in renderer)
+		{
+			if (r.enabled)
+				r.enabled = false;
+		}
 	}
 }

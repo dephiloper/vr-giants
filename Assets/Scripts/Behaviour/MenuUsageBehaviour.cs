@@ -11,31 +11,28 @@ public class MenuUsageBehaviour : MonoBehaviour
         trackedObj = GetComponent<SteamVR_TrackedObject> ();
     }
 
-    private void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Menu is open.");         
-    }
-
-    private void OnDestroy()
-    {
-        Debug.Log("Menu is closed.");         
-    }
-
-    private void OnTriggerEnter(Collider other){
-        if (TagUtility.IsButton(other.gameObject.tag)) {
-            if (Controller.GetHairTrigger()) {
-                var quitButtonBehaviour = other.GetComponent<QuitButtonBehaviour>();
-                var restartButtonBehaviour = other.GetComponent<RestartButtonBehaviour>();
-                var tutorialButtonBehaviour = other.GetComponent<TutorialButtonBehaviour>();
-                if (quitButtonBehaviour){
-                    quitButtonBehaviour.OnButtonPressed();
-                } else if (restartButtonBehaviour) {
-                    restartButtonBehaviour.OnButtonPressed();
-                } else if (tutorialButtonBehaviour) {
-                    if (MenuManagerBehaviour.Menu)
+        var colliderTag = other.gameObject.tag;
+        
+        if (TagUtility.IsButton(colliderTag)) 
+        {
+            if (Controller.GetHairTrigger()) 
+            {
+                if (TagUtility.IsTutorialButton(colliderTag))
+                {
+                    if (MenuManagerBehaviour.Menu) {
                         Destroy(MenuManagerBehaviour.Menu);
-                    
+                    }
                     transform.parent.GetComponent<MovementChangeBehaviour>().MovementState = State.Tutorial;
+                }
+                else if (TagUtility.IsRestartButton(colliderTag))
+                {
+                    SteamVR_LoadLevel.Begin("Game");
+                }
+                else if (TagUtility.IsQuitButton(colliderTag))
+                {
+                    Application.Quit();
                 }
             }
         }

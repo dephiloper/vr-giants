@@ -72,8 +72,8 @@ GameObject:
   - component: {fileID: 4005315543569836}
   - component: {fileID: 114759349052961348}
   - component: {fileID: 114903833968900888}
-  - component: {fileID: 135292048489446428}
   - component: {fileID: 114503291444935938}
+  - component: {fileID: 136056872678458594}
   m_Layer: 0
   m_Name: MageEnemy
   m_TagString: Enemy
@@ -1053,11 +1053,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VanishPrefab: {fileID: 1184493566096746, guid: e6488fe8744cb2047a0f2ce240eccc0a,
     type: 2}
-  Health: 5
-  Resistance: 0.1
+  Health: 10
   VanishingTime: 1.5
---- !u!135 &135292048489446428
-SphereCollider:
+--- !u!136 &136056872678458594
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -1065,6 +1064,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Radius: 0.1
+  m_Height: 0.3
+  m_Direction: 1
+  m_Center: {x: -0.01, y: 0.235, z: 0}

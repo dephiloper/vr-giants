@@ -25,12 +25,11 @@ public class ArrowBehaviour : MonoBehaviour
         
         if (TagUtility.IsShootableEntity(other.gameObject.tag))
         {
-            Debug.Log(other.name);
-            
             var healthBehaviour = other.GetComponent<HealthBehaviour>();
             if (healthBehaviour)
             {
                 healthBehaviour.ReceiveDamage(Role.Archer, AttackDamage);
+                transform.parent = healthBehaviour.transform;
             }
             
             var boxCollider = GetComponent<BoxCollider>();
@@ -39,7 +38,7 @@ public class ArrowBehaviour : MonoBehaviour
             rigidBody.isKinematic = true;
             rigidBody.velocity = Vector3.zero;
             
-            Destroy(gameObject, 10f);
+            Destroy(gameObject, 3f);
         }
     }
 
@@ -51,10 +50,8 @@ public class ArrowBehaviour : MonoBehaviour
     private void AttachArrow(Component other)
     {
         if (Controller.GetHairTrigger()) {
-            Debug.Log("GetHairTriggerDown - REMOVE");
             if (TagUtility.IsAttachable(other.gameObject.tag))
             {
-                Debug.Log("AttachArrowToBow - REMOVE");
                 ArrowManagerBehaviour.Instance.AttachArrowToBow();
             }
         }

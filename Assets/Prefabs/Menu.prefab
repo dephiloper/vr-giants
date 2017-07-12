@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222114704095858102}
   - component: {fileID: 114392728672076662}
   - component: {fileID: 114104984963247074}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 222077782472604074}
   - component: {fileID: 114474239497496394}
   - component: {fileID: 114256511364579076}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 224232474960102622}
   - component: {fileID: 222607163423321822}
   - component: {fileID: 114393033751466870}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,10 +73,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4072660890555150}
   - component: {fileID: 65496658371845092}
-  - component: {fileID: 114708922015080428}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TutorialButtonCollider
-  m_TagString: Button
+  m_TagString: TutorialButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +91,7 @@ GameObject:
   - component: {fileID: 222936098029242498}
   - component: {fileID: 114364713477532264}
   - component: {fileID: 114903288164523038}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,10 +107,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4265514471080106}
   - component: {fileID: 65133938902758528}
-  - component: {fileID: 114809009623180798}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RestartButtonCollider
-  m_TagString: Button
+  m_TagString: RestartButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +124,7 @@ GameObject:
   - component: {fileID: 224559294289180490}
   - component: {fileID: 222413880411981218}
   - component: {fileID: 114684187972081930}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +142,7 @@ GameObject:
   - component: {fileID: 223055692567028980}
   - component: {fileID: 114467218504704464}
   - component: {fileID: 114632143844193536}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,10 +158,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4540090291389828}
   - component: {fileID: 65741751889757990}
-  - component: {fileID: 114339906511764620}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: QuitButtonCollider
-  m_TagString: Button
+  m_TagString: QuitButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,7 +175,7 @@ GameObject:
   - component: {fileID: 224269667088488210}
   - component: {fileID: 222643024034379978}
   - component: {fileID: 114775405206746312}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,17 +342,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114339906511764620
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1828203532383642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f27150a778c11a4e8f730decc377c67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114364713477532264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -540,17 +526,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Quit
---- !u!114 &114708922015080428
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1324264443049624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f94c550e297ca1048b5e8ffd8529430c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114775405206746312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -584,17 +559,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Tutorial
---- !u!114 &114809009623180798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1478446322791526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5829f346b19ddd142b69778ebdb1b0f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114903288164523038
 MonoBehaviour:
   m_ObjectHideFlags: 1

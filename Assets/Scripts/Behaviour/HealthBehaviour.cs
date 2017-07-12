@@ -7,7 +7,6 @@ public class HealthBehaviour : MonoBehaviour {
 
     public GameObject VanishPrefab;
     public float Health = 10;
-    public float Resistance = 0.1f;
     public float VanishingTime = 1.5f;
     
     private const string HealthMaterialName = "polyhealth";

@@ -15,6 +15,10 @@ public class TagUtility  {
     // terrain
     // gamecontroller
     // button
+    // tutorialplane
+    // tutorialbutton
+    // restartbutton
+    // quitbutton
     
     public static bool IsExplodableEntity(string tag)
     {
@@ -78,10 +82,23 @@ public class TagUtility  {
         return role;
     }
 
-    public static bool IsButton(string tag){
-        return "button".Equals(tag.ToLower());
+    public static bool IsTutorialButton(string tag){
+        return "tutorialbutton".Equals(tag.ToLower());
     }
 
+    public static bool IsRestartButton(string tag){
+        return "restartbutton".Equals(tag.ToLower());
+    }
+    
+    public static bool IsQuitButton(string tag){
+        return "quitbutton".Equals(tag.ToLower());
+    }
+    
+    public static bool IsTutorialPlane(string tag)
+    {
+        return "tutorialplane".Equals(tag.ToLower());
+    }
+    
     public static bool CompareRoleWithTowerTag(Role currentRole, string towerTag){
         var lowerTag = towerTag.ToLower();
         switch (currentRole) {
@@ -100,5 +117,9 @@ public class TagUtility  {
         }
     }
 
-    
+
+    public static bool IsButton(string tag)
+    {
+         return tag.ToLower().Contains("button");
+    }
 }

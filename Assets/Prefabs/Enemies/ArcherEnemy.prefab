@@ -242,8 +242,8 @@ GameObject:
   - component: {fileID: 114761882749260194}
   - component: {fileID: 114245931194319836}
   - component: {fileID: 65461429002150808}
-  - component: {fileID: 135942405299510726}
   - component: {fileID: 114823489818890536}
+  - component: {fileID: 136981051083111906}
   m_Layer: 0
   m_Name: ArcherEnemy
   m_TagString: Enemy
@@ -379,7 +379,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984413842837812}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -152.7, y: 3.249998, z: 133.77614}
+  m_LocalPosition: {x: 5.652375, y: 4.2996144, z: -184.68463}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4022522499535910}
@@ -1038,8 +1038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VanishPrefab: {fileID: 1184493566096746, guid: e6488fe8744cb2047a0f2ce240eccc0a,
     type: 2}
-  Health: 5
-  Resistance: 0.1
+  Health: 10
   VanishingTime: 1.5
 --- !u!114 &114761882749260194
 MonoBehaviour:
@@ -1069,8 +1068,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2723f5ea174ff34b8b61c01a6c87e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135942405299510726
-SphereCollider:
+--- !u!136 &136981051083111906
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -1078,6 +1077,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Radius: 0.1
+  m_Height: 0.3
+  m_Direction: 1
+  m_Center: {x: -0.01, y: 0.235, z: 0}

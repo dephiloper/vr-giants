@@ -60,7 +60,6 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
 
         if (Controller.GetHairTrigger() && currentSpell)
         {
-            Debug.Log("hallo");
             currentSpell.transform.parent = null;
             var spellRigidbody = currentSpell.AddComponent<Rigidbody>();
             spellRigidbody.useGravity = false;
@@ -69,13 +68,14 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        DestroySpells();
+    }
+
     private void DestroySpells()
     {
         Destroy(currentSpell);
-//		Destroy(fireSpell);
-//		Destroy(frostSpell);
-//		Destroy(lightningSpell);
-//		Destroy(castFailed);
     }
 
     private void SpawnSpells(GestureDetectionUtility.Result detectionResult)

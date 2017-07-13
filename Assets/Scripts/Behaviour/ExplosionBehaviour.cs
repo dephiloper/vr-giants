@@ -32,12 +32,12 @@ public class ExplosionBehaviour : MonoBehaviour {
                 var enemyDebuff = hitColliders[i].gameObject.GetComponent<DebuffBehaviour>();
                 if (enemyHealth)
                 {
-                    var distance = (int) Vector3.Distance(hitColliders[i].gameObject.transform.position,
-                        transform.position);
-                    var healthDiff = Damage - distance;
-                    healthDiff = healthDiff <= 0 ? 0 : healthDiff;
+                    //var distance = (int) Vector3.Distance(hitColliders[i].gameObject.transform.position,
+                    //    transform.position);
+                    //var damageDiff = Damage - distance;
+                    //damageDiff = damageDiff <= 0 ? 0 : damageDiff;
                     
-                    enemyHealth.ReceiveDamage(DamageProducerRole, healthDiff);
+                    enemyHealth.ReceiveDamage(DamageProducerRole, Damage);
                 }
                 if (enemyDebuff)
                 {

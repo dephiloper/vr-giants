@@ -39,7 +39,7 @@ public class GestureDetectionUtility
 
         Result detectionResult;
 
-        if (IsClosedShape(rebasedPoints))
+        if (!IsClosedShape(rebasedPoints))
         {
             detectionResult = Result.NotDetectable;
         }

@@ -106,7 +106,7 @@ MonoBehaviour:
   ExplosionPrefab: {fileID: 1895309500806182, guid: 3694290e8125d234fb80a3f0cc0072f2,
     type: 2}
   Damage: 0
-  Radius: 2
+  Radius: 5
   SpeedReductionPercentage: 0
   SpeedReductionTime: 5000
   IsConfusing: 1

@@ -5,9 +5,9 @@ public class SpawnerBehaviour : MonoBehaviour {
 
     public static SpawnerBehaviour Instance { get; private set; }
 
-    public GameObject WarriorEnemyPrefab;
-    public GameObject MageEnemyPrefab;
-    public GameObject ArcherEnemyPrefab;
+    public GameObject[] NormalEnemyPrefabs;
+    public GameObject[] MidEnemyPrefabs;
+    
     public GameObject BossEnemyPrefab;
 
     public int UnitTimeDelta = 100;
@@ -26,10 +26,10 @@ public class SpawnerBehaviour : MonoBehaviour {
         }
         waves = new List<Wave>
         {
-            new Wave(WarriorEnemyPrefab, 10),
-            new Wave(MageEnemyPrefab, 10),
-            new Wave(ArcherEnemyPrefab, 10),
-            new Wave(BossEnemyPrefab, 1)
+            new Wave(6, NormalEnemyPrefabs, MidEnemyPrefabs),
+            new Wave(12, NormalEnemyPrefabs, MidEnemyPrefabs),
+            new Wave(15, NormalEnemyPrefabs, MidEnemyPrefabs),
+            new Wave(1, BossEnemyPrefab)
         };
     }
 
@@ -47,7 +47,7 @@ public class SpawnerBehaviour : MonoBehaviour {
         if (waveTimer != null && waveTimer.IsTimeUp()) { 
             if (unitTimer != null && unitTimer.IsTimeUp())
             {
-                SpawnUnit(waves[currentWave].Enemy, waves[currentWave].Units);
+                SpawnUnit(waves[currentWave].NextEnemy(), waves[currentWave].Units);
                 unitTimer.Reset();
             }
         }

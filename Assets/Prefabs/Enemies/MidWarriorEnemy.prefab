@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114495952970616142}
   - component: {fileID: 136838569748936870}
   m_Layer: 0
-  m_Name: WarriorEnemy
+  m_Name: MidWarriorEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,7 +353,7 @@ Transform:
   m_GameObject: {fileID: 1309957611785334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
   - {fileID: 4678680531694242}
   m_Father: {fileID: 0}
@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VanishPrefab: {fileID: 1184493566096746, guid: e6488fe8744cb2047a0f2ce240eccc0a,
     type: 2}
-  Health: 10
+  Health: 30
   VanishingTime: 1.5
 --- !u!136 &136838569748936870
 CapsuleCollider:

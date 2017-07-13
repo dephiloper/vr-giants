@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ExplosionPrefab: {fileID: 1395033666844318, guid: 9a43a9b2d91d74b45b468eabb81c732c,
     type: 2}
-  Damage: 10
+  Damage: 5
   Radius: 10
   SpeedReductionPercentage: 0
   SpeedReductionTime: 5000

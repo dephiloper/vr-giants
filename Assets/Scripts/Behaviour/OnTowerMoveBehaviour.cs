@@ -63,7 +63,6 @@ public class OnTowerMoveBehaviour : MonoBehaviour {
             var currentRole = CameraRigTransform.GetComponent<RoleChangeBehaviour>().TowerRole;
 
             if (TagUtility.CompareRoleWithTowerTag(currentRole, hit.transform.tag)) {
-                Debug.Log("wqirejwqrjh");
                 CameraRigTransform.position = hit.point;
                 CameraRigTransform.position += difference;
             }

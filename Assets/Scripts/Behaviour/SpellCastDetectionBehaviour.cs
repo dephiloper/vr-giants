@@ -53,7 +53,7 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
         {
             isTracking = false;
             DestroySpells();
-            var detectionResult = GestureDetectionUtility.Detect(points);
+            var detectionResult = GestureDetectionUtility.Detect(points, true);
             Debug.Log(detectionResult);
             SpawnSpells(detectionResult);
         }

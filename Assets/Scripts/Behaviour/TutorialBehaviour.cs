@@ -6,13 +6,12 @@ public class TutorialBehaviour : MonoBehaviour
 {
 	public static TutorialBehaviour Instance { get; private set; }
 	
-	
 	public Material[] Materials;
 
 	private SteamVR_Controller trackedObj;
 	private new Renderer[] renderer;
 	private int currentMaterialIndex = 0;
-
+		
 
 	void Start (){
 		if (!Instance) {
@@ -39,10 +38,6 @@ public class TutorialBehaviour : MonoBehaviour
 		}
 	}
 
-	void Update () {
-		
-	}
-
 	public void NextTutorialPage(){
 		if (currentMaterialIndex < Materials.Length-1) {
 			currentMaterialIndex++;
@@ -57,8 +52,10 @@ public class TutorialBehaviour : MonoBehaviour
 		}
 	}
 
-	public void ExitTutorial(){
+	public void ExitTutorial()
+	{
 		Destroy(gameObject);
+		SpawnerBehaviour.Instance.StartSpawning();
 	}
 
 	public void Hide()

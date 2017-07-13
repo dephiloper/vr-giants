@@ -10,8 +10,9 @@ public class SpawnerBehaviour : MonoBehaviour {
     public GameObject ArcherEnemyPrefab;
     public GameObject BossEnemyPrefab;
 
-    public int TimeDelta = 100;
-
+    public int UnitTimeDelta = 100;
+    public int WaveTimeDelta = 20000;
+    
     private int spawnedUnits;
     private Timer unitTimer;
     private Timer waveTimer;
@@ -23,8 +24,6 @@ public class SpawnerBehaviour : MonoBehaviour {
         {
             Instance = this;
         }
-        unitTimer = new Timer(TimeDelta, false);
-        waveTimer = new Timer(20000, false);
         waves = new List<Wave>
         {
             new Wave(WarriorEnemyPrefab, 10),
@@ -34,9 +33,19 @@ public class SpawnerBehaviour : MonoBehaviour {
         };
     }
 
+    public void StartSpawning()
+    {
+        if (waveTimer == null && unitTimer == null)
+        {
+            unitTimer = new Timer(UnitTimeDelta, false);
+            waveTimer = new Timer(WaveTimeDelta, false);
+        }
+    }
+
     private void Update()
-    {   if (waveTimer.IsTimeUp()) { 
-            if (unitTimer.IsTimeUp())
+    {
+        if (waveTimer != null && waveTimer.IsTimeUp()) { 
+            if (unitTimer != null && unitTimer.IsTimeUp())
             {
                 SpawnUnit(waves[currentWave].Enemy, waves[currentWave].Units);
                 unitTimer.Reset();

@@ -34,8 +34,6 @@ public class TowerAttackBehaviour : MonoBehaviour {
             currentTarget = FindClosestEnemy();
         }
         
-        
-        
         if (currentTarget)
         {
             var distance = Vector2.Distance(new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z), 
@@ -58,18 +56,22 @@ public class TowerAttackBehaviour : MonoBehaviour {
 
     private GameObject FindClosestEnemy()
     {
-        var enemiesTransform = SpawnerBehaviour.Instance.getChildren();
+        var spawnerBehaviour = SpawnerBehaviour.Instance;
+        
+        if (!spawnerBehaviour || spawnerBehaviour.getChildren().Length == 0)
+            return null;
+        
         var closest = -1;
         var lastDistance = float.MaxValue;
-        for (var i = 0; i < enemiesTransform.Length; i++)
+        for (var i = 0; i < spawnerBehaviour.getChildren().Length; i++)
         {
-            var dist = Vector3.Distance(enemiesTransform[i].position, transform.position);
+            var dist = Vector3.Distance(spawnerBehaviour.getChildren()[i].position, transform.position);
             if (dist < lastDistance)
             {
                 closest = i;
                 lastDistance = dist;
             }
         }
-        return closest != -1 ? enemiesTransform[closest].gameObject : null;
+        return closest != -1 ? spawnerBehaviour.getChildren()[closest].gameObject : null;
     }
 }

@@ -81,22 +81,9 @@ public class ArrowManagerBehaviour : MonoBehaviour {
         if (bowBehaviour == null) return;
 
         var distance = Vector3.Distance(BowManagerBehaviour.Instance.TrackedObj.transform.position, TrackedObj.transform.position);
-        distance*= StringStrengthModifier;
+        distance *= StringStrengthModifier;
         distance = distance <= MaxDistance ? distance : MaxDistance;
         bowBehaviour.String.transform.localPosition = new Vector3(distance, 0f, 0f);
-
-        // Implement later in a better and cooler way
-        /*if (hapticPulseTimer == null || hapticPulseTimer.IsTimeUp())
-        {
-            ApplyHapticFeedback(distance);
-            if (hapticPulseTimer == null)
-            {
-                hapticPulseTimer = new Timer(100, false);    
-            } else 
-            {
-                hapticPulseTimer.Reset();
-            }
-        }*/
         
         if (Controller.GetHairTriggerUp())
         {

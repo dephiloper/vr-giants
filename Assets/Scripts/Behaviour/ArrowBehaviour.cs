@@ -6,7 +6,7 @@ public class ArrowBehaviour : MonoBehaviour
 {
     public GameObject CenterOfMass;
     public float AttackDamage = 5;
-    
+
     private SteamVR_TrackedObject trackedObj;
     
     private SteamVR_Controller.Device Controller
@@ -52,6 +52,7 @@ public class ArrowBehaviour : MonoBehaviour
         if (Controller.GetHairTrigger()) {
             if (TagUtility.IsAttachable(other.gameObject.tag))
             {
+                Debug.Log("Arrow should get attached now");
                 ArrowManagerBehaviour.Instance.AttachArrowToBow();
             }
         }

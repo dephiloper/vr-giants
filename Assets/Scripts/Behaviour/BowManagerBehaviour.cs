@@ -8,7 +8,7 @@ public class BowManagerBehaviour : MonoBehaviour {
     public GameObject BowPrefab;
     public GameObject Bow { get; private set; }
     public GameObject String { get; private set; }
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -20,10 +20,9 @@ public class BowManagerBehaviour : MonoBehaviour {
     private void Start()
     {
         TrackedObj = GetComponent<SteamVR_TrackedObject>();
-       
     }
 
-    private void AttachBow()
+    private void SpawnBow()
     {
         if (Bow != null) return;
         
@@ -48,6 +47,6 @@ public class BowManagerBehaviour : MonoBehaviour {
 
     private void Update()
     {
-        AttachBow();
+        SpawnBow();
     }
 }

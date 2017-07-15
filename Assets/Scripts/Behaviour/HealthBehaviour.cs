@@ -29,10 +29,13 @@ public class HealthBehaviour : MonoBehaviour {
                 break;
         }
 
-        Debug.Log(transform.name + " damaged by the value of " + calculatedDamage);
-        
         Health -= calculatedDamage;
         AdjustHealthColor();
+        
+        if (role != Role.None) 
+        {
+            GameScoreBehaviour.Instance.DealedDamage += calculatedDamage;
+        }
     }
 
     private void Start () {

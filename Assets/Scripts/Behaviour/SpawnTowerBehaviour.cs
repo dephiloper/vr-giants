@@ -43,16 +43,21 @@ public class SpawnTowerBehaviour : MonoBehaviour {
     private void Start () {
         laser = Instantiate(LaserPrefab);
         laserTransform = laser.transform;
-        selectionTower = Instantiate(SelectionTowerPrefab);
     }
     
     private void Update()
     {
         laser.SetActive(false);
-        selectionTower.SetActive(showSelectionTower);
-
+        if (selectionTower != null) {
+            selectionTower.SetActive(showSelectionTower);
+        }
+            
         if (Controller.GetHairTriggerDown())
         {
+            if (selectionTower == null)
+            {
+                selectionTower = Instantiate(SelectionTowerPrefab);
+            }
             placeMode = true;
         }
 

@@ -43,13 +43,13 @@ public class GestureDetectionUtility
         {
             detectionResult = Result.NotDetectable;
         }
-        else if (corners.Count < 3) {
+        else if (corners.Count < 2) {
             detectionResult = IsCircleShape(rebasedPoints) ? Result.Circle : Result.NotDetectable;
         }
-        else if (corners.Count < 4) {
+        else if (corners.Count == 3) {
             detectionResult = Result.Triangle;
         }
-        else if (corners.Count < 5)
+        else if (corners.Count == 4)
         {
 
            /* for (var i = 0; i < corners.Count; i++)

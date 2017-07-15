@@ -18,6 +18,11 @@ TagManager:
   - TutorialButton
   - RestartButton
   - QuitButton
+  - BrickBoyTower2
+  - Forest
+  - Mountain
+  - Path
+  - Place
   layers:
   - Default
   - TransparentFX

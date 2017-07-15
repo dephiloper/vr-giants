@@ -32,6 +32,7 @@ public class RoleChangeBehaviour : MonoBehaviour {
         foreach (var behaviour in spellCastDetectionBehaviour)
         {
             behaviour.enabled = (value == Role.Mage);
+            
         }
 
         if (bowManagerBehaviour)

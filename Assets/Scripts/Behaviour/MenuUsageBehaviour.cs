@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuUsageBehaviour : MonoBehaviour
 {
@@ -17,9 +18,9 @@ public class MenuUsageBehaviour : MonoBehaviour
         
         if (TagUtility.IsButton(colliderTag)) 
         {
-            if (Controller.GetHairTrigger()) 
+            if (Controller.GetHairTrigger())
             {
-                if (TagUtility.IsTutorialButton(colliderTag))
+                if (TagUtility.IsTutorialButton(colliderTag) && IsGameScene())
                 {
                     if (MenuManagerBehaviour.Menu) {
                         Destroy(MenuManagerBehaviour.Menu);
@@ -36,5 +37,11 @@ public class MenuUsageBehaviour : MonoBehaviour
                 }
             }
         }
+    }
+
+    private bool IsGameScene()
+    {
+        var activeScene = SceneManager.GetActiveScene();
+        return     activeScene.name.Equals("Game");
     }
 }

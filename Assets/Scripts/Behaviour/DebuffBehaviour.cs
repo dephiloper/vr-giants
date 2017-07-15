@@ -33,7 +33,7 @@ public class DebuffBehaviour : MonoBehaviour
 		var enemyBehaviour = GetComponent<EnemyBehaviour>();
 		if (enemyBehaviour)
 		{
-			enemyBehaviour.TargetIndex = 0;
+			enemyBehaviour.TargetIndex = enemyBehaviour.TargetIndex > 2 ? enemyBehaviour.TargetIndex - 2 : 0;
 		}
 	}
 

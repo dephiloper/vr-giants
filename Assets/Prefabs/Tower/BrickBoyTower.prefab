@@ -833,7 +833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GrenadePrefab: {fileID: 1726198435171158, guid: f297239976e963d408e09fe152c79135,
     type: 2}
-  TimeDelta: 3000
+  TimeDelta: 1000
 --- !u!114 &114730910015029272
 MonoBehaviour:
   m_ObjectHideFlags: 1

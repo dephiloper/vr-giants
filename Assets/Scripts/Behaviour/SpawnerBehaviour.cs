@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerBehaviour : MonoBehaviour {
@@ -9,6 +10,7 @@ public class SpawnerBehaviour : MonoBehaviour {
     public GameObject[] MidEnemyPrefabs;
     
     public GameObject BossEnemyPrefab;
+    public GameObject CameraRig;
 
     public int UnitTimeDelta = 100;
     public int WaveTimeDelta = 20000;
@@ -39,6 +41,7 @@ public class SpawnerBehaviour : MonoBehaviour {
         {
             unitTimer = new Timer(UnitTimeDelta, false);
             waveTimer = new Timer(WaveTimeDelta, false);
+            GameScoreBehaviour.Instance.StartTime = DateTime.Now;
         }
     }
 
@@ -68,12 +71,25 @@ public class SpawnerBehaviour : MonoBehaviour {
             var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             enemy.transform.parent = transform;
             spawnedUnits++;
-        } else if (currentWave < waves.Count - 1 && transform.childCount == 0)
+        } else if (transform.childCount == 0)
         {
-            spawnedUnits = 0;
-            currentWave++;
-            waveTimer.Reset();
+            if (currentWave < waves.Count - 1)
+            {
+                spawnedUnits = 0;
+                currentWave++;
+                waveTimer.Reset();
+
+            }
+            else
+            {
+                var gameScoreBehaviour = CameraRig.GetComponent<GameScoreBehaviour>();
+                if (gameScoreBehaviour)
+                {
+                    gameScoreBehaviour.CurrentGameState = GameState.Won;
+                }
+            }
         }
+        
     }
 
     public Transform[] getChildren()

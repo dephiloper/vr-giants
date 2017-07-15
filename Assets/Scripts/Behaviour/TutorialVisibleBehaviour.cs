@@ -14,7 +14,7 @@ public class TutorialVisibleBehaviour : MonoBehaviour
 		{
 			if (TagUtility.IsTutorialPlane(hit.transform.tag))
 			{
-				hit.transform.GetComponent<MeshRenderer>().enabled = true;
+				hit.transform.GetComponentInChildren<MeshRenderer>().enabled = true;
 			}
 		}	
 	}

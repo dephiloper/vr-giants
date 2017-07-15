@@ -23,7 +23,13 @@ public class TagUtility  {
     public static bool IsExplodableEntity(string tag)
     {
         var loweredTag = tag.ToLower();
-        return "terrain".Equals(loweredTag) || "enemy".Equals(loweredTag);
+        return "forest".Equals(loweredTag) || "mountain".Equals(loweredTag) || "path".Equals(loweredTag) || "place".Equals(loweredTag) || "enemy".Equals(loweredTag);
+    }
+
+    public static bool IsSpawnableArea(string tag)
+    {
+        var loweredTag = tag.ToLower();
+        return "forest".Equals(loweredTag);
     }
     
     public static bool IsController(string tag)
@@ -35,7 +41,7 @@ public class TagUtility  {
     public static bool IsShootableEntity(string tag)
     {
         var loweredTag = tag.ToLower();
-        return "terrain".Equals(loweredTag) || "enemy".Equals(loweredTag) || loweredTag.EndsWith("tower");
+        return "forest".Equals(loweredTag) || "mountain".Equals(loweredTag) || "path".Equals(loweredTag) || "place".Equals(loweredTag) || "enemy".Equals(loweredTag) || loweredTag.EndsWith("tower");
     }
     
     public static bool IsEnemy(string tag)

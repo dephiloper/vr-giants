@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using UnityEditor;
 using UnityEngine;
 using Valve.VR;
 
@@ -13,9 +15,12 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
     public GameObject FrostSpellPrefab;
     public GameObject ConfusionSpellPrefab;
     public GameObject CastFailedPrefab;
+    public GameObject SpellTraceElementPrefab;
 
     private SteamVR_TrackedObject trackedObj;
     private List<Vector2> points;
+    private readonly List<GameObject> spellTrace = new List<GameObject>();
+    private int ralphIstKackeCounter = 0;
 
     // remove the following GameObjects?
     private GameObject fireSpell;
@@ -26,6 +31,7 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
 
     private GameObject currentSpell;
     private bool isTracking;
+    private bool spellCasted;
 
     private SteamVR_Controller.Device Controller
     {
@@ -41,36 +47,54 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
     {
         TrackMovement();
 
-        if (Controller.GetPressDown(EVRButtonId.k_EButton_Grip))
+        if (currentSpell == null)
         {
-            isTracking = true;
-            points = new List<Vector2>(1024);
-            LockedCam.transform.position = Camera.transform.position;
-            LockedCam.transform.rotation = Camera.transform.rotation;
+            if (Controller.GetHairTrigger() && !isTracking)
+            {
+                isTracking = true;
+                points = new List<Vector2>(1024);
+                LockedCam.transform.position = Camera.transform.position;
+                LockedCam.transform.rotation = Camera.transform.rotation;
+            }
+            else if (!Controller.GetHairTrigger() && isTracking) {
+                isTracking = false;
+                //DestroySpells();
+                RemoveSpellTrace();
+                var detectionResult = GestureDetectionUtility.Detect(points);
+                SpawnSpells(detectionResult);
+                
+            }
         }
-
-        if (Controller.GetPressUp(EVRButtonId.k_EButton_Grip))
+        else
         {
-            isTracking = false;
-            DestroySpells();
-            var detectionResult = GestureDetectionUtility.Detect(points, true);
-            Debug.Log(detectionResult);
-            SpawnSpells(detectionResult);
+            if (Controller.GetHairTrigger() && !isTracking && !spellCasted)
+            {
+                currentSpell.transform.parent = null;
+                var spellRigidbody = currentSpell.AddComponent<Rigidbody>();
+                spellRigidbody.useGravity = false;
+                spellRigidbody.AddForce(transform.forward * 2000);
+                spellCasted = true;
+            }
+            else if (!Controller.GetHairTrigger() && spellCasted && !isTracking)
+            {
+                currentSpell = null;
+                spellCasted = false;
+            }
         }
+    }
 
-        if (Controller.GetHairTrigger() && currentSpell)
+    private void RemoveSpellTrace()
+    {
+        foreach (var spellTraceElement in spellTrace)
         {
-            currentSpell.transform.parent = null;
-            var spellRigidbody = currentSpell.AddComponent<Rigidbody>();
-            spellRigidbody.useGravity = false;
-            spellRigidbody.AddForce(transform.forward * 2000);
-            currentSpell = null;
+            Destroy(spellTraceElement);
         }
     }
 
     private void OnDisable()
     {
         DestroySpells();
+        RemoveSpellTrace();
     }
 
     private void DestroySpells()
@@ -122,9 +146,23 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
     {
         if (!isTracking) return;
 
+        SpawnSpellTrace();
+
         var cameraPoint = LockedCam.GetComponent<Camera>().WorldToScreenPoint(transform.position);
         var roundedX = (float) Math.Round(cameraPoint.x, 1);
         var roundedY = (float) Math.Round(cameraPoint.y, 1);
         points.Add(new Vector2(roundedX, roundedY));
+    }
+
+    private void SpawnSpellTrace()
+    {
+        if (ralphIstKackeCounter >= 10)
+        {
+            var spellTraceElement = Instantiate(SpellTraceElementPrefab, transform);
+            spellTrace.Add(spellTraceElement);
+            spellTrace.Last().transform.parent = null;
+            ralphIstKackeCounter = 0;
+        }
+        ralphIstKackeCounter++;
     }
 }

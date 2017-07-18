@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading;
-using UnityEditor;
 using UnityEngine;
-using Valve.VR;
 
 public class SpellCastDetectionBehaviour : MonoBehaviour
 {
@@ -22,7 +18,6 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
     private readonly List<GameObject> spellTrace = new List<GameObject>();
     private int ralphIstKackeCounter = 0;
 
-    // remove the following GameObjects?
     private GameObject fireSpell;
 
     private GameObject frostSpell;
@@ -32,6 +27,7 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
     private GameObject currentSpell;
     private bool isTracking;
     private bool spellCasted;
+    private const int SpellForceMultipilier = 2000;
 
     private SteamVR_Controller.Device Controller
     {
@@ -58,7 +54,6 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
             }
             else if (!Controller.GetHairTrigger() && isTracking) {
                 isTracking = false;
-                //DestroySpells();
                 RemoveSpellTrace();
                 var detectionResult = GestureDetectionUtility.Detect(points);
                 SpawnSpells(detectionResult);
@@ -72,7 +67,7 @@ public class SpellCastDetectionBehaviour : MonoBehaviour
                 currentSpell.transform.parent = null;
                 var spellRigidbody = currentSpell.AddComponent<Rigidbody>();
                 spellRigidbody.useGravity = false;
-                spellRigidbody.AddForce(transform.forward * 2000);
+                spellRigidbody.AddForce(transform.forward * SpellForceMultipilier);
                 spellCasted = true;
             }
             else if (!Controller.GetHairTrigger() && spellCasted && !isTracking)

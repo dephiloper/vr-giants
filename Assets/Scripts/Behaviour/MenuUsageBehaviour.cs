@@ -29,19 +29,21 @@ public class MenuUsageBehaviour : MonoBehaviour
                 }
                 else if (TagUtility.IsRestartButton(colliderTag))
                 {
+                    PlayerPrefs.DeleteAll();
                     SteamVR_LoadLevel.Begin("Game");
                 }
                 else if (TagUtility.IsQuitButton(colliderTag))
                 {
+                    PlayerPrefs.DeleteAll();
                     Application.Quit();
                 }
             }
         }
     }
 
-    private bool IsGameScene()
+    private static bool IsGameScene()
     {
         var activeScene = SceneManager.GetActiveScene();
-        return     activeScene.name.Equals("Game");
+        return activeScene.name.Equals("Game");
     }
 }

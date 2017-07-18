@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,8 @@ public class GameScoreBehaviour : MonoBehaviour
 			SecondsTaken = (DateTime.Now - StartTime).TotalSeconds;
 			PlayerPrefs.SetFloat("DealedDamage", DealedDamage);
 			PlayerPrefs.SetFloat("SecondsTaken", (float)SecondsTaken);
+			File.AppendAllText("./highscores.txt", string.Format("Name: <Name>, Damage: {0}, Seconds: {1}, DPS: {2}{3}", 
+				DealedDamage, Math.Round(SecondsTaken,2), Math.Round(DealedDamage / SecondsTaken, 4), Environment.NewLine));
 			Debug.Log("Seconds " + SecondsTaken);
 			PlayerPrefs.Save();
 
@@ -55,7 +58,6 @@ public class GameScoreBehaviour : MonoBehaviour
 				DealedDamage = dealedDamage;
 				SecondsTaken = secondsTaken;
 			}
-			PlayerPrefs.DeleteAll();
 		}
 	}
 

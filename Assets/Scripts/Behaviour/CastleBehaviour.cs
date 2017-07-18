@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework.Internal.Filters;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CastleBehaviour : MonoBehaviour
 {

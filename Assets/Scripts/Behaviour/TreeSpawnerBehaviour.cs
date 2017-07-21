@@ -1,14 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Represents a behaviour which spawnes trees and stones in the game world.
+/// </summary>
 public class TreeSpawnerBehaviour : MonoBehaviour
 {
+    /// <summary>
+    /// <see cref="GameObject"/> which is used to spawn the objects on.
+    /// </summary>
     public GameObject Forrest;
+    /// <summary>
+    /// A list of trees which can be spawned from the behaviour.
+    /// </summary>
     public List<GameObject> SpawnableTrees;
+    /// <summary>
+    /// A list of stones which can be spawned from the behaviour.
+    /// </summary>
     public List<GameObject> SpawnableStones;
+    /// <summary>
+    /// <see cref="GameObject"/> which gets added as parent for the spawned entities.
+    /// </summary>
     public GameObject SpawnedObjectParent;
+    /// <summary>
+    /// The maximum amount of trees which should get spawned.
+    /// </summary>
     public int MaxTreeCount;
+    /// <summary>
+    /// The maximum amount of stones which should get spawned.
+    /// </summary>
     public int MaxStoneCount;
 
     void Start()

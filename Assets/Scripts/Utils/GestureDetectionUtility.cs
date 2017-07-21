@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Represents a utility class which detects primitive shapes (circle, rectangle, triangle).
+/// </summary>
 public class GestureDetectionUtility
 {
     private const double MaxEndToStartDistance = 150;
@@ -14,33 +17,43 @@ public class GestureDetectionUtility
     private const int MinCornerAngle = 25;
     private const int MaxCornerAngle = 145;
 
-    public static Result Detect(List<Vector2> rawPoints, bool generateDebugTexture = false, bool generateDebugString = false, bool generateDebugAngleOutput = false){
+    /// <summary>
+    /// Detects a primitive shape in the given <see cref="rawPoints"/>.
+    /// </summary>
+    /// <param name="rawPoints">Points which the algorithm should analyse.</param>
+    /// <param name="generateDebugTexture">Tells the method to generate a texture which represents the algorithm. 
+    /// Defaults to false.</param>
+    /// <param name="generateDebugString">Tells the method to generate a debug string which represents the algorithm. 
+    /// Defaults to false.</param>
+    /// <param name="generateDebugAngleOutput">Tells the method to generate a debug string which represents the angles 
+    /// of the found corners. Defaults to false.</param>
+    /// <returns>Returns the detected shape.</returns>
+    public static Result Detect(List<Vector2> rawPoints, bool generateDebugTexture = false,
+        bool generateDebugString = false, bool generateDebugAngleOutput = false){
         var cleanedPoints = CleanPoints(rawPoints);
-    
+
         if (cleanedPoints.Count < MinPointCount) {
             return Result.NotDetectable;
         }
-        
+
         var rebasedPoints = RebasePoints(cleanedPoints);
 
         // adding first two points to recognize the end to start corner (finish the shape)
         var corners = ExtractCorners(rebasedPoints);
-         
-        var corner = ExtractCorner(rebasedPoints[0], rebasedPoints[1], rebasedPoints[rebasedPoints.Count - 2], 
+
+        var corner = ExtractCorner(rebasedPoints[0], rebasedPoints[1], rebasedPoints[rebasedPoints.Count - 2],
             rebasedPoints[rebasedPoints.Count - 1], corners);
-        
-        if (corner != null)
-        {
+
+        if (corner != null) {
             corners.Add(corner);
         }
-        
+
         if (generateDebugAngleOutput)
-           GenerateDebugAngleOutput(corners);
+            GenerateDebugAngleOutput(corners);
 
         Result detectionResult;
 
-        if (!IsClosedShape(rebasedPoints))
-        {
+        if (!IsClosedShape(rebasedPoints)) {
             detectionResult = Result.NotDetectable;
         }
         else if (corners.Count < 2) {
@@ -49,15 +62,13 @@ public class GestureDetectionUtility
         else if (corners.Count == 3) {
             detectionResult = Result.Triangle;
         }
-        else if (corners.Count == 4)
-        {
+        else if (corners.Count == 4) {
+            /* for (var i = 0; i < corners.Count; i++)
+             {
+                 var angle = CalculateAngle(corners[i % 4].P2, corners[(i + 1) % 4].P2, corners[(i+1) % 4].P2, corners[(i + 2) % 4].P2);
+                 Debug.Log("Angles: " + angle);
+             }*/
 
-           /* for (var i = 0; i < corners.Count; i++)
-            {
-                var angle = CalculateAngle(corners[i % 4].P2, corners[(i + 1) % 4].P2, corners[(i+1) % 4].P2, corners[(i + 2) % 4].P2);
-                Debug.Log("Angles: " + angle);
-            }*/
-            
             detectionResult = Result.Square;
         }
         else {
@@ -110,66 +121,57 @@ public class GestureDetectionUtility
         }
         return rebasedPoints;
     }
-    
+
     private static List<Corner> ExtractCorners(List<Vector2> points){
         var corners = new List<Corner>();
-        for (var i = 2; i < points.Count; i++)
-        {
+        for (var i = 2; i < points.Count; i++) {
             var corner = ExtractCorner(points[i - 2], points[i - 1], points[i - 1], points[i], corners);
 
-            if (corner != null)
-            {
+            if (corner != null) {
                 corners.Add(corner);
             }
         }
-        
+
         return corners;
     }
-    
-    private static Corner ExtractCorner(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, List<Corner> corners)
-    {
+
+    private static Corner ExtractCorner(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, List<Corner> corners){
         var angle = CalculateAngle(p1, p2, p3, p4);
 
-        if (angle > MinCornerAngle && angle < MaxCornerAngle)
-        {
+        if (angle > MinCornerAngle && angle < MaxCornerAngle) {
             var newCorner = new Corner(p1, p2, p3, p4, angle);
 
-            if (corners.Count == 0 || !IsCloseCorner(corners, newCorner))
-            {
+            if (corners.Count == 0 || !IsCloseCorner(corners, newCorner)) {
                 return newCorner;
             }
-            
+
             Debug.Log(string.Format("Close Corner Found:\n{0}{1}", corners[corners.Count - 1], newCorner));
         }
-        
+
         return null;
     }
-    
-    private static double CalculateAngle(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4)
-    {
+
+    private static double CalculateAngle(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4){
         // Todo: NaN is possible
         var gradient1 = CalculateGradient(p1, p2);
         var gradient2 = CalculateGradient(p3, p4);
 
         var tanA = (gradient1 - gradient2) / (1 + (gradient1 * gradient2));
         var angle = RadToDeg(Math.Atan(tanA));
-        if (angle < 0) 
-        {
+        if (angle < 0) {
             angle += 180;
         }
         return angle;
     }
 
-    private static float CalculateGradient(Vector2 p1, Vector2 p2)
-    {
+    private static float CalculateGradient(Vector2 p1, Vector2 p2){
         return (p2.y - p1.y) / (p2.x - p1.x);
     }
 
-    private static double RadToDeg(double radAngle)
-    {
+    private static double RadToDeg(double radAngle){
         return (360 / (2 * Math.PI) * radAngle);
     }
-    
+
     private static bool IsCloseCorner(List<Corner> corners, Corner corner){
         for (var i = corners.Count - 1; i > -1; i--) {
             var closeCornerFound =
@@ -203,9 +205,8 @@ public class GestureDetectionUtility
 
         return avgDiviation < MaxCircleRadiusDiviation;
     }
-    
-    private static bool IsClosedShape(List<Vector2> points)
-    {
+
+    private static bool IsClosedShape(List<Vector2> points){
         return Vector2.Distance(points[0], points[points.Count - 1]) <= MaxEndToStartDistance;
     }
 
@@ -249,13 +250,11 @@ public class GestureDetectionUtility
         }
         Debug.Log(s);
     }
-    
-    private static void GenerateDebugAngleOutput(List<Corner> corners)
-    {
+
+    private static void GenerateDebugAngleOutput(List<Corner> corners){
         var angleSum = 0d;
 
-        foreach (var c in corners)
-        {
+        foreach (var c in corners) {
             Debug.Log("Angle " + c.Angle);
             angleSum += c.Angle;
         }
@@ -263,7 +262,10 @@ public class GestureDetectionUtility
         Debug.Log("Angle Sum " + angleSum);
     }
 
-    internal class Corner
+    /// <summary>
+    /// Represents a corner which gets detected and handled by the algorithm.
+    /// </summary>
+    public class Corner
     {
         public Vector2 P1 { get; set; }
         public Vector2 P2 { get; set; }
@@ -280,15 +282,18 @@ public class GestureDetectionUtility
         }
 
         public override string ToString(){
-            return string.Format("P1: {0}, P2: {1}, P3: {2}, P4: {3}, Angle: {3}", P1, P2, P3, P4, Angle) ;
+            return string.Format("P1: {0}, P2: {1}, P3: {2}, P4: {3}, Angle: {3}", P1, P2, P3, P4, Angle);
         }
     }
 
+    /// <summary>
+    /// Represents the result of the <see cref="GestureDetectionUtility.Detect"/> method.
+    /// </summary>
     public enum Result
     {
         Circle,
         Triangle,
         Square,
         NotDetectable
-    }    
+    }
 }

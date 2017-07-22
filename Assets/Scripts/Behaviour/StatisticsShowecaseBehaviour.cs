@@ -1,33 +1,40 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatisticsShowecaseBehaviour : MonoBehaviour
-{
+/// <summary>
+/// Represents a behaviour which shows the game statistics in the win or lose scene.
+/// </summary>
+public class StatisticsShowecaseBehaviour : MonoBehaviour {
+    /// <summary>
+    /// GameObject which shows the time.
+    /// </summary>
+    public GameObject TimeTextbox;
 
-	public GameObject TimeTextbox;
-	public GameObject DamageTextbox;
-	public GameObject CameraRig;
+    /// <summary>
+    /// GameObject which shows the damage.
+    /// </summary>
+    public GameObject DamageTextbox;
 
-	private Text timeTextBoxComponent;
-	private Text damageTextBoxComponent;
+    /// <summary>
+    /// SteamVR CameraRig instance.
+    /// </summary>
+    public GameObject CameraRig;
 
-	private void Start ()
-	{
-		timeTextBoxComponent = TimeTextbox.GetComponent<Text>();
-		damageTextBoxComponent = DamageTextbox.GetComponent<Text>();
-	}
+    private Text timeTextBoxComponent;
+    private Text damageTextBoxComponent;
 
-	private void Update ()
-	{
-		var gameScoreBehaviour = CameraRig.GetComponent<GameScoreBehaviour>();
-		if (gameScoreBehaviour)
-		{
-			timeTextBoxComponent.text = string.Format("{0}s", Math.Round(gameScoreBehaviour.SecondsTaken, 2));
-			damageTextBoxComponent.text = string.Format("{0} ({1} DPS)",gameScoreBehaviour.DealedDamage, 
-				Math.Round(gameScoreBehaviour.DealedDamage / gameScoreBehaviour.SecondsTaken, 4));
-		}
-	}
+    private void Start() {
+        timeTextBoxComponent = TimeTextbox.GetComponent<Text>();
+        damageTextBoxComponent = DamageTextbox.GetComponent<Text>();
+    }
+
+    private void Update() {
+        var gameScoreBehaviour = CameraRig.GetComponent<GameScoreBehaviour>();
+        if (gameScoreBehaviour) {
+            timeTextBoxComponent.text = string.Format("{0}s", Math.Round(gameScoreBehaviour.SecondsTaken, 2));
+            damageTextBoxComponent.text = string.Format("{0} ({1} DPS)", gameScoreBehaviour.DealedDamage,
+                Math.Round(gameScoreBehaviour.DealedDamage / gameScoreBehaviour.SecondsTaken, 4));
+        }
+    }
 }

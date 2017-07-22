@@ -4,8 +4,7 @@
 /// Represents a generic all purpose timer. It allowes you to check if a certain amount of time has passed since the 
 /// start or the last time it has been reseted.
 /// </summary>
-public class Timer
-{
+public class Timer {
     private long startTime;
 
     /// <summary>
@@ -13,7 +12,7 @@ public class Timer
     /// </summary>
     /// <param name="timeDelta">Sets the amout of millis the <see cref="Timer"/> has to wait. Defaults to 1000 ms.</param>
     /// <param name="useFixedTime">Sets if the <see cref="Timer"/> should use <see cref="Time.fixedTime" /> instead of <see cref="Time.time"/>. Defaults to true</param>
-    public Timer(int timeDelta = 1000, bool useFixedTime = true){
+    public Timer(int timeDelta = 1000, bool useFixedTime = true) {
         TimeDelta = timeDelta;
         UseFixedTime = useFixedTime;
         Reset();
@@ -33,7 +32,7 @@ public class Timer
     /// Checks if <see cref="TimeDelta"/> millis have passed.
     /// </summary>
     /// <returns>Returns true if the time is up.</returns>
-    public bool IsTimeUp(){
+    public bool IsTimeUp() {
         var millis = GetCurrentMillis() - startTime;
         return millis > TimeDelta;
     }
@@ -41,11 +40,11 @@ public class Timer
     /// <summary>
     /// Resets the current <see cref="Timer"/> instance.
     /// </summary>
-    public void Reset(){
+    public void Reset() {
         startTime = GetCurrentMillis();
     }
 
-    private long GetCurrentMillis(){
+    private long GetCurrentMillis() {
         var time = UseFixedTime ? Time.fixedTime : Time.time;
         return (long) time * 1000;
     }

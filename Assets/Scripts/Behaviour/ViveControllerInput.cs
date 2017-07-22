@@ -3,20 +3,18 @@
 /// <summary>
 /// Represents a behaviour which prints out the button states of the <see cref="SteamVR_Controller.Device"/>.
 /// </summary>
-public class ViveControllerInput : MonoBehaviour
-{
+public class ViveControllerInput : MonoBehaviour {
     private SteamVR_TrackedObject trackedObj;
 
-    private SteamVR_Controller.Device controller
-    {
+    private SteamVR_Controller.Device controller {
         get { return SteamVR_Controller.Input((int) trackedObj.index); }
     }
 
-    private void Awake(){
+    private void Awake() {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
     }
 
-    private void Update(){
+    private void Update() {
         // 1
         if (controller.GetAxis() != Vector2.zero) {
             Debug.Log(gameObject.name + controller.GetAxis());

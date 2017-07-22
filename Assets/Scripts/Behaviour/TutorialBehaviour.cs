@@ -1,69 +1,66 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Assertions.Must;
+﻿using UnityEngine;
 
-public class TutorialBehaviour : MonoBehaviour
-{
-	public static TutorialBehaviour Instance { get; private set; }
-	
-	public Material[] Materials;
+/// <summary>
+/// Represents the behaviour of the tutorial.
+/// </summary>
+public class TutorialBehaviour : MonoBehaviour {
+    /// <summary>
+    /// Gets the singleton instance of the <see cref="TutorialBehaviour"/>.
+    /// </summary>
+    public static TutorialBehaviour Instance { get; private set; }
 
-	private SteamVR_Controller trackedObj;
-	private new Renderer[] renderer;
-	private int currentMaterialIndex = 0;
-		
+    /// <summary>
+    /// Materials of the tutorial pages.
+    /// </summary>
+    public Material[] Materials;
 
-	void Start (){
-		if (!Instance) {
-			Instance = this;
-		}
-		
-		// change Spawn to Eye Position
-		renderer = GetComponentsInChildren<Renderer>();
+    private new Renderer[] renderer;
+    private int currentMaterialIndex = 0;
 
-		ChangeMaterial();
-	}
+    private void Start() {
+        if (!Instance) {
+            Instance = this;
+        }
 
-	private void ChangeMaterial()
-	{
-		foreach (var r in renderer)
-		{
-			r.material = Materials[currentMaterialIndex];
-		}
-	}
+        renderer = GetComponentsInChildren<Renderer>();
+        ChangeMaterial();
+    }
 
-	private void OnDestroy(){
-		if (Instance) {
-			Instance = null;
-		}
-	}
+    private void ChangeMaterial() {
+        foreach (var r in renderer) {
+            r.material = Materials[currentMaterialIndex];
+        }
+    }
 
-	public void NextTutorialPage(){
-		if (currentMaterialIndex < Materials.Length-1) {
-			currentMaterialIndex++;
-			ChangeMaterial();
-		}
-	}
+    private void OnDestroy() {
+        if (Instance) {
+            Instance = null;
+        }
+    }
 
-	public void PreviousTutorialPage(){
-		if (currentMaterialIndex > 0) {
-			currentMaterialIndex--;
-			ChangeMaterial();
-		}
-	}
+    public void NextTutorialPage() {
+        if (currentMaterialIndex >= Materials.Length - 1) return;
 
-	public void ExitTutorial()
-	{
-		Destroy(gameObject);
-		SpawnerBehaviour.Instance.StartSpawning();
-	}
+        currentMaterialIndex++;
+        ChangeMaterial();
+    }
 
-	public void Hide()
-	{
-		foreach (var r in renderer)
-		{
-			if (r.enabled)
-				r.enabled = false;
-		}
-	}
+    public void PreviousTutorialPage() {
+        if (currentMaterialIndex <= 0) return;
+
+        currentMaterialIndex--;
+        ChangeMaterial();
+    }
+
+    public void ExitTutorial() {
+        Destroy(gameObject);
+        SpawnerBehaviour.Instance.StartSpawning();
+    }
+
+    public void Hide() {
+        foreach (var r in renderer) {
+            if (r.enabled)
+                r.enabled = false;
+        }
+    }
 }

@@ -3,8 +3,7 @@
 /// <summary>
 /// Represents a enemy wave in the game.
 /// </summary>
-public class Wave
-{
+public class Wave {
     /// <summary>
     /// Gets the amout of enemies this <see cref="Wave"/> instance contains.
     /// </summary>
@@ -21,7 +20,7 @@ public class Wave
     /// <param name="units">Amount of enemies this <see cref="Wave"/> instance contains.</param>
     /// <param name="normalEnemies">Instances of normal sized enemies this <see cref="Wave"/> instance contains.</param>
     /// <param name="midEnemies">Instances of medium sized enemies this <see cref="Wave"/> instance contains.</param>
-    public Wave(int units, GameObject[] normalEnemies, GameObject[] midEnemies){
+    public Wave(int units, GameObject[] normalEnemies, GameObject[] midEnemies) {
         Units = units;
         this.normalEnemies = normalEnemies;
         this.midEnemies = midEnemies;
@@ -32,7 +31,7 @@ public class Wave
     /// </summary>
     /// <param name="units">Amount of enemies this <see cref="Wave"/> instance contains.</param>
     /// <param name="bossEnemy">Instance of the boss enemy this <see cref="Wave"/> instance contains.</param>
-    public Wave(int units, GameObject bossEnemy){
+    public Wave(int units, GameObject bossEnemy) {
         Units = units;
         this.bossEnemy = bossEnemy;
     }
@@ -41,7 +40,7 @@ public class Wave
     /// Returns the next enemy which should get spawned.
     /// </summary>
     /// <returns>The next enemy of this wave.</returns>
-    public GameObject NextEnemy(){
+    public GameObject NextEnemy() {
         if (bossEnemy != null) {
             return bossEnemy;
         }

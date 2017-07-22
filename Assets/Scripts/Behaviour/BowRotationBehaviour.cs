@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Represents a behaviour which simulates a relative relastic bow rotation.
+/// </summary>
 public class BowRotationBehaviour : MonoBehaviour {
-
-    private void Update ()
-    {
+    private void Update() {
         UpdateRotation();
     }
 
-    private void UpdateRotation()
-    {
-        if (ArrowManagerBehaviour.IsArrowAttached)
-        {
+    private void UpdateRotation() {
+        if (ArrowManagerBehaviour.IsArrowAttached) {
             // look away from right Controller
-            var rotate = Quaternion.LookRotation(transform.position - ArrowManagerBehaviour.Instance.ArrowControllerPosition);
+            var rotate =
+                Quaternion.LookRotation(transform.position - ArrowManagerBehaviour.Instance.ArrowControllerPosition);
             // only move z axis when rotating left controller
-            var desiredRotation = Quaternion.Euler(rotate.eulerAngles.x, rotate.eulerAngles.y, transform.rotation.eulerAngles.z);
+            var desiredRotation = Quaternion.Euler(rotate.eulerAngles.x, rotate.eulerAngles.y,
+                transform.rotation.eulerAngles.z);
             transform.rotation = desiredRotation;
         }
-        else
-        {
+        else {
             transform.rotation = transform.parent.rotation;
             transform.Rotate(90, 180, 0);
         }

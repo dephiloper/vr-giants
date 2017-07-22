@@ -3,14 +3,13 @@
 /// <summary>
 /// Represents a utility class which makes working with tags in Unity easier.
 /// </summary>
-public class TagUtility
-{
+public class TagUtility {
     /// <summary>
     /// Checks if <see cref="tag"/> is something which should cause an explosion if touched by an explosive.
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if the explosive should explode.</returns>
-    public static bool IsExplodableEntity(string tag){
+    public static bool IsExplodableEntity(string tag) {
         var loweredTag = tag.ToLower();
         return "forest".Equals(loweredTag) || "mountain".Equals(loweredTag) || "path".Equals(loweredTag) ||
                "place".Equals(loweredTag) || "enemy".Equals(loweredTag);
@@ -21,7 +20,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if the area belongs to an area which allowes the spawning of trees and stones.</returns>
-    public static bool IsSpawnableArea(string tag){
+    public static bool IsSpawnableArea(string tag) {
         var loweredTag = tag.ToLower();
         return "forest".Equals(loweredTag);
     }
@@ -31,7 +30,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it is a gamecontroller.</returns>
-    public static bool IsController(string tag){
+    public static bool IsController(string tag) {
         var loweredTag = tag.ToLower();
         return "gamecontroller".Equals(loweredTag);
     }
@@ -41,7 +40,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it should be hitable.</returns>
-    public static bool IsShootableEntity(string tag){
+    public static bool IsShootableEntity(string tag) {
         var loweredTag = tag.ToLower();
         return "forest".Equals(loweredTag) || "mountain".Equals(loweredTag) || "path".Equals(loweredTag) ||
                "place".Equals(loweredTag) || "enemy".Equals(loweredTag) || loweredTag.EndsWith("tower");
@@ -52,7 +51,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to a enemy.</returns>
-    public static bool IsEnemy(string tag){
+    public static bool IsEnemy(string tag) {
         var loweredTag = tag.ToLower();
         return "enemy".Equals(loweredTag);
     }
@@ -62,7 +61,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to an archer tower.</returns>
-    public static bool IsArcherTower(string tag){
+    public static bool IsArcherTower(string tag) {
         return "archertower".Equals(tag.ToLower());
     }
 
@@ -71,7 +70,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to a brick boy tower.</returns>
-    public static bool IsBrickBoyTower(string tag){
+    public static bool IsBrickBoyTower(string tag) {
         return "brickboytower".Equals(tag.ToLower());
     }
 
@@ -80,7 +79,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to a mage tower.</returns>
-    public static bool IsMageTower(string tag){
+    public static bool IsMageTower(string tag) {
         return "magetower".Equals(tag.ToLower());
     }
 
@@ -89,7 +88,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to something which can handle the attaching of a arrow.</returns>
-    public static bool IsAttachable(string tag){
+    public static bool IsAttachable(string tag) {
         return "bow".Equals(tag.ToLower());
     }
 
@@ -98,7 +97,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets mapped.</param>
     /// <returns>The correct <see cref="Role"/> for the given <see cref="tag"/>.</returns>
-    public static Role TagToTowerRole(string tag){
+    public static Role TagToTowerRole(string tag) {
         var role = Role.None;
         var loweredTag = tag.ToLower();
         if (loweredTag.Equals("archertower")) {
@@ -119,7 +118,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to a tutorial button.</returns>
-    public static bool IsTutorialButton(string tag){
+    public static bool IsTutorialButton(string tag) {
         return "tutorialbutton".Equals(tag.ToLower());
     }
 
@@ -128,7 +127,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to a restart button.</returns>
-    public static bool IsRestartButton(string tag){
+    public static bool IsRestartButton(string tag) {
         return "restartbutton".Equals(tag.ToLower());
     }
 
@@ -137,7 +136,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to a quit button.</returns>
-    public static bool IsQuitButton(string tag){
+    public static bool IsQuitButton(string tag) {
         return "quitbutton".Equals(tag.ToLower());
     }
 
@@ -146,7 +145,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to a tutorial plane.</returns>
-    public static bool IsTutorialPlane(string tag){
+    public static bool IsTutorialPlane(string tag) {
         return "tutorialplane".Equals(tag.ToLower());
     }
 
@@ -156,7 +155,7 @@ public class TagUtility
     /// <param name="currentRole"><see cref="Role"/> which gets compared.</param>
     /// <param name="towerTag">Tag which gets compared.</param>
     /// <returns>Returns true if <see cref="currentRole"/> and <see cref="towerTag"/> belong to each other.</returns>
-    public static bool CompareRoleWithTowerTag(Role currentRole, string towerTag){
+    public static bool CompareRoleWithTowerTag(Role currentRole, string towerTag) {
         var lowerTag = towerTag.ToLower();
         switch (currentRole) {
             case Role.BrickBoy:
@@ -179,7 +178,7 @@ public class TagUtility
     /// </summary>
     /// <param name="tag">Tag which gets checked.</param>
     /// <returns>Returns true if it belongs to a button.</returns>
-    public static bool IsButton(string tag){
+    public static bool IsButton(string tag) {
         return tag.ToLower().Contains("button");
     }
 }

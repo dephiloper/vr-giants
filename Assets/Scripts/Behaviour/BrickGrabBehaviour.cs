@@ -1,87 +1,79 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Represents a behaviour which allowes the player to grab any GameObject with a <see cref="Rigidbody"/>.
+///  </summary>
 public class BrickGrabBehaviour : MonoBehaviour {
+    private GameObject collidingObject;
+    private GameObject objectInHand;
+    private SteamVR_TrackedObject trackedObj;
 
-	private GameObject collidingObject;
-	private GameObject objectInHand;
-	private SteamVR_TrackedObject trackedObj;
+    private SteamVR_Controller.Device Controller {
+        get { return SteamVR_Controller.Input((int) trackedObj.index); }
+    }
 
-	private SteamVR_Controller.Device Controller
-	{
-		get 
-		{ 
-			return SteamVR_Controller.Input((int)trackedObj.index); 
-		}
-	}
+    private void Awake() {
+        trackedObj = GetComponent<SteamVR_TrackedObject>();
+    }
 
-	private void Awake()
-	{
-		trackedObj = GetComponent<SteamVR_TrackedObject>();
-	}	
+    private void Update() {
+        if (Controller.GetHairTriggerDown()) {
+            if (collidingObject) {
+                GrabObject();
+            }
+        }
 
-	private void Update () {
-		if (Controller.GetHairTriggerDown ()) {
-			if (collidingObject) {
-				GrabObject();
-			}
-		}
-
-		if (Controller.GetHairTriggerUp ()) {
-			if (objectInHand) {
-				ReleaseObject();
-			} else if (GetComponent<FixedJoint>())
-            {
+        if (Controller.GetHairTriggerUp()) {
+            if (objectInHand) {
+                ReleaseObject();
+            }
+            else if (GetComponent<FixedJoint>()) {
                 DestroyFixedJoint();
             }
-		}
-	}
+        }
+    }
 
-	private void SetCollidingObject(Collider coli) {
-		// erster teil ist ein not null check
-		// zweiter teil checkt ob das object nicht greifbar ist (kein rigidbody ist)
-		if (collidingObject || !coli.GetComponent<Rigidbody> ()) {
-			return;
-		}
+    private void SetCollidingObject(Collider collider) {
+        if (collidingObject || !collider.GetComponent<Rigidbody>()) {
+            return;
+        }
 
-		collidingObject = coli.gameObject;
-	}
+        collidingObject = collider.gameObject;
+    }
 
-	public void OnTriggerEnter(Collider other) {
-		SetCollidingObject(other);
-	}
+    public void OnTriggerEnter(Collider other) {
+        SetCollidingObject(other);
+    }
 
-	public void OnTriggerStay(Collider other) {
-		SetCollidingObject (other);
-	}
+    public void OnTriggerStay(Collider other) {
+        SetCollidingObject(other);
+    }
 
-	public void OnTriggerExit(Collider other) {
-		if (!collidingObject) {
-			return;
-		}
+    public void OnTriggerExit(Collider other) {
+        if (!collidingObject) {
+            return;
+        }
 
-		collidingObject = null;
-	}
+        collidingObject = null;
+    }
 
-	private void GrabObject() {
-		objectInHand = collidingObject;
-		collidingObject = null;
+    private void GrabObject() {
+        objectInHand = collidingObject;
+        collidingObject = null;
 
-		var joint = AddFixedJoint();
-		joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
-	}
+        var joint = AddFixedJoint();
+        joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+    }
 
-	private FixedJoint AddFixedJoint() {
-		var fx = gameObject.AddComponent<FixedJoint> ();
-		fx.breakForce = 20000;
-		fx.breakTorque = 20000;
-		return fx;
-	}
+    private FixedJoint AddFixedJoint() {
+        var fx = gameObject.AddComponent<FixedJoint>();
+        fx.breakForce = 20000;
+        fx.breakTorque = 20000;
+        return fx;
+    }
 
-	private void ReleaseObject() {
-		if (GetComponent<FixedJoint>())
-        {
+    private void ReleaseObject() {
+        if (GetComponent<FixedJoint>()) {
             DestroyFixedJoint();
             objectInHand.GetComponent<Rigidbody>().AddForce(Controller.velocity, ForceMode.Impulse);
             objectInHand.GetComponent<Rigidbody>().velocity = Controller.velocity;
@@ -89,16 +81,14 @@ public class BrickGrabBehaviour : MonoBehaviour {
         }
 
         objectInHand = null;
-	}
+    }
 
-    private void DestroyFixedJoint()
-    {
+    private void DestroyFixedJoint() {
         GetComponent<FixedJoint>().connectedBody = null;
         Destroy(GetComponent<FixedJoint>());
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         ReleaseObject();
     }
 }

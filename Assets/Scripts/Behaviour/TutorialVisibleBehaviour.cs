@@ -4,9 +4,8 @@
 /// Represents a behaviour which activates the renderer of its tutorial planes (children) if the player looks in 
 /// there direction.
 /// </summary>
-public class TutorialVisibleBehaviour : MonoBehaviour
-{
-    private void Update(){
+public class TutorialVisibleBehaviour : MonoBehaviour {
+    private void Update() {
         if (TutorialBehaviour.Instance)
             TutorialBehaviour.Instance.Hide();
 

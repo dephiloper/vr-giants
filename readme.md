@@ -86,7 +86,7 @@ Für die Umsetzung des Projektes wurden folgende Technologien eingesetzt:
 
 ##Systemabbild
 ![Systemabbild][systemabbild]
-[systemabbild]: http://imgur.com/LcIVZK7 "Systemabbild"
+[systemabbild]: http://i.imgur.com/LcIVZK7.png "Systemabbild"
 
 ##Spiel
 **Spielwelt**

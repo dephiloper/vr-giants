@@ -215,17 +215,13 @@ Zu guter Letzt sollte gesagt sein, dass es trotz des straffen Zeitplans ein sehr
 https://goo.gl/FJBsKB
 
 ##Referenzen
-[Simple FX - Cartoon Particles] 
-(https://www.assetstore.unity3d.com/en/#!/content/67834)
+[Simple FX - Cartoon Particles](https://www.assetstore.unity3d.com/en/#!/content/67834)
 
-[3D Modeling a Ranger’s Bow for VR]
-(http://fusedvr.com/3d-modeling-a-rangers-bow-for-vr/)
+[3D Modeling a Ranger’s Bow for VR](http://fusedvr.com/3d-modeling-a-rangers-bow-for-vr/)
 
-[Building a Robin Hood VR Game (Unity VR Tutorial)]
-(https://www.youtube.com/watch?v=Dh7Wwqs-s2c)
+[Building a Robin Hood VR Game (Unity VR Tutorial)](https://www.youtube.com/watch?v=Dh7Wwqs-s2c)
 
-[Unity Documentation - Scripting API]
-(https://docs.unity3d.com/ScriptReference)
+[Unity Documentation - Scripting API](https://docs.unity3d.com/ScriptReference)
 
 [Sketch Recognition]
 09-EMM_SBIM_Sketch_Recognition.pdf - aus dem Modul “Entwicklung Multimediasysteme”

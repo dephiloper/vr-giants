@@ -86,9 +86,11 @@ Fallen die Lebenspunkte eines Gegners durch das Eintreffen eines Projektils oder
 Ebenfalls wurde für eine bessere Spielbalance ein Trinity-System implementiert. Hierzu finden Sie Informationen unter Separation - Computer-Grafik - Spielprinzip.
 
 **Schadensmodell**
+
 Das Schadensmodell im Spiel ist über eine Einfärbung der Spielelemente realisiert. Das heißt, dass sich relativ zu den noch vorhandenen Lebenspunkte die Farbe der Elemente ändert. Hierfür wurde ein Farbverlauf von grün zu rot verwendet, wobei grün für viel bzw. volles Leben und rot für wenig Leben steht. Dieses Schadensmodell findet sowohl bei den Gegnern als auch bei der Spielerbasis Anwendung.
 
 **Ziel**
+
 Ziel des Spiels ist es, möglichst schnell alle Gegner vom Ankommen in der Basis abzuhalten, sprich alle Gegnerwellen zu überstehen, ohne dabei die Lebenspunkte der *Basis* auf null sinken zu lassen. Nach dem Beenden des Spiels gelangt der Spieler in eine Sieg-Scene[^scene] oder eine Niederlage-Scene. In dieser wird ihm sein Spielresultat visualisiert und die benötigte Zeit sowie die gewirkten Schadenspunkte angezeigt. 
 
 ###Steuerung
@@ -111,6 +113,7 @@ Um in den Place State zu gelangen, muss der Spieler den Trigger auf einem der Co
 Den Menu State kann man erreichen, indem der “Menu - Button” auf einem der Controller gedrückt wird. Hier kann der Spieler entweder das Tutorial erneut öffnen, das Spiel neu starten oder es vollständig beenden. Das Menü kann kann durch ein erneutes Drücken auf einen der “Menu - Buttons” (jeweils einer auf jedem Controller) geschlossen werden.
 
 **Tutorial State**
+
 Der Tutorial State ist der erste State in den der Spieler nach dem Starten des Spiels gelangt. Hier kann er sich eine Einsteigeranleitung durchlesen, um sich mit allen relevanten Funktionen der Steuerung vertraut zu machen. Auch hier ermöglicht das Trackpad dem Spieler, durch die Optionen zu navigieren oder das Tutorial zu beenden.
 
 ####Tower State
@@ -211,8 +214,22 @@ Zu guter Letzt sollte gesagt sein, dass es trotz des straffen Zeitplans ein sehr
 ##Link zur ausführbaren Datei
 https://goo.gl/FJBsKB
 
-##Literaturverzeichnis
-https://www.assetstore.unity3d.com/en/#!/content/67834
+##Referenzen
+[Simple FX - Cartoon Particles] 
+(https://www.assetstore.unity3d.com/en/#!/content/67834)
+
+[3D Modeling a Ranger’s Bow for VR]
+(http://fusedvr.com/3d-modeling-a-rangers-bow-for-vr/)
+
+[Building a Robin Hood VR Game (Unity VR Tutorial)]
+(https://www.youtube.com/watch?v=Dh7Wwqs-s2c)
+
+[Unity Documentation - Scripting API]
+(https://docs.unity3d.com/ScriptReference)
+
+[Sketch Recognition]
+09-EMM_SBIM_Sketch_Recognition.pdf - aus dem Modul “Entwicklung Multimediasysteme”
+
 
 
 ##Glossar

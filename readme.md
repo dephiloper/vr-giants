@@ -227,9 +227,6 @@ https://goo.gl/FJBsKB
 09-EMM_SBIM_Sketch_Recognition.pdf - aus dem Modul “Entwicklung Multimediasysteme”
 
 
-
-##Glossar
-
 [^td]: Das **Tower Defense** Genre ist ein Subgenre des [Echtzeit-Strategiespiels](https://www.techopedia.com/definition/1923/real-time-strategy-rts). Die Hauptaufgaben des Spieles bestehen darin verschiedene Arten von Türmen (Verteidigungsanlagen) aufzustellen. Diese sollen Wellen von Gegnern vor dem durchqueren der Karte und dem anschließendem zerstören der Spielerbasis (Gebäude am Ende des Pfades) hindern.
 
 [^delay]: Ein **Delay** ist eine Verzögerung des Spielablaufs (meist im Sekunden / Millisekunden Bereich).

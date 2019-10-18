@@ -1,13 +1,13 @@
-#VR Giant
+# VR Giant
 [TOC]
 
-##Einleitung
+## Einleitung
 Das hier beschriebene Spiel entstand im Rahmen eines Projektes in den Hochschulmodulen "Entwicklung von Multimediasystemen" und "Computergrafik" an der Hochschule für Technik und Wirtschaft Berlin. Die daran beteiligten Studenten waren *R.Schlett*, *R.Wegner-Repke* und *P.Bönsch*.
 
-##Abstract
+## Abstract
 VR Giants ist ein Virtual Reality Spiel, welches exklusiv für die HTC Vive mittels des Unity SteamVR Plugins entwickelt wurde. Das Spiel fällt in das Genre **Tower Defense**[^td]. Mittels [Vive Controller](https://www.vive.com/us/accessory/controller/) kann sich der Spieler in der Welt bewegen, neue Türme in der Spielwelt platzieren und bereits platzierte Türme betreten. Auf Türmen können offensive Fähigkeiten gewirkt werden, um die Wellen von Gegnern an dem Erreichen der eigenen Basis zu hindern.
 
-##Anforderungen
+## Anforderungen
 Folgende Anforderungen wurden für das Modul *Entwicklung von Multimediasystemen* festgelegt.
 
 **Spielfeld**
@@ -30,7 +30,7 @@ Aufgabe des Spielers in VR Giants soll es sein mit Hilfe der verschiedenen Turmt
 Das Spiel soll enden, wenn der Spieler kein Leben mehr hat oder alle Gegnerwellen besiegt wurden.
 
 
-##Verwendete Technologien
+## Verwendete Technologien
 
 
 Für die Umsetzung des Projektes wurden folgende Technologien eingesetzt:
@@ -40,11 +40,11 @@ Für die Umsetzung des Projektes wurden folgende Technologien eingesetzt:
 - wurde die ersten vier Wochen eingesetzt und später von dem Alienware Laptop der HTW Berlin abgelöst 
 - Alienware Laptop (GPU: GTX 1060) 
 
-##Systemabbild
+## Systemabbild
 ![Systemabbild][systemabbild]
 [systemabbild]: http://i.imgur.com/LcIVZK7.png "Systemabbild"
 
-##Spiel
+## Spiel
 **Spielwelt**
 
 Das Spielfeld ist konzeptionell als große Fläche (Tal) gestaltet, welche von Bergen begrenzt wird. Durch das Tal zieht sich ein Pfad in einer geschwungenen Art. Auf dem Pfad sind für den Spieler nicht sichtbare Wegpunkte gesetzt. Diesen Wegpunkten folgen die Gegner bis sie in einem Endpunkt terminieren. Innerhalb des Tals gibt es einen limitierten Spielbereich. Auf der nicht zum Pfad gehörenden Fläche des Tals sind verschiedenfarbige Bäume und Steine als Gestaltungselemente der Spielwelt platziert.  
@@ -93,10 +93,10 @@ Das Schadensmodell im Spiel ist über eine Einfärbung der Spielelemente realisi
 
 Ziel des Spiels ist es, möglichst schnell alle Gegner vom Ankommen in der Basis abzuhalten, sprich alle Gegnerwellen zu überstehen, ohne dabei die Lebenspunkte der *Basis* auf null sinken zu lassen. Nach dem Beenden des Spiels gelangt der Spieler in eine Sieg-Scene[^scene] oder eine Niederlage-Scene. In dieser wird ihm sein Spielresultat visualisiert und die benötigte Zeit sowie die gewirkten Schadenspunkte angezeigt. 
 
-###Steuerung
+### Steuerung
 Im nachfolgenden Text wird die Steuerung des Spiels erklärt.
 
-####Giant State
+#### Giant State
 
 Dieser State wird automatisch beim Betreten oder Verlassen eines Turms de- bzw. aktiviert.
 
@@ -116,7 +116,7 @@ Den Menu State kann man erreichen, indem der “Menu - Button” auf einem der C
 
 Der Tutorial State ist der erste State in den der Spieler nach dem Starten des Spiels gelangt. Hier kann er sich eine Einsteigeranleitung durchlesen, um sich mit allen relevanten Funktionen der Steuerung vertraut zu machen. Auch hier ermöglicht das Trackpad dem Spieler, durch die Optionen zu navigieren oder das Tutorial zu beenden.
 
-####Tower State
+#### Tower State
 
 Dieser State wird erreicht, indem sich der Spieler im Move State (Giant) auf einen Turm oder seine Burg teleportiert (gekennzeichnet durch einen grünen Laser). Der Tower State kann durch das Drücken des Trackpads im unteren Bereich wieder verlassen werden.
 
@@ -182,7 +182,7 @@ Gegen die eigene Klasse macht der Spieler den Standardschaden von fünf.
 
 Abschließend wurde noch zwei End-Scenes zum Spiel hinzugefügt, welche je nach Sieg oder Niederlage auftauchen. In diesen erhält der Spieler neben einer visuellen Veranschaulichung des Spielausgangs noch eine Information zu seinem gewirkten Schaden, der benötigten Zeit, sowie einen damage per second Wert. Die erzielten Ergebnisse werden dann eine Highscores.txt Datei im Spielverzeichnis angehängt.
 
-##Gesamteinschätzung
+## Gesamteinschätzung
 
 Das erste Problem war, wie so oft, der Anfang. Denn allein eine Idee für ein Projekt zu bekommen, ist nicht einfach, besonders da man an allen Enden merkt, dass dies und jenes eventuell nicht funktioniert, vielleicht zu langweilig oder viel zu umfangreich ist. Wir konnten uns recht schnell auf eine zu verwendende Technologie einigen: Virtual Reality. Aber wie? Im Rahmen der Veranstaltung hatten wir Virtual Reality nur mit dem Google Cardboard kennengelernt, was ohne Frage vollkommen ausreicht, uns jedoch nicht spektakulär genug erschien, um damit ein ganzes Projekt zu füllen. Letztlich kamen wir auf die Idee, dies mit einer HTC Vive umzusetzen.
 Nachdem wir die erste Hürde, die Beschaffung dieser Technologie, durch unsere Beharrlichkeit überwunden hatten, begann unser sehr sportliches Rennen gegen die Zeit. Vier Wochen blieben uns nun für die Umsetzung unserer Projektidee. Diese ursprünglich simple Idee wuchs mit der Zeit und jeder Funktion die wir realisierten. Die Zeitbegrenzung führte einerseits zu einem gewissen Grad an Stress, andererseits aber haben wir ihr einen schnellen Projektfortschritt zu verdanken. So folgte ein Erfolgserlebnis dem anderen und schweißte das Team zusammen.
@@ -191,7 +191,7 @@ Als wir dann die neue HTC Vive zur Verfügung gestellt bekommen hatten, wurde da
 Während der gesamten Entwicklung stießen wir sowohl an mathematische, als auch hardwaretechnische Grenzen, die uns an der Umsetzung von spielerischen Elementen behinderten. Trotz Dessen entwickelten wir Möglichkeiten um diese zu umgehen und im Idealfall sogar zu verhindern. So war es beispielsweise nicht möglich, unser Spiel mit Schatten oder einem dichteren Wald auszustatten, da dies für manche Hardware zu rechenintensiv gewesen wäre. Auch hatten wir Ideen, die aus dem Rahmen der von Unity gedachten Konzeption des Entity-Component-Systems fielen und uns zwischenzeitlich stark zurück warfen.
 Final ist zu sagen, dass Projekt in vollem Umfang erfolgreich umgesetzt wurde und wir mit dem schlussendlichen Resultat mehr als zufrieden sind. Eine bessere interdisziplinäre Zusammenarbeit, zwischen den Fachbereichen unserer Hochschule, wäre in unseren Augen jedoch noch wünschenswert gewesen.
 
-##Selbsteinschätzungen
+## Selbsteinschätzungen
 
 >Während des Projekts war eine der größten Herausforderungen für mich, den Sinn hinter dem von Unity umgesetzten Konzept zu verstehen, der sich mir erst nach vielen Stunden erschlossen hat. Die Schnittstelle zwischen dem Code und den damit verbundenen „GameObjects“ und deren Zusammenwirken, habe ich erst nach einiger Zeit nachvollziehen können.
 Dennoch habe ich selbst durch das Projekt gute Einblicke in Unity und dessen Funktionsweise bekommen. Auch konnte ich viele Aspekte der Programmierung von Spielen besser nachempfinden, während ich schon auf der anderen Seite erkannte, dass Unity doch auch unglaublich kompliziert werden konnte. Des Weiteren war es für mich während des Projektes sehr interessant zu sehen, dass gewisse mathematische Vorkenntnisse aus der Schule doch noch ihre Anwendung gefunden haben. Ob es um das Verstehen von Bewegungen im dreidimensionalen Raum oder um Schnittwinkelberechnung und -interpretation bei der Gestenerkennung ging. Auch wenn Quaternions wahrscheinlich noch eine längere Einarbeitungszeit benötigen würden, um diese wirklich zu verstehen und einsetzen zu können, so habe ich doch während des Projektes so manch mathematisches Prinzip wiedererkennen können.
@@ -211,10 +211,10 @@ Zu guter Letzt sollte gesagt sein, dass es trotz des straffen Zeitplans ein sehr
 *~ Ralph Schlett*
 
 
-##Link zur ausführbaren Datei
+## Link zur ausführbaren Datei
 https://goo.gl/FJBsKB
 
-##Referenzen
+## Referenzen
 [Simple FX - Cartoon Particles](https://www.assetstore.unity3d.com/en/#!/content/67834)
 
 [3D Modeling a Ranger’s Bow for VR](http://fusedvr.com/3d-modeling-a-rangers-bow-for-vr/)
